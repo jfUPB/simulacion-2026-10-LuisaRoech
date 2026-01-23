@@ -12,7 +12,7 @@ La aleatoriedad engendra a un arte vivo, una obra que se extiende como raíces b
 ### Caminatas aleatorias (Actividad 02)
 > ¿Que pienso que va a suceder si cambio valores?
 
-Primero entendiendo el codigo sketch.js
+*Primero entendiendo el codigo sketch.js*
 ```
 let walker;
 
@@ -69,6 +69,7 @@ Si modifico el trazo como line (no se si es posible pero hay que intentarlo) gen
 
 
 ## Bitácora de reflexión
+
 
 
 
