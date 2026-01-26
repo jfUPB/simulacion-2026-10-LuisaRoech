@@ -12,7 +12,7 @@ La aleatoriedad engendra a un arte vivo, una obra que se extiende como raíces b
 ### Caminatas aleatorias (Actividad 02)
 > ¿Qué pienso que va a suceder si cambio valores?
 
-Antes de realizar modificaciones al código, analicé su estructura y porque no para entender un poco mejor la base de...
+Antes de realizar modificaciones al código, analicé su estructura y porque no, para entender un poco mejor la base lógica de este.
 ``` javascript
 let walker; 
 
@@ -63,13 +63,16 @@ class Walker {
 Si modifico el trazo y utilizo line() (no se si es posible pero hay que intentarlo), espero que el walker genere una línea duh. Además, considero que si cambio los valores de choice para que el movimiento se realice de dos en dos, el walker debería desplazarse simultáneamente en ambos ejes. Finalmente, si modifico la primera decisión de x-- a x++, el movimiento en esa condición debería dirigirse únicamente hacia valores positivos del eje X.
 
 > Que sucedio realmente :)
+
 En general, ocurre lo esperado. Sin embargo, el trazo con line() no funciono en el primer intento, lo cual es más a un skill issue de mi parte que a un problema del concepto, pues este trazo a diferencia de point() necesita que le asignen tres valores.
 
 > ¿Por que si ocurrio o no?
+
 Omitiendo lo del line(), en general el codigo es lo suficientemente básico y claro como para anticipar qué sucede al modificar ciertos valores o funciones, ya que cada parte cumple una función especifica y facil de identificar dentro de la lógica general de walker.
 
 ### Distribuciones de probabilidad (Actividad 03)
 > ¿Que diferencia hay entre la distribución uniforme y una no uniforme de números aleatorios?
+
 Una uniforme, debe contar con la misma probabilidad todas las opciones de que salgan, la no uniforme por el contrario, debe tener mas probabilidad de que un valor salga mas que el otro por medio de la media
 
 si quiero favorecer el movimiento a la derecha con una distribución no uniforme ...
@@ -89,3 +92,4 @@ Hacer ruido permite tener comportamientos muy organicos
 
 
 ## Bitácora de reflexión
+
