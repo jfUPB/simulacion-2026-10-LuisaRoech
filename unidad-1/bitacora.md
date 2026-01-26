@@ -12,26 +12,25 @@ La aleatoriedad engendra a un arte vivo, una obra que se extiende como raíces b
 ### Caminatas aleatorias (Actividad 02)
 > ¿Qué pienso que va a suceder si cambio valores?
 
-Antes de realizar modificaciones al código, analicé su estructura y formule hipótesis sobre como los cambios afectarian al comportamiento del *walker*
+Antes de realizar modificaciones al código, analicé su estructura y formule hipótesis sobre como los cambios afectarian al comportamiento del *walker*. Y porque no para entender un poco mejor la base de...
 ``` javascript
-let walker;
+let walker; 
 
 function setup() {
+// Aqui se crea el canvas, inicializa el walker en el centro de el y se define el color de fondo
   createCanvas(640, 240);
   walker = new Walker();
   background(255);
 }
 
 function draw() {
-  walker.step();
-  walker.show();
+  walker.step(); // Define en que dirección se movera
+  walker.show(); // Mostrara en pantalla los pasos dados, se puede incluir varios al tiempo
 }
 ```
-Se crea un canvas que limita el espacio donde se va a mover los pasos, la variable **walker** ...
-En la función **draw()**, contamos con .step(); que define en que direccion se movera y .show() que mostrara en pantalla los pasos dados, Se puede incluir varios .step() lo que mostrara diferentes pasos al tiempo, no solo uno (asumo).
 
 Ahora bien, entrando a la clase importante y que modificare
-```
+``` javascript
 class Walker {
   constructor() {
     this.x = width / 2;
@@ -91,6 +90,7 @@ Hacer ruido permite tener comportamientos muy organicos
 
 
 ## Bitácora de reflexión
+
 
 
 
