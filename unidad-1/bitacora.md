@@ -10,10 +10,10 @@ La aleatoriedad engendra a un arte vivo, una obra que se extiende como raíces b
 *Ian Cheng por ejemplo, crea simulaciones generativas que existen como ecosistemas vivos, donde el artista define las reglas iniciales y luego cede el control al comportamiento impredecible del sistema.*
 
 ### Caminatas aleatorias (Actividad 02)
-> ¿Que pienso que va a suceder si cambio valores?
+> ¿Qué pienso que va a suceder si cambio valores?
 
-*Primero entendiendo el codigo sketch.js*
-```
+Antes de realizar modificaciones al código, analicé su estructura y formule hipótesis sobre como los cambios afectarian al comportamiento del *walker*
+``` javascript
 let walker;
 
 function setup() {
@@ -63,9 +63,11 @@ Esta clase especifica y randomiza las desiciones de los pasos, el constructor pe
 Si modifico el trazo como line (no se si es posible pero hay que intentarlo) generara una linea duh, y si cambio los numeros de choices en 2 y en 2 deberia moverse al tiempo en ambos ejes y la primera desicion de x-- la cambio a x++ deberia ir solo en valores positivos al tomar esa desicion.
 
 > Que sucedio realmente >:D
+
 Lo esperado, en realidad el trazo de line no paso, pero fue mas skill issue mio de mi parte
 
 > ¿Por que creo que si ocurrio o no?
+
 Profundizando mas en lo que no salio fue debido a que debia darle un punto mas al declarar line, ya que esta no funciona al igual que point que solo cuenta con dos valores, ahora bien porque si ocurrio lo que espere
 
 ### Distribuciones de probabilidad (Actividad 03)
@@ -89,6 +91,7 @@ Hacer ruido permite tener comportamientos muy organicos
 
 
 ## Bitácora de reflexión
+
 
 
 
