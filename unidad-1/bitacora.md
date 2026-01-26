@@ -94,6 +94,8 @@ Hacer ruido permite tener comportamientos muy organicos
 
 
 
+<img width="498" height="280" alt="image" src="https://github.com/user-attachments/assets/52cf2e75-add2-4614-ad3b-b4091b0048e6" />
+
 
 
 
