@@ -12,7 +12,7 @@ La aleatoriedad engendra a un arte vivo, una obra que se extiende como raíces b
 ### Caminatas aleatorias (Actividad 02)
 > ¿Qué pienso que va a suceder si cambio valores?
 
-Antes de realizar modificaciones al código, analicé su estructura y formule hipótesis sobre como los cambios afectarian al comportamiento del *walker*. Y porque no para entender un poco mejor la base de...
+Antes de realizar modificaciones al código, analicé su estructura y porque no para entender un poco mejor la base de...
 ``` javascript
 let walker; 
 
@@ -28,46 +28,45 @@ function draw() {
   walker.show(); // Mostrara en pantalla los pasos dados, se puede incluir varios al tiempo
 }
 ```
-
 Ahora bien, entrando a la clase importante y que modificare
 ``` javascript
 class Walker {
   constructor() {
+  // Posición inicial en el centro del canvas
     this.x = width / 2;
     this.y = height / 2;
   }
 
   show() {
+  // Define su color y el tipo de trazo en este caso como un punto (puede tomar cualquier forma)
     stroke(0);
     point(this.x, this.y);
   }
 
   step() {
+  // Aqui se dan las diferentes desiciones aleatorias entre 0 y 3
     const choice = floor(random(4));
     if (choice == 0) {
-      this.x++;
+      this.x++; // mov derecha
     } else if (choice == 1) {
-      this.x--;
+      this.x--; // mov izquierda
     } else if (choice == 2) {
-      this.y++;
+      this.y++; // mov abajo
     } else {
-      this.y--;
+      this.y--; // mov arriba
     }
   }
 }
 
 ```
-Esta clase especifica y randomiza las desiciones de los pasos, el constructor permite en que punto comienza la acción, con show() en esta sección podemos especificar el color, grosor y se traza a partir de puntos (puede ser un circulo, por ejemplo) y step() cuenta con diferentes desiciones, floor(random(4)) redondeara valores desde 0 hasta 4, y choices puede ser que se trate de en que eje se movera.
 
-Si modifico el trazo como line (no se si es posible pero hay que intentarlo) generara una linea duh, y si cambio los numeros de choices en 2 y en 2 deberia moverse al tiempo en ambos ejes y la primera desicion de x-- la cambio a x++ deberia ir solo en valores positivos al tomar esa desicion.
+Si modifico el trazo y utilizo line() (no se si es posible pero hay que intentarlo), espero que el walker genere una línea duh. Además, considero que si cambio los valores de choice para que el movimiento se realice de dos en dos, el walker debería desplazarse simultáneamente en ambos ejes. Finalmente, si modifico la primera decisión de x-- a x++, el movimiento en esa condición debería dirigirse únicamente hacia valores positivos del eje X.
 
-> Que sucedio realmente >:D
+> Que sucedio realmente :)
+En general, ocurre lo esperado. Sin embargo, el trazo con line() no funciono en el primer intento, lo cual es más a un skill issue de mi parte que a un problema del concepto, pues este trazo a diferencia de point() necesita que le asignen tres valores.
 
-Lo esperado, en realidad el trazo de line no paso, pero fue mas skill issue mio de mi parte
-
-> ¿Por que creo que si ocurrio o no?
-
-Profundizando mas en lo que no salio fue debido a que debia darle un punto mas al declarar line, ya que esta no funciona al igual que point que solo cuenta con dos valores, ahora bien porque si ocurrio lo que espere
+> ¿Por que si ocurrio o no?
+Omitiendo lo del line(), en general el codigo es lo suficientemente básico y claro como para anticipar qué sucede al modificar ciertos valores o funciones, ya que cada parte cumple una función especifica y facil de identificar dentro de la lógica general de walker.
 
 ### Distribuciones de probabilidad (Actividad 03)
 > ¿Que diferencia hay entre la distribución uniforme y una no uniforme de números aleatorios?
@@ -90,17 +89,3 @@ Hacer ruido permite tener comportamientos muy organicos
 
 
 ## Bitácora de reflexión
-
-
-
-
-<img width="498" height="280" alt="image" src="https://github.com/user-attachments/assets/52cf2e75-add2-4614-ad3b-b4091b0048e6" />
-
-
-
-
-
-
-
-
-
