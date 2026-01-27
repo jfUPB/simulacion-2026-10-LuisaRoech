@@ -126,7 +126,7 @@ function draw() {
 ```
 _Notas extras:la disperción indica que tan lejos pueden estar los valores de la media, si los valores son pequeños, la mayoria de los valores estaran muy concentrados en la media, por ejemplo si se cambia dis=20. Por otro lado, un valor equilibrado se podria considerar entre 50-80 en el que se aprecia la forma de campana y un valor grande seria como 150 donde todo se vuelve mas caótico._
 
-https://github.com/user-attachments/assets/0de61c1c-8ed8-40d9-a809-46f1997c9b26
+![Grabacindepantalla2026-01-26204734-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3afbce18-cd2b-4d5c-8635-36e6dee5c033)
 _Link: https://editor.p5js.org/LuisaRoech/sketches/DzN2wrTj1_
 
 ### Distribución personalizada: Lévy flight (Actividad 05)
@@ -134,6 +134,7 @@ El salto de _Lévy_ es como se escucha (literal), es dar saltos aleatorios en un
 
 ### Ruido Perlin (Actividad 06)
 Hacer ruido permite tener comportamientos muy organicos
+
 <img width="553" height="266" alt="image" src="https://github.com/user-attachments/assets/86e67f5f-2cbb-4f25-a329-0037bc1970c8" />
 
 
@@ -144,3 +145,4 @@ Hacer ruido permite tener comportamientos muy organicos
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
