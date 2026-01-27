@@ -17,7 +17,7 @@ Antes de realizar modificaciones al código, analicé su estructura y porque no,
 let walker; 
 
 function setup() {
-// Aqui se crea el canvas, inicializa el walker en el centro de el y se define el color de fondo
+// Aqui se crea el canvas, inicializa el walker en el centro de él y se define el color de fondo
   createCanvas(640, 240);
   walker = new Walker();
   background(255);
@@ -25,7 +25,7 @@ function setup() {
 
 function draw() {
   walker.step(); // Define en que dirección se movera
-  walker.show(); // Mostrara en pantalla los pasos dados, se puede incluir varios al tiempo
+  walker.show(); // Mostrará en pantalla los pasos dados, se puede incluir varios al tiempo
 }
 ```
 Ahora bien, entrando a la clase importante y que modificare
@@ -38,7 +38,7 @@ class Walker {
   }
 
   show() {
-  // Define su color y el tipo de trazo en este caso como un punto (puede tomar cualquier forma)
+  // Define su color y el tipo de trazo, en este caso como un punto (puede tomar cualquier forma)
     stroke(0);
     point(this.x, this.y);
   }
@@ -73,14 +73,64 @@ Omitiendo lo del line(), en general el codigo es lo suficientemente básico y cl
 ### Distribuciones de probabilidad (Actividad 03)
 > ¿Que diferencia hay entre la distribución uniforme y una no uniforme de números aleatorios?
 
-Una uniforme, debe contar con la misma probabilidad todas las opciones de que salgan, la no uniforme por el contrario, debe tener mas probabilidad de que un valor salga mas que el otro por medio de la media
+Una distribución uniforme, debe contar con la misma probabilidad para todas las opciones posibles; la no uniforme por el contrario, otorga mayor probabilidad a ciertos valores sobre otros, generalmente concentrándose alrededor de una media.
 
-si quiero favorecer el movimiento a la derecha con una distribución no uniforme ...
+Si quiero favorecer el movimiento hacia la derecha con una distribución no uniforme del codigo anterior, debo modificar la forma en que se elige la dirección del *walker*, por ejemplo: 
+``` javascript
+step() {
+  const prevX = this.x;
+  const prevY = this.y;
+
+  // Con esto se centra en valores positivos
+  const r = randomGaussian(1, 0.8);
+
+  if (r > 0.5) {
+    this.x++; // derecha
+  } else if (r < -0.5) {
+    this.x--; // izquierda
+  } else if (random(1) < 0.5) {
+    this.y++;
+  } else {
+    this.y--;
+  }
+
+  line(prevX, prevY, this.x, this.y);
+}
+```
+_Notas extras: randomGaussian() es la forma en como se puede representar una distribución normal, los valores se concentran cerca de la media y los extremos ocurren con menos frecuencia, visualmente puede verse como una campana._
 
 ### Distribución Normal (Actividad 04)
+Para este ejercicio modifique el codigo _The nature of code_ ejemplo 0.4, que ya utiliza distribución gausiana, pues queria replicar lo ya visto en clase pero con rayas verticales :)
+``` javascript
+// The Nature of Code Ejemplo 0.4
+// Daniel Shiffman
+
+function setup() {
+  createCanvas(640, 240);
+  background(255);
+}
+
+function draw() {
+  // Media: el centro del canvas
+  let mean = width / 2;
+
+  // Qué tan dispersos están los valores
+  let dis = 60;
+
+  // Valor aleatorio (que ya sabemos que el randomGaussian hace alegoria a una distribución normal)
+  let x = randomGaussian() * dis + mean;
+
+  stroke(0, 30);
+  line(x, 0, x, height);
+}
+```
+_Notas extras:la disperción indica que tan lejos pueden estar los valores de la media, si los valores son pequeños, la mayoria de los valores estaran muy concentrados en la media, por ejemplo si se cambia dis=20. Por otro lado, un valor equilibrado se podria considerar entre 50-80 en el que se aprecia la forma de campana y un valor grande seria como 150 donde todo se vuelve mas caótico._
+
+https://github.com/user-attachments/assets/0de61c1c-8ed8-40d9-a809-46f1997c9b26
+_Link: https://editor.p5js.org/LuisaRoech/sketches/DzN2wrTj1_
 
 ### Distribución personalizada: Lévy flight (Actividad 05)
-El salto de _Lévy_ es como se escucha, es dar saltos aleatorios en una acción determinada, como la caminata, dar circulos y repentinamente ir en otra direccion, o trazar los puntos en una zona apartada de donde estaba
+El salto de _Lévy_ es como se escucha (literal), es dar saltos aleatorios en una acción determinada, como la caminata, dar circulos y repentinamente ir en otra direccion, o trazar los puntos en una zona apartada de donde estaba
 
 ### Ruido Perlin (Actividad 06)
 Hacer ruido permite tener comportamientos muy organicos
@@ -93,3 +143,4 @@ Hacer ruido permite tener comportamientos muy organicos
 
 ## Bitácora de reflexión
 
+![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
