@@ -124,7 +124,7 @@ function draw() {
   line(x, 0, x, height);
 }
 ```
-_Notas extras:la disperción indica que tan lejos pueden estar los valores de la media, si los valores son pequeños, la mayoria de los valores estaran muy concentrados en la media, por ejemplo si se cambia dis=20. Por otro lado, un valor equilibrado se podria considerar entre 50-80 en el que se aprecia la forma de campana y un valor grande seria como 150 donde todo se vuelve mas caótico._
+_Notas extras: la disperción indica que tan lejos pueden estar los valores de la media, si los valores son pequeños, la mayoria de los valores estaran muy concentrados en la media, por ejemplo si se cambia dis=20. Por otro lado, un valor equilibrado se podria considerar entre 50-80 en el que se aprecia la forma de campana y un valor grande seria como 150 donde todo se vuelve mas caótico._
 
 ![Grabacindepantalla2026-01-26204734-ezgif com-resize](https://github.com/user-attachments/assets/489e6265-de63-4002-bf6f-59c2a18f7c19)
 
@@ -146,5 +146,6 @@ Hacer ruido permite tener comportamientos muy organicos
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
