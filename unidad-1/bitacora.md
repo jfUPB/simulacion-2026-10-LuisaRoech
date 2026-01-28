@@ -193,15 +193,87 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/RmaRa8OSf_
 Hacer ruido permite tener comportamientos muy organicos y menos caoticos de lo que puede llegar a ser con Lévy Flight, tras lo que comentaste acerca de 
 
 <img width="553" height="266" alt="image" src="https://github.com/user-attachments/assets/86e67f5f-2cbb-4f25-a329-0037bc1970c8" />
+<img width="960" height="576" alt="image" src="https://github.com/user-attachments/assets/bacdd35a-18fd-4ef4-b449-082dd9b90314" />
+<img width="720" height="480" alt="image" src="https://github.com/user-attachments/assets/ca80a90a-6b16-4a7f-b918-2afa2a2fcea7" />
 
 
 ## Bitácora de aplicación 
 
+### Creación de obra generativa (Actividad 07)
 
+> Antes de, que ideas tengo sobre lo que quiero hacer
+
+Me gustaria experimentar con el perlin noise, distribución normal y caminatas aleatorias. Tratar de hacer formas distintas, tal vez que la caminata se mueva alrededor de un circulo invisible.
+
+Tipos de interacción: teclado, tiempo (segundos/minutos) pero como?
+
+> Concepto de la obra
+
+Las formas ciculares siempre se me han hecho muy enigmaticas, si nos guiamos con la idea de forma una obra generativa e interactiva, siempre me ha fascinado las obras de las que no requieren del esperactador pero que actuen por si solas, que puedan ir cambiando por un valor que la compone, posiblemente tener como interaccion el tiempo es la forma mas sosa de dar interacción pero ...
+
+``` javascript
+let walkers = [];
+let lastMinute;
+
+
+function setup() {
+  createCanvas(640, 240);
+  walker = new Walker();
+  background(255);
+}
+
+function draw() {
+  let m = minute();
+
+  if (m !== lastMinute) {
+    walkers.push(new Walker(random(width), random(height)));
+    lastMinute = m;
+  }
+
+  for (let w of walkers) {
+    w.step();
+    w.show();
+  }
+}
+
+
+class Walker {
+  constructor(cx , cy) {
+    this.centerX = cx;
+    this.centerY = cy;
+    this.radius = random(40, 100);
+    this.angle = random(TWO_PI);
+    this.noiseOffset = random(1000);
+  }
+
+  step() {
+   
+    this.angle += random(-0.03, 0.03);
+
+    // perlin noise 
+    this.noiseOffset += 0.01;
+    let n = noise(this.noiseOffset);
+    this.angle += map(n, 0, 1, -0.02, 0.02);
+  }
+
+  show() {
+    // distribución normal 
+    let r = this.radius + randomGaussian(0, 10);
+
+    let x = this.centerX + cos(this.angle) * r;
+    let y = this.centerY + sin(this.angle) * r;
+
+    point(x, y);
+  }
+}
+```
+
+_Link: https://editor.p5js.org/LuisaRoech/sketches/cd05p7uYo_
 
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
