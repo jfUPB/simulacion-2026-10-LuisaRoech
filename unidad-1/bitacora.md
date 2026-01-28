@@ -129,9 +129,6 @@ _Notas extras: la disperción indica que tan lejos pueden estar los valores de l
 
 ![Grabacindepantalla2026-01-26204734-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/0f443d00-772e-4ab9-97ed-27854c2b244b)
 
-
-![Grabacindepantalla2026-01-26204734-ezgif com-resize](https://github.com/user-attachments/assets/489e6265-de63-4002-bf6f-59c2a18f7c19)
-
 _Link: https://editor.p5js.org/LuisaRoech/sketches/DzN2wrTj1_
 
 ### Distribución personalizada: Lévy flight (Actividad 05)
@@ -188,7 +185,7 @@ function levy() {
 }
 ```
 
-![Grabacindepantalla2026-01-27210944-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/dcaa9053-8068-4512-ba37-1894b2d4106c)
+![Grabacindepantalla2026-01-27210944-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/ab9fd6cb-a222-4963-b3a1-78a57cf9d243)
 
 _Link: https://editor.p5js.org/LuisaRoech/sketches/RmaRa8OSf_
 
@@ -205,6 +202,7 @@ Hacer ruido permite tener comportamientos muy organicos
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
