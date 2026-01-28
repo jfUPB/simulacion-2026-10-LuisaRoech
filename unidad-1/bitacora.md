@@ -185,7 +185,7 @@ function levy() {
 }
 ```
 
-![Grabacindepantalla2026-01-27210944-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/ab9fd6cb-a222-4963-b3a1-78a57cf9d243)
+![Grabacindepantalla2026-01-27210944-ezgif com-crop](https://github.com/user-attachments/assets/c3bd0c9f-d69c-490d-a44a-71da9769f538)
 
 _Link: https://editor.p5js.org/LuisaRoech/sketches/RmaRa8OSf_
 
@@ -202,6 +202,7 @@ Hacer ruido permite tener comportamientos muy organicos
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
