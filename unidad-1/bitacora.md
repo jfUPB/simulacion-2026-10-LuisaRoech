@@ -68,7 +68,7 @@ En general, ocurre lo esperado. Sin embargo, el trazo con line() no funciono en 
 
 > ¿Por que si ocurrio o no?
 
-Omitiendo lo del line(), en general el codigo es lo suficientemente básico y claro como para anticipar qué sucede al modificar ciertos valores o funciones, ya que cada parte cumple una función especifica y facil de identificar dentro de la lógica general de walker.
+Omitiendo lo del line(), en general el código es lo suficientemente básico y claro como para anticipar qué sucede al modificar ciertos valores o funciones, ya que cada parte cumple una función especifica y facil de identificar dentro de la lógica general de walker.
 
 ### Distribuciones de probabilidad (Actividad 03)
 > ¿Que diferencia hay entre la distribución uniforme y una no uniforme de números aleatorios?
@@ -100,7 +100,7 @@ step() {
 _Notas extras: randomGaussian() es la forma en como se puede representar una distribución normal, los valores se concentran cerca de la media y los extremos ocurren con menos frecuencia, visualmente puede verse como una campana._
 
 ### Distribución Normal (Actividad 04)
-Para este ejercicio modifique el codigo _The nature of code_ ejemplo 0.4, que ya utiliza distribución gausiana, pues queria replicar lo ya visto en clase pero con rayas verticales :)
+Para este ejercicio modifique el código _The Nature of Code_ ejemplo 0.4, que ya utiliza distribución gausiana, pues queria replicar lo ya visto en clase pero con rayas verticales :)
 ``` javascript
 // The Nature of Code Ejemplo 0.4
 // Daniel Shiffman
@@ -131,7 +131,62 @@ _Notas extras: la disperción indica que tan lejos pueden estar los valores de l
 _Link: https://editor.p5js.org/LuisaRoech/sketches/DzN2wrTj1_
 
 ### Distribución personalizada: Lévy flight (Actividad 05)
-El salto de _Lévy_ es como se escucha (literal), es dar saltos aleatorios en una acción determinada, como la caminata, dar circulos y repentinamente ir en otra direccion, o trazar los puntos en una zona apartada de donde estaba
+_El salto de Lévy_ es como se escucha (literal), dar saltos aleatorios dentro de una acción continua, como una caminata. La mayor parte del tiempo el movimiento ocurre de manera normal, con pasos cortos o recorridos dentro de una misma zona, pero BUM, de forma inesperada se produce un salto más grande que cambia la dirección o la posición de manera abrupta.
+
+Según _The Nature of Code_, este tipo de comportamiento es interesante porque rompe con la idea de un movimiento aleatorio uniforme: no todo ocurre al mismo ritmo ni con la misma intensidad.
+
+> ¿Qué resultados espero modificando el código para aplicar el Lévy flight?
+
+Planeo usar el código ya modificado del anterior punto, la idea es mantener la distribución normal que concentra los valores alrededor de un promedio, con Lévy flight romperia esa regularidad cambiando el tamaño de los circulos (que puse en elipses) y color, si son pequeños tendran colores claros y si es grande tendra colores oscuros.
+
+En resumen, espero que la mayoría de las figuras se acumulen cerca del centro, con tamaños pequeños, mientras que de forma ocasional aparezcan círculos mucho más grandes que interrumpen el patrón visual.
+
+``` javascript
+// The Nature of Code (modificado)
+
+function setup() {
+  createCanvas(640, 240);
+  background(255);
+}
+
+function draw() {
+  
+  let mean = width / 2;
+  let dis = 60;
+
+  // Posición base
+  let x = randomGaussian() * dis + mean;
+  let y = height / 2;
+
+  // Tamaño controlado por Lévy flight
+  let size = levy();
+
+  // Color cambia según el tamaño del salto
+  // Saltos grandes → más oscuros
+  let color = map(size, 2, 80, 40, 150);
+
+  noStroke();
+  fill(0, color);
+
+  // Cambio de forma: círculos pequeños y grandes
+  ellipse(x, y, size, size);
+}
+
+
+function levy() {
+  let r = random(1);
+
+  if (r < 0.01) {
+    return random(40, 80); // poco frecuente
+  } else {
+    return random(2, 8); // frecuente
+  }
+}
+```
+
+![Grabacindepantalla2026-01-27210944-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/dcaa9053-8068-4512-ba37-1894b2d4106c)
+
+_Link: https://editor.p5js.org/LuisaRoech/sketches/RmaRa8OSf_
 
 ### Ruido Perlin (Actividad 06)
 Hacer ruido permite tener comportamientos muy organicos
@@ -146,6 +201,7 @@ Hacer ruido permite tener comportamientos muy organicos
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
