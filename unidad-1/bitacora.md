@@ -192,8 +192,6 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/RmaRa8OSf_
 ### Ruido Perlin (Actividad 06)
 Hacer ruido permite tener comportamientos muy organicos y menos caoticos de lo que puede llegar a ser con Lévy Flight, tras lo que comentaste acerca de 
 
-<img width="553" height="266" alt="image" src="https://github.com/user-attachments/assets/86e67f5f-2cbb-4f25-a329-0037bc1970c8" />
-<img width="960" height="576" alt="image" src="https://github.com/user-attachments/assets/bacdd35a-18fd-4ef4-b449-082dd9b90314" />
 <img width="720" height="480" alt="image" src="https://github.com/user-attachments/assets/ca80a90a-6b16-4a7f-b918-2afa2a2fcea7" />
 
 
@@ -273,6 +271,7 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/cd05p7uYo_
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
