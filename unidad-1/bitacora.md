@@ -190,10 +190,44 @@ function levy() {
 _Link: https://editor.p5js.org/LuisaRoech/sketches/RmaRa8OSf_
 
 ### Ruido Perlin (Actividad 06)
-Hacer ruido permite tener comportamientos muy organicos y menos caoticos de lo que puede llegar a ser con Lévy Flight, tras lo que comentaste acerca de 
+Hacer uso de este ruido permite generar comportamientos muy orgánicos y menos caóticos de lo que puede llegar a ser con Lévy Flight. A diferencia de estos saltos abruptos, el ruido Perlin introduce variaciones suaves y graduales, lo que hace que el movimiento se sienta más natural y predecible sin dejar de ser dinámico.
+
+Este concepto se vuelve especialmente interesante al conocer su origen: el ruido Perlin comenzó a aplicarse a gran escala en el contexto del cine, específicamente en la película **Tron** (1982), dirigida por Steven Lisberger. El ruido fue desarrollado por Ken Perlin, quien buscaba una forma de generar texturas y movimientos digitales que no se vieran artificiales ni repetitivos. En esa epoca el azar (random()) se veia demasiado caótico, ruidoso y poco creíble por lo que el ruido perlin fue el resultado para encontrar un mundo digital que no se viera falso y sin vida, imitando la naturaleza, no completamente aleatoria, pero tampoco perfectamente ordenada.
 
 <img width="720" height="480" alt="image" src="https://github.com/user-attachments/assets/ca80a90a-6b16-4a7f-b918-2afa2a2fcea7" />
 
+> ¿Qué resultados espero?
+
+Asi que, para implementar el ruido perlin planearia hacerlo en dos dimensiones (x,y) y en lugar de saltar aleatoriamente, el punto se estaria desplazando suavemente por el canvas, pues el noise() cambia de manera gradual.
+
+``` javascript
+//coordenadas
+let tx = 0;
+let ty = 1000;
+
+function setup() {
+  createCanvas(640, 240);
+  background(255);
+}
+
+function draw() {
+  let x = noise(tx) * width;
+  let y = noise(ty) * height;
+
+  noStroke();
+  fill(0, 20);
+  circle(x, y, 8);
+
+  //Si incremento muy poco, el mov será lento y suave, si es mucho será erratico y si no se agrega el punto se queda quieto.
+  tx += 0.01;
+  ty += 0.01;
+}
+``` 
+_Nota extra: el ruido Perlin se usa directamente con la función noise()_
+
+![20260129-2329-32 0347503-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/8facbd63-8614-4db6-80c1-383b7bd80f76)
+
+_Link: https://editor.p5js.org/LuisaRoech/sketches/pA37z0pI0_
 
 ## Bitácora de aplicación 
 
@@ -271,6 +305,7 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/cd05p7uYo_
 ## Bitácora de reflexión
 
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
