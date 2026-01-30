@@ -241,70 +241,128 @@ Tipos de interacción: teclado, tiempo (segundos/minutos) pero como?
 
 > Concepto de la obra
 
-Las formas ciculares siempre se me han hecho muy enigmaticas, si nos guiamos con la idea de forma una obra generativa e interactiva, siempre me ha fascinado las obras de las que no requieren del esperactador pero que actuen por si solas, que puedan ir cambiando por un valor que la compone, posiblemente tener como interaccion el tiempo es la forma mas sosa de dar interacción pero ...
+Las formas circulares siempre se me han hecho muy enigmáticas. Si se piensa desde la idea de crear una obra generativa e interactiva, siempre me han llamado más la atención aquellas piezas que no dependen directamente del espectador, sino que actúan por sí solas. Obras que cambian a partir de los valores que las componen, sin necesidad de una acción externa constante.
+
+Usar el tiempo como forma de interacción puede parecer algo simple, incluso soso, pero al mismo tiempo resulta interesante porque es una interacción inevitable: ocurre aunque nadie esté mirando. El tiempo no se controla, solo se observa cómo afecta al sistema, y eso lo convierte en un elemento silencioso pero fundamental dentro de la obra.
 
 ``` javascript
 let walkers = [];
-let lastMinute;
-
+let lastSecond;
+let currentColor;
 
 function setup() {
   createCanvas(640, 240);
-  walker = new Walker();
   background(255);
+
+  currentColor = color(0, 80); // color inicial
 }
 
 function draw() {
-  let m = minute();
 
-  if (m !== lastMinute) {
+  let s = second();
+
+  if (s !== lastSecond) {
     walkers.push(new Walker(random(width), random(height)));
-    lastMinute = m;
+    lastSecond = s;
   }
-
-  for (let w of walkers) {
-    w.step();
-    w.show();
+  
+  // cada walker calcula su movimiento y lo dibuja
+  for (let i = walkers.length - 1; i >= 0; i--) {
+    walkers[i].step();
+    walkers[i].show();
+    
+  // cuando vive demasiado se elimina
+    if (walkers[i].life > walkers[i].maxLife) {
+      walkers.splice(i, 1);
+    }
   }
 }
 
+function keyPressed() {
+  if (key === 'a') currentColor = color(0, 80);
+  if (key === 's') currentColor = color(50, 80, 200, 80);
+  if (key === 'd') currentColor = color(200, 60, 60, 80);
+  if (key === 'f') currentColor = color(20, 150, 90, 80);
+}
 
 class Walker {
-  constructor(cx , cy) {
-    this.centerX = cx;
-    this.centerY = cy;
+  constructor(cx, cy) {
+    this.cx = cx;
+    this.cy = cy;
+    
     this.radius = random(40, 100);
     this.angle = random(TWO_PI);
+    this.speed = random(0.004, 0.008);
+    
+    // perlin & limite de vida
     this.noiseOffset = random(1000);
+
+    this.life = 0;
+    this.maxLife = floor(random(900, 1500)); 
   }
 
   step() {
-   
-    this.angle += random(-0.03, 0.03);
+    this.life++;
+    this.angle += this.speed;
 
-    // perlin noise 
-    this.noiseOffset += 0.01;
+    let chaos = map(this.life, 0, this.maxLife, 0.0005, 0.01);
+    this.angle += random(-chaos, chaos);
+
+    // perlin
+    this.noiseOffset += 0.001;
     let n = noise(this.noiseOffset);
-    this.angle += map(n, 0, 1, -0.02, 0.02);
+    this.angle += map(n, 0, 1, -chaos, chaos);
   }
 
   show() {
-    // distribución normal 
-    let r = this.radius + randomGaussian(0, 10);
+    // dibujo lento para mantener su forma
+    if (frameCount % 2 !== 0) return;
 
-    let x = this.centerX + cos(this.angle) * r;
-    let y = this.centerY + sin(this.angle) * r;
+    stroke(currentColor);
+
+    let sd = map(this.life, 0, this.maxLife, 2, 8);
+    let r = this.radius + randomGaussian(0, sd);
+
+    let x = this.cx + cos(this.angle) * r;
+    let y = this.cy + sin(this.angle) * r;
 
     point(x, y);
   }
 }
 ```
+![20260130-0350-32 5645754-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/f900d905-f0c5-49fd-a017-b8cf00aec03a)
 
 _Link: https://editor.p5js.org/LuisaRoech/sketches/cd05p7uYo_
 
+nota: El espectador no controla el sistema directamente; la obra responde al tiempo real como una entidad autónoma.
+
 ## Bitácora de reflexión
 
+1. Diferencia entre random() y noise()
+
+random() genera valores totalmente impredecibles, útil para variaciones rápidas o caóticas, mientras que noise() produce cambios suaves y continuos, mas orgánicos.
+   
+2. Qué es una distribución de probabilidad y diferencia visual
+
+Una distribución de probabilidad describe qué tan probable es que ocurran ciertos valores.
+Una caminata con distribución uniforme se dispersa de forma pareja y errática, mientras que una normal se concentra alrededor de un valor central y genera formas más estables.
+
+3. Papel de la aleatoriedad en el arte generativo
+
+Permite que la obra evolucione, y que genere resultados que inclusive la mente humana no podria concebir.
+ 
+4. Concepto usado en mi obra (Actividad 07)
+
+Utilicé ruido Perlin para introducir inestabilidad progresiva en el movimiento circular, porque permite deformaciones suaves sin romper abruptamente la forma.
+
+5. Qué es una caminata y qué es un Lévy flight
+
+Una caminata es un movimiento paso a paso determinado por reglas y azar.
+Un Lévy flight se caracteriza por muchos pasos cortos y, ocasionalmente, saltos largos e inesperados.
+
+
 ![cat-spinning](https://github.com/user-attachments/assets/65233b8f-923b-4db5-8065-7b2a7baddcef)
+
 
 
 
