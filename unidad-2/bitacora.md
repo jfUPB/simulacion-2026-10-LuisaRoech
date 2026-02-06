@@ -149,12 +149,19 @@ function drawArrow(base, vec, myColor) {
 No es una formula, es un concepto para poder pensar el movimiento en relación de la posición, velocidad y aceleración a lo largo del tiempo (calculo integral T_T + Fisica). En esencia podriamos decir que mover algo es cambiar su posición en el tiempo, y ese cambio puede describirse con vectores.
 Ahora bien como se interpreta esto geométricamente, piensa en esto. Hay un punto → posición, desde ese punto sale una flecha → velocidad, esa flecha es empujada por otra → aceleración. Con cada frame la aceleración dobla o estira la flecha de velocidad y la velocidad arrastra el punto a una nueva posición (una suma de vectores encadenada).
 
+Aceleración
+     ↗
+    →
+Posición •────────▶ Velocidad
+
 En código esto principalmente se representa como:
 
 ``` Javascript
 velocity.add(acceleration);
 position.add(velocity);
 ```
+
+_Nota extra: este concepto se puede llamar como Integración → Euler → Semi-Implicit_
 
 > ¿Cómo se aplica motion 101 en el ejemplo?
 
@@ -167,5 +174,6 @@ position.add(velocity);
 
 
 ## Bitácora de reflexión
+
 
 
