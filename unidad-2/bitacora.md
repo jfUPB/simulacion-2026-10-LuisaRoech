@@ -15,8 +15,11 @@ Un arte que cambia la forma en como lo vemos, como lo sentimos y como lo interpr
 
 > ¿Cómo funciona la suma dos vectores en p5.js?
 
+En p5.js los vectores es un objeto, no un número. position.add(velocity);
+
 > ¿Por qué esta línea position = position + velocity; no funciona?
-No es algo que soporte la aplicación
+
+No es algo que soporte javaScript,
 
 ### Repasa (Actividad 03)
 
@@ -192,6 +195,7 @@ a
 
 
 ## Bitácora de reflexión
+
 
 
 
