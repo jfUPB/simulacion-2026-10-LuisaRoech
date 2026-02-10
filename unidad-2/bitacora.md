@@ -5,6 +5,7 @@
 ### Los vectores y el arte (Actividad 01)
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/da2b3ef6-8cb8-4c93-a8d3-4fb1549efa43" />
+
 _River scars por Robert Hodgin (flight404)_
 
 
@@ -191,6 +192,7 @@ a
 
 
 ## Bitácora de reflexión
+
 
 
 
