@@ -5,7 +5,7 @@
 ### Los vectores y el arte (Actividad 01)
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/da2b3ef6-8cb8-4c93-a8d3-4fb1549efa43" />
-***River scars** by Robert Hodgin (flight404)*
+**River scars* by Robert Hodgin (flight404)**
 
 
 Un arte que cambia la forma en como lo vemos, como lo sentimos y como lo interpretamos. El uso de vectores y movimiento en el arte generativo no es solo una cuestión técnica, sino una forma distinta de pensar la imagen. Un vector deja de ser una simple flecha para convertirse en una fuerza que empuja, desvía o transforma una forma en el tiempo, haciendo que la obra no sea un resultado fijo sino un proceso que está siempre cambiando. Esto modifica la manera en que vemos la imagen, porque ya no observamos algo terminado, sino algo que está ocurriendo; la sentimos de forma más física y orgánica, y la interpretamos como un sistema vivo donde las reglas importan tanto como el resultado.
@@ -191,6 +191,7 @@ a
 
 
 ## Bitácora de reflexión
+
 
 
 
