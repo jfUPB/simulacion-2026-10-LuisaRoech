@@ -112,11 +112,11 @@ Al tratar con vectores no estoy moviendo números sueltos, sino manipulando el m
 
 `mag()` devuelve la magnitud (longitud) del vector, es decir, qué tan largo es. Matemáticamente es:
 
-|v| = sqrt(x² + y² (+ z^2))
+`|v| = sqrt(x² + y² (+ z^2))`
 
 Lo que sirve para saber qué tan fuerte es una velocidad, una fuerza o qué tan lejos está algo en términos vectoriales. Por otro lado, `magSq()` devuelve la magnitud al cuadrado:
 
-|v|^2 = x^2 + y^2 (+ z^2)
+`|v|^2 = x^2 + y^2 (+ z^2)`
 
 No calcula la raíz, siendo más eficiente porque evita la raiz, que es más costosa computacionalmente. Se usa normalmente cuando se quiere comparar magnitudes.
 
@@ -213,17 +213,45 @@ function drawArrow(base, vec, myColor) {
 
 > ¿Cómo funciona lerp() y lerpColor().
 
-a
+Significa _linear interpolation_, matemáticamente se hace esto:
+
+_resultado = a + (b − a) ∗ t_
+
+si _t = 0_ devuelve `a`, si _t = 1_ devuelve `b`, si _t = 0.5_ se da el punto exactamente a la mitad y si _t_ aumenta progresivamente se muevemente suavemente de `a` hacia `b`. En mi código funciona asi
+
+``` Javascript
+let movingTip = p5.Vector.lerp(tipBlue, tipRed, t);
+```
+
+Donde el punto se mueve suavemente desde la punta azul hasta la roja y _t_ controla cuánto ha avanzado. Ahora bien con `lerpColor()` funciona igual pero interpola colores.
+
+``` Javascript
+let c = lerpColor(color(0, 0, 255), color(255, 0, 0), t);
+```
+
+ si _t = 0_ → azul, si _t = 1_ → rojo y en el medio → mezcla progresiva (violeta, magenta, etc.)
 
 > ¿Cómo se dibuja una flecha usando drawArrow()?
 
-a
+Paso a paso se aplica en esta linea:
+
+``` Javascript
+function drawArrow(base, vec, myColor) // base es el punto donde empieza la flecha, vector la dirección y magnitud y myColor el color duh.
+``` 
+
+- `translate(base.x, base.y);` Mueve el sistema de coordenadas al punto de origen.
+- `line(0, 0, vec.x, vec.y);` Dibuja la línea principal del vector.
+- `rotate(vec.heading());` Rota el sistema según el ángulo del vector.
+- `translate(vec.mag() - arrowSize, 0);` Se mueve hasta la punta del vector.
+- `triangle(...)` Dibuja la cabeza de la flecha.
+
+Es literalmente convertir dirección + magnitud en forma visual.
 
 ### Motion 101 (Actividad 07)
 
 > Cuál es el concepto del marco motion 101 y cómo se interpreta geométricamente.
 
-No es una formula, es un concepto para poder pensar el movimiento en relación de la posición, velocidad y aceleración a lo largo del tiempo (calculo integral T_T + Fisica). En esencia podriamos decir que mover algo es cambiar su posición en el tiempo, y ese cambio puede describirse con vectores.
+No es una formula, es un concepto para poder pensar el movimiento en relación de la posición, velocidad y aceleración a lo largo del tiempo (Cálculo integral T_T + Física). En esencia podriamos decir que mover algo es cambiar su posición en el tiempo, y ese cambio puede describirse con vectores.
 Ahora bien como se interpreta esto geométricamente, piensa en esto. Hay un punto → posición, desde ese punto sale una flecha → velocidad, esa flecha es empujada por otra → aceleración. Con cada frame la aceleración dobla o estira la flecha de velocidad y la velocidad arrastra el punto a una nueva posición (una suma de vectores encadenada).
 
 En código esto principalmente se representa como:
@@ -255,7 +283,9 @@ Dentro del _ejemplo 1.8_ el motion 101 realmente se aplica de forma literal al e
 
 > ¿Qué observaste cuando usas cada una de las aceleraciones propuestas?
 
-a
+Partiendo de la idea del libro —que lo importante es definir la aceleración y dejar que el efecto en cascada (aceleración → velocidad → posición) haga su trabajo— probé los tres comportamientos distintos. La **aceleración constante** aumenta su velocidad progresivamente en una misma dirección, esta no se mueve solo "rápido", sino que cada frame acumula más velocidad, mientras que la **aceleración aleatoria** cambia el comportamiento radicalmente, como dice su nombre, es aleatorio la forma en como se mueve el objeto y no es tan simple, pues hay inercia, lo que significa que aunque la aceleración cambie al azar, la velocidad mantiene memoria del movimiento anterior. Por último, la **aceleración hacia el mouse**, acelera en dirección al cursor. Se siente intencional, si no se normaliza el vector hacia el mouse, la aceleración depende de la distancia y el objeto se dispara cuando está lejos. Al normalizarlo, el movimiento se vuelve más controlado y consistente.
+
+_Nota extra: limit() es MUY pero muy util para controlar la velocidad. Pues el crecimiento en estas aceleraciones se sienten como gravedad o como un objeto empujado continuamente por una fuerza fija, lo interesante es que el movimiento deja de ser lineal y pasa a ser exponencial en percepción._
 
 ## Bitácora de aplicación 
 
@@ -264,6 +294,7 @@ Referencias
 
 
 ## Bitácora de reflexión
+
 
 
 
