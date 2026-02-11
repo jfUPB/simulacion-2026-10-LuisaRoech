@@ -290,10 +290,14 @@ _Nota extra: limit() es MUY pero muy util para controlar la velocidad. Pues el c
 ## Bitácora de aplicación 
 
 > Antes de, que ideas tengo sobre lo que quiero hacer
-Ideas
-Referencias
 
-> Concepto de la obra
+Inicialmente, me gustaria experimentar estos conceptos en blender, 
+
+> Concepto de la obra. Explica el concepto de tu obra generativa, qué regla aplicaste para la aceleración y por qué, si fue una decisión de diseño, o qué te evoca, si fue una exploración artística.
+
+> Los nodos
+
+> Mi pieza (capturas de la obra)
 
 ## Bitácora de reflexión
 
@@ -306,12 +310,7 @@ Referencias
 > Selecciona capturas de pantalla representativas de tu pieza de arte generativa.
 
 
-
-
-
-
-
-
+<img width="500" height="500" alt="imagen_2026-02-11_102246718-removebg-preview (1)" src="https://github.com/user-attachments/assets/07cfeea0-7100-466b-93fd-ba9f61cb9a2c" />
 
 
 
