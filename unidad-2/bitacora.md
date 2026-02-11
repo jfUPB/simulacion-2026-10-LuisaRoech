@@ -79,31 +79,70 @@ class Walker {
 
 > ¿Qué resultado esperas obtener en el programa anterior?
 
+Analizando un poco el código, esperaria que el vector cambie de `(6,9)` que es la condición inicial que tiene position a `(20,30)`, pues dentro de la función `playingVector(position)` se están modificando sus valores `x` y `y`. Y bueno, que todo esto sea visible en la consola por los varios `console.log` que hay en el.
 
 > ¿Qué resultado obtuviste?
 
+La consola imprime esto:
+
+```
+p5.Vector Object : [6, 9, 0]
+p5.Vector Object : [20, 30, 0]
+Only once
+```
+
+Es decir, el vector **sí cambia**, aunque la modificación ocurrió dentro de la funcion `playingVector();`.
 
 > Recuerda los conceptos de paso por valor y paso por referencia en programación.
 
+- **Paso por valor:** se envía una copia del dato. Si lo modificas dentro de la función, el original no cambia. (ejm: los primitivos como number, string, boolean se pasan por valor)
+
+- **Paso por referencia:** se envía la referencia al objeto original. Si lo modificas dentro de la función, el original sí cambia. (ejm: los objetos como arrays, objetos, p5.Vector se pasan por referencia)
 
 > ¿Qué tipo de paso se está realizando en el código?
 
+Principalmente se esta usando el paso por referencia, pues `position` es un objeto `p5.Vector`. Cuando se llama `playingVector(position);` no se crea una copia del vector, sino que `v` apunta al mismo objeto en memoria que `position`.
 
 > ¿Qué aprendiste?
 
+Al tratar con vectores no estoy moviendo números sueltos, sino manipulando el mismo objeto en memoria. Eso significa que una función no solo “usa” el vector, sino que puede transformarlo directamente, afectando todo el sistema. Entendí que el comportamiento del programa depende mucho de si estoy compartiendo referencias o creando copias. Podria aplicarlo en trayectorias, fuerzas, composición, ritmo. Es literalmente intervenir el “organismo” de la obra.
+
 ### (Actividad 05)
 
-¿Para qué sirve el método mag()? Nota que hay otro método llamado magSq(). ¿Cuál es la diferencia entre ambos? ¿Cuál es más eficiente?
-¿Para qué sirve el método normalize()?
-Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
-El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
-Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y la magnitud del vector resultante.
-¿Para que te puede servir el método dist()?
-¿Para qué sirven los métodos normalize() y limit()?
+> ¿Para qué sirve el método mag()? Nota que hay otro método llamado magSq(). ¿Cuál es la diferencia entre ambos? ¿Cuál es más eficiente?
+
+`mag()` devuelve la magnitud (longitud) del vector, es decir, qué tan largo es. Matemáticamente es:
+
+Lo que sirve para saber qué tan fuerte es una velocidad, una fuerza o qué tan lejos está algo en términos vectoriales. Por otro lado, `magSq()` devuelve la magnitud al cuadrado, no calcula la raíz, siendo más eficiente porque evita la raiz, que es más costosa computacionalmente. Se usa normalmente cuando se quiere comparar magnitudes.
+
+> ¿Para qué sirve el método normalize()?
+
+Este convierte el vector en un vector unitario (magnitud 1) manteniendo la dirección, se usa para obtener solo la dirección, aplicar fuerzas con intensidad controlada o evitar que la velocidad crezca sin límite.
+
+> Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
+
+
+
+> El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
+
+
+> Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te
+
+
+> pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y
+
+
+> la magnitud del vector resultante.
+
+
+> ¿Para que te puede servir el método dist()?
+
+
+> ¿Para qué sirven los métodos normalize() y limit()?
 
 ### Interpolamos? (Actividad 06)
 
-> El código
+> El código que genera el resultado que te pedí.
 
 ``` Javascript
 let t = 0;
@@ -156,9 +195,13 @@ function drawArrow(base, vec, myColor) {
 }
 ``` 
 
-¿Cómo funciona lerp() y lerpColor().
-¿Cómo se dibuja una flecha usando drawArrow()?
+> ¿Cómo funciona lerp() y lerpColor().
 
+a
+
+> ¿Cómo se dibuja una flecha usando drawArrow()?
+
+a
 
 ### Motion 101 (Actividad 07)
 
@@ -198,12 +241,14 @@ Dentro del _ejemplo 1.8_ el motion 101 realmente se aplica de forma literal al e
 
 a
 
-
 ## Bitácora de aplicación 
 
+Ideas
+Referencias
 
 
 ## Bitácora de reflexión
+
 
 
 
