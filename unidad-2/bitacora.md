@@ -96,7 +96,6 @@ Es decir, el vector **sí cambia**, aunque la modificación ocurrió dentro de l
 > Recuerda los conceptos de paso por valor y paso por referencia en programación.
 
 - **Paso por valor:** se envía una copia del dato. Si lo modificas dentro de la función, el original no cambia. (ejm: los primitivos como number, string, boolean se pasan por valor)
-
 - **Paso por referencia:** se envía la referencia al objeto original. Si lo modificas dentro de la función, el original sí cambia. (ejm: los objetos como arrays, objetos, p5.Vector se pasan por referencia)
 
 > ¿Qué tipo de paso se está realizando en el código?
@@ -113,7 +112,13 @@ Al tratar con vectores no estoy moviendo números sueltos, sino manipulando el m
 
 `mag()` devuelve la magnitud (longitud) del vector, es decir, qué tan largo es. Matemáticamente es:
 
-Lo que sirve para saber qué tan fuerte es una velocidad, una fuerza o qué tan lejos está algo en términos vectoriales. Por otro lado, `magSq()` devuelve la magnitud al cuadrado, no calcula la raíz, siendo más eficiente porque evita la raiz, que es más costosa computacionalmente. Se usa normalmente cuando se quiere comparar magnitudes.
+|v| = sqrt(x² + y² (+ z^2))
+
+Lo que sirve para saber qué tan fuerte es una velocidad, una fuerza o qué tan lejos está algo en términos vectoriales. Por otro lado, `magSq()` devuelve la magnitud al cuadrado:
+
+|v|^2 = x^2 + y^2 (+ z^2)
+
+No calcula la raíz, siendo más eficiente porque evita la raiz, que es más costosa computacionalmente. Se usa normalmente cuando se quiere comparar magnitudes.
 
 > ¿Para qué sirve el método normalize()?
 
@@ -121,24 +126,35 @@ Este convierte el vector en un vector unitario (magnitud 1) manteniendo la direc
 
 > Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
 
-
+“El método dot sirve para medir qué tan alineados están dos vectores.”
 
 > El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
 
+- **Instancia:** `v1.dot(v2)` → el producto punto se calcula usando el vector que llama al método.
+- **Estática:** `p5.Vector.dot(v1, v2)` → recibe ambos vectores como parámetros.
 
-> Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te
+> Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y la magnitud del vector resultante.
 
+El producto cruz genera un nuevo vector perpendicular al plano formado por los dos vectores originales.
 
-> pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y
+- Magnitud: representa el área del paralelogramo que forman los dos vectores.
+- Orientación: sigue la regla de la mano derecha (determina hacia dónde apunta el vector resultante).
 
-
-> la magnitud del vector resultante.
-
+En resumen: el producto cruz produce un vector perpendicular cuya longitud depende de cuánto “se abren” los vectores originales.
 
 > ¿Para que te puede servir el método dist()?
 
+Este calcula la distancia entre dos vectores (puntos), muy útil para detectar colisiones, saber si algo está "cerca" o generar interacción entre partículas.
 
 > ¿Para qué sirven los métodos normalize() y limit()?
+
+- `normalize()` → mantiene la dirección pero fija la magnitud en 1.
+- `limit(max)` → restringe la magnitud para que no supere un valor máximo.
+
+En sistemas generativos o físicos:
+
+- `normalize()` controla dirección pura.
+- `limit()` evita velocidades exageradas y mantiene estabilidad.
 
 ### Interpolamos? (Actividad 06)
 
@@ -248,6 +264,7 @@ Referencias
 
 
 ## Bitácora de reflexión
+
 
 
 
