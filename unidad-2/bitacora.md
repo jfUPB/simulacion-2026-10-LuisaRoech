@@ -19,14 +19,14 @@ En p5.js los vectores funcionan como un objeto, no un número. `position.add(vel
 
 > ¿Por qué esta línea position = position + velocity; no funciona?
 
-Pues no es algo que soporte javaScript, `position` y `velocity` no son números, son instancias de p5.Vector y el operador + no sabe como sumar vectores. En lugar de hacer una suma mátematica, JS intenta convertirlos a texto ("[object Object]") y el resultado es inválido para lo que se busca.
+Pues no es algo que soporte javaScript, `position` y `velocity` no son números, son instancias de `p5.Vector` y el operador `+` no sabe como sumar vectores. En lugar de hacer una suma mátematica, JS intenta convertirlos a texto ("[object Object]") y el resultado es inválido para lo que se busca.
 Por eso p5 ofrece métodos como `.add()`, `.sub()`, `.mult()`, etc., que sí saben cómo combinar vectores correctamente.
 
 ### Repasa (Actividad 03)
 
 > ¿Qué tuviste que hacer para hacer la conversión propuesta?
 
-Cambie los pasos, ubicacion de x y y para que fuera manejado por vectores, un vector posición y un vector de velocidad, para esto use el primer ejercicio de caminata aleatoria..
+Cambie los pasos, basada en las variables sueltas de x y y para que fuera manejado por vectores, un vector posición y un vector de velocidad. Es decir, en lugar de tener algo como `x++`, `y--`, etc., transformé la posición en un vector `(this.pos = createVector(width/2, height/2);)`. Eso significa que la posición ya no se maneja como dos números independientes, sino como un solo objeto que contiene dirección y magnitud. Luego, en el método `step()`, en vez de modificar directamente las coordenadas, creo un vector de desplazamiento `(step)` según la dirección aleatoria elegida. Cada posible movimiento (derecha, izquierda, arriba, abajo) se convierte en un vector unitario: `(1,0)`, `(-1,0)`, `(0,1)` o `(0,-1)`. Finalmente, `this.pos.add(step);` suma componente a componente a la posición actual.  
 
 > Escribe el código que utilizaste para resolver el ejercicio.
 
@@ -77,11 +77,19 @@ class Walker {
 
 ### (Actividad 04)
 
-¿Qué resultado esperas obtener en el programa anterior?
-¿Qué resultado obtuviste?
-Recuerda los conceptos de paso por valor y paso por referencia en programación.
-¿Qué tipo de paso se está realizando en el código?
-¿Qué aprendiste?
+> ¿Qué resultado esperas obtener en el programa anterior?
+
+
+> ¿Qué resultado obtuviste?
+
+
+> Recuerda los conceptos de paso por valor y paso por referencia en programación.
+
+
+> ¿Qué tipo de paso se está realizando en el código?
+
+
+> ¿Qué aprendiste?
 
 ### (Actividad 05)
 
@@ -196,6 +204,7 @@ a
 
 
 ## Bitácora de reflexión
+
 
 
 
