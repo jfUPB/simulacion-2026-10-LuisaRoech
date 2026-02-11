@@ -15,12 +15,12 @@ Un arte que cambia la forma en como lo vemos, como lo sentimos y como lo interpr
 
 > ¿Cómo funciona la suma dos vectores en p5.js?
 
-En p5.js los vectores funcionan como un objeto, no un número. <position.add(velocity);> suma componente a componente lo que en cada frame se esta moviendo la posición en la dirección y magnitud que indica velocity. 
+En p5.js los vectores funcionan como un objeto, no un número. `position.add(velocity);` suma componente a componente lo que en cada frame se esta moviendo la posición en la dirección y magnitud que indica velocity. 
 
 > ¿Por qué esta línea position = position + velocity; no funciona?
 
-Pues no es algo que soporte javaScript, position y velocity no son números, son instancias de p5.Vector y el operador + no sabe como sumar vectores. En lugar de hacer una suma mátematica, JS intenta convertirlos a texto ("[object Object]") y el resultado es inválido para lo que se busca.
-Por eso p5 ofrece métodos como .add(), .sub(), .mult(), etc., que sí saben cómo combinar vectores correctamente.
+Pues no es algo que soporte javaScript, `position` y `velocity` no son números, son instancias de p5.Vector y el operador + no sabe como sumar vectores. En lugar de hacer una suma mátematica, JS intenta convertirlos a texto ("[object Object]") y el resultado es inválido para lo que se busca.
+Por eso p5 ofrece métodos como `.add()`, `.sub()`, `.mult()`, etc., que sí saben cómo combinar vectores correctamente.
 
 ### Repasa (Actividad 03)
 
@@ -196,6 +196,7 @@ a
 
 
 ## Bitácora de reflexión
+
 
 
 
