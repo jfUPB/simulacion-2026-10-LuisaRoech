@@ -289,12 +289,21 @@ _Nota extra: limit() es MUY pero muy util para controlar la velocidad. Pues el c
 
 ## Bitácora de aplicación 
 
+> Antes de, que ideas tengo sobre lo que quiero hacer
 Ideas
 Referencias
 
+> Concepto de la obra
 
 ## Bitácora de reflexión
 
+> Describe el concepto de tu obra generativa. Explica el concepto de tu obra generativa.
+
+> El código de la aplicación.
+
+> Un enlace al proyecto en el editor de p5.js.
+
+> Selecciona capturas de pantalla representativas de tu pieza de arte generativa.
 
 
 
