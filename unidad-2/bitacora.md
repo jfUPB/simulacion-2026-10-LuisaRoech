@@ -404,30 +404,69 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/fc5osgRdq_
 ## Bitácora de reflexión
 
 Noticas:
-El arte de Jared Tarbell
+El arte de Jared Tarbell. 
 
 > Describe el concepto de tu obra generativa. Explica el concepto de tu obra generativa.
+
+Un ecosistema digital afectado por un campo invisible que curva el movimiento de entidades autónomas. No existe un objeto central explícito ni un evento narrativo evidente. Cada partícula opera bajo reglas simples de física: acumulación de aceleración, conservación de velocidad e inercia. Sin embargo, de estas reglas mínimas emergen comportamientos complejos: órbitas inestables, agrupamientos temporales y redes efímeras que aparecen y desaparecen continuamente.
 
 > El código de la aplicación.
 
 ``` Javascript
-class Creature {
+
+class Particle {
   constructor() {
     this.position = createVector(random(width), random(height));
     this.velocity = p5.Vector.random2D();
     this.acceleration = createVector(0, 0);
     this.maxSpeed = 3;
-    this.maxForce = 0.1;
+    this.maxForce = 0.05;
   }
 
   applyForce(force) {
     this.acceleration.add(force);
   }
 
+  applyField(center) {
+    let force = p5.Vector.sub(center, this.position);
+    let d = force.mag();
+    d = constrain(d, 50, 300);
+
+    let strength = 200 / (d * d);
+    force.setMag(strength);
+
+    this.applyForce(force);
+  }
+
+  applyCohesion(others) {
+    let perception = 60;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of others) {
+      let d = dist(this.position.x, this.position.y,
+                   other.position.x, other.position.y);
+
+      if (other !== this && d < perception) {
+        steering.add(other.position);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.sub(this.position);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+      this.applyForce(steering);
+    }
+  }
+
   update() {
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxSpeed);
-    this.velocity.mult(0.98);
+    this.velocity.mult(0.99);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
   }
@@ -438,91 +477,42 @@ class Creature {
     if (this.position.y > height) this.position.y = 0;
     if (this.position.y < 0) this.position.y = height;
   }
-}
-
-// 🟢 WANDERER
-
-class Wanderer extends Creature {
-  behave() {
-    let angle = noise(this.position.x * 0.005, this.position.y * 0.005, frameCount * 0.01) * TWO_PI * 2;
-    let wanderForce = p5.Vector.fromAngle(angle);
-    wanderForce.setMag(0.2);
-    this.applyForce(wanderForce);
-  }
 
   show() {
-    stroke(0, 255, 150);
-    strokeWeight(3);
+    stroke(255, 120);
+    strokeWeight(1.5);
     point(this.position.x, this.position.y);
   }
 }
 
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i+1; j < particles.length; j++) {
+      let d = dist(particles[i].position.x,
+                   particles[i].position.y,
+                   particles[j].position.x,
+                   particles[j].position.y);
 
-// 🔵 SEEKER
-
-
-class Seeker extends Creature {
-  behave() {
-    let mouse = createVector(mouseX, mouseY);
-    let desired = p5.Vector.sub(mouse, this.position);
-    desired.setMag(this.maxSpeed);
-
-    let steering = p5.Vector.sub(desired, this.velocity);
-    steering.limit(this.maxForce);
-
-    this.applyForce(steering);
-  }
-
-  show() {
-    stroke(100, 200, 255);
-    strokeWeight(3);
-    point(this.position.x, this.position.y);
-  }
-}
-
-// 🔴 REPELLER
-
-class Repeller extends Creature {
-  behave(others) {
-    let total = 0;
-    let steer = createVector(0, 0);
-
-    for (let other of others) {
-      let d = dist(this.position.x, this.position.y,
-                   other.position.x, other.position.y);
-
-      if (other !== this && d < 50) {
-        let diff = p5.Vector.sub(this.position, other.position);
-        diff.normalize();
-        diff.div(d);
-        steer.add(diff);
-        total++;
+      if (d < 40) {
+        stroke(100, 200, 255, map(d, 0, 40, 100, 0));
+        strokeWeight(1);
+        line(particles[i].position.x,
+             particles[i].position.y,
+             particles[j].position.x,
+             particles[j].position.y);
       }
     }
-
-    if (total > 0) {
-      steer.div(total);
-      steer.setMag(this.maxSpeed);
-      steer.sub(this.velocity);
-      steer.limit(this.maxForce);
-      this.applyForce(steer);
-    }
-  }
-
-  show() {
-    stroke(255, 80, 80);
-    strokeWeight(3);
-    point(this.position.x, this.position.y);
   }
 }
 ```
 
-> Un enlace al proyecto en el editor de p5.js.
+_Link: https://editor.p5js.org/LuisaRoech/sketches/gpiPvJvlm_
 
 > Selecciona capturas de pantalla representativas de tu pieza de arte generativa.
 
 
 <img width="556" height="449" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/acc055f6-fa8f-4d14-8ead-9de8f9b2412d" />
+
 
 
 
