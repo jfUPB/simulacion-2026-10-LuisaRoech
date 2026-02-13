@@ -294,6 +294,7 @@ _Nota extra: limit() es MUY pero muy util para controlar la velocidad. Pues el c
 Inicialmente, me gustaria experimentar estos conceptos en blender, usando aceleración hacia el mouse, donde las partículas aceleran hacia un Empty que sigue el mouse, ahora bien como hay que aplicar el marco de motion 101...quiero que las particulas tengan su propio movimiento pero se acerquen cuando el mouse se encuentra cerca, pero si es demasiado cerca, se repelen.
 
 > Concepto de la obra
+
 La obra explora la relación entre autonomía y perturbación dentro de un sistema dinámico. Un conjunto de partículas habita un espacio en constante movimiento, impulsadas por fuerzas internas y externas. Cada entidad posee inercia, memoria y sensibilidad, respondiendo a reglas de aceleración que determinan su comportamiento.
 
 El espectador no controla directamente las partículas; las perturba. Su presencia altera el campo, generando zonas de atracción y repulsión que modifican el equilibrio del sistema.
@@ -398,7 +399,7 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/fc5osgRdq_
 
 > Mi pieza _sensible_
 
-[![20260213-0330-27-7017076-(1).gif](https://i.postimg.cc/hPHkb6pN/20260213-0330-27-7017076-(1).gif)](https://postimg.cc/Xpk1nHMg)
+![20260213-0330-27 7017076 (1)](https://github.com/user-attachments/assets/2246da32-7547-494f-b429-6e7f031018f6)
 
 ## Bitácora de reflexión
 
@@ -412,6 +413,7 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/fc5osgRdq_
 
 
 <img width="556" height="449" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/acc055f6-fa8f-4d14-8ead-9de8f9b2412d" />
+
 
 
 
