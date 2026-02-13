@@ -1,3 +1,4 @@
+[![20260213-0330-27-7017076-(1).gif](https://i.postimg.cc/hPHkb6pN/20260213-0330-27-7017076-(1).gif)](https://postimg.cc/Xpk1nHMg)
 # Unidad 2
 
 ## Bitácora de proceso de aprendizaje
@@ -413,6 +414,7 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/fc5osgRdq_
 
 
 <img width="556" height="449" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/acc055f6-fa8f-4d14-8ead-9de8f9b2412d" />
+
 
 
 
