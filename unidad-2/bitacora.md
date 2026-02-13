@@ -291,13 +291,113 @@ _Nota extra: limit() es MUY pero muy util para controlar la velocidad. Pues el c
 
 > Antes de, que ideas tengo sobre lo que quiero hacer
 
-Inicialmente, me gustaria experimentar estos conceptos en blender, usando aceleración hacia el mouse, donde las partículas aceleran hacia un Empty que sigue el mouse, ahora bien como hay que aplicar el marco de motion 101...
+Inicialmente, me gustaria experimentar estos conceptos en blender, usando aceleración hacia el mouse, donde las partículas aceleran hacia un Empty que sigue el mouse, ahora bien como hay que aplicar el marco de motion 101...quiero que las particulas tengan su propio movimiento pero se acerquen cuando el mouse se encuentra cerca, pero si es demasiado cerca, se repelen.
 
-> Concepto de la obra. Explica el concepto de tu obra generativa, qué regla aplicaste para la aceleración y por qué, si fue una decisión de diseño, o qué te evoca, si fue una exploración artística.
+> Concepto de la obra
+La obra explora la relación entre autonomía y perturbación dentro de un sistema dinámico. Un conjunto de partículas habita un espacio en constante movimiento, impulsadas por fuerzas internas y externas. Cada entidad posee inercia, memoria y sensibilidad, respondiendo a reglas de aceleración que determinan su comportamiento.
 
-> Los nodos
+El espectador no controla directamente las partículas; las perturba. Su presencia altera el campo, generando zonas de atracción y repulsión que modifican el equilibrio del sistema.
 
-> Mi pieza _si_
+Cada partícula opera bajo tres fuerzas fundamentales:
+
+- Aceleración constante/aleatoria → Representa el movimiento autónomo, la deriva natural del sistema.
+- Aceleración hacia el mouse → Representa influencia, atención o atracción.
+- Repulsión cercana → Representa límite, defensa o saturación.
+
+> Los nodos / código
+
+``` Javascript
+let particles = [];
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  
+  for (let i = 0; i < 120; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function draw() {
+  background(10, 10, 20, 40); // leve estela
+  
+  for (let p of particles) {
+    p.update();
+    p.display();
+  }
+}
+
+class Particle {
+  constructor() {
+    this.position = createVector(random(width), random(height));
+    this.velocity = p5.Vector.random2D();
+    this.velocity.mult(random(0.5, 2));
+    this.acceleration = createVector(0, 0);
+    this.maxSpeed = 4;
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  update() {
+    
+    // aceleración aleatoria
+    let randomForce = p5.Vector.random2D();
+    randomForce.mult(0.05);
+    this.applyForce(randomForce);
+    
+    
+    // aceleración mouse
+    let mouse = createVector(mouseX, mouseY);
+    let direction = p5.Vector.sub(mouse, this.position);
+    let distance = direction.mag();
+    
+    direction.normalize();
+    
+    // si está cerca
+    if (distance < 200 && distance > 50) {
+      let strength = map(distance, 50, 200, 0.5, 0);
+      direction.mult(strength);
+      this.applyForce(direction);
+    }
+    
+    // si está demasiado cerca 
+    if (distance <= 50) {
+      direction.mult(-1);
+      direction.mult(0.6);
+      this.applyForce(direction);
+    }
+
+   
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.velocity.mult(0.98); // damping
+    this.position.add(this.velocity);
+
+    // reset 
+    this.acceleration.mult(0);
+
+    this.edges();
+  }
+
+  edges() {
+    if (this.position.x > width) this.position.x = 0;
+    if (this.position.x < 0) this.position.x = width;
+    if (this.position.y > height) this.position.y = 0;
+    if (this.position.y < 0) this.position.y = height;
+  }
+
+  display() {
+    noStroke();
+    fill(150, 200, 255, 180);
+    ellipse(this.position.x, this.position.y, 6);
+  }
+}
+```
+_Link: https://editor.p5js.org/LuisaRoech/sketches/fc5osgRdq_
+
+> Mi pieza _sensible_
+![20260213-0330-27 7017076 (1)](https://github.com/user-attachments/assets/3b190990-a483-4308-8e00-831bdb638c17)
 
 ## Bitácora de reflexión
 
@@ -311,6 +411,7 @@ Inicialmente, me gustaria experimentar estos conceptos en blender, usando aceler
 
 
 <img width="556" height="449" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/acc055f6-fa8f-4d14-8ead-9de8f9b2412d" />
+
 
 
 
