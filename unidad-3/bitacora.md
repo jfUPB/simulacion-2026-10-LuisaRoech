@@ -24,7 +24,7 @@ Y aun asi, no puedo evitar en pensar que en este mundo moderno evitamos la fricc
 
 _Automat – Edward Hopper_
 
-–Por aquí hay una pregunta
+"–Por aquí hay una pregunta
 
 ¿Qué consejo puede darle a los jóvenes artistas de Colombia?
 
@@ -50,7 +50,7 @@ Concluyó
 
 –Y sin embargo
 
-De algo hay que vivir
+De algo hay que vivir"
 
 _No es trabajo pero cansa - Nicolas y los fumadores_
 
@@ -61,6 +61,7 @@ _No es trabajo pero cansa - Nicolas y los fumadores_
 
 
 ## Bitácora de reflexión
+
 
 
 
