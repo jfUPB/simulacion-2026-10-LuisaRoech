@@ -52,7 +52,7 @@ Concluyó
 
 De algo hay que vivir
 
-_Nicolas y los fumadores - no es trabajo pero cansa_
+_No es trabajo pero cansa - Nicolas y los fumadores_
 
 ### (Actividad 02)
 
@@ -61,6 +61,7 @@ _Nicolas y los fumadores - no es trabajo pero cansa_
 
 
 ## Bitácora de reflexión
+
 
 
 
