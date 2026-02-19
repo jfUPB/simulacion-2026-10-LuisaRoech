@@ -21,23 +21,39 @@ Tal vez el propósito no esté en competir contra la velocidad del mundo, sino e
 Y aun asi, no puedo evitar en pensar que en este mundo moderno evitamos la fricción. evitamos el aburrimiento. evitamos el no saber. Queremos respuestas antes de hacernos las preguntas. Queremos resultados antes de atravesar el proceso. Y a veces siento que, más que cansancio, es esa huida constante lo que pesa.
 
 <img width="800" height="626" alt="image" src="https://github.com/user-attachments/assets/db71115a-4ed8-4b94-bcc9-4cde13ec4298" />
+
 _Automat – Edward Hopper_
 
 –Por aquí hay una pregunta
+
 ¿Qué consejo puede darle a los jóvenes artistas de Colombia?
+
 El autor
+
 Se tomó un sorbo de agua y respondió
+
 –En este mundo es preciso pararse y elegir
+
 El oro o los espejos
+
 En lo personal, yo recomiendo siempre los espejos
+
 Pues de nada sirve la plata en la cuenta
+
 Sin la belleza misteriosa de las cosas
+
 El auditorio
+
 Estalló en aplausos de júbilo ante la respuesta del autor
+
 Quien, sin que nadie pudiera ya oírlo
+
 Mirando al piso
+
 Concluyó
+
 –Y sin embargo
+
 De algo hay que vivir
 
 _Nicolas y los fumadores - no es trabajo pero cansa_
@@ -49,5 +65,6 @@ _Nicolas y los fumadores - no es trabajo pero cansa_
 
 
 ## Bitácora de reflexión
+
 
 
