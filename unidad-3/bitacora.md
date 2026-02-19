@@ -28,9 +28,7 @@ _Automat – Edward Hopper_
 
 ¿Qué consejo puede darle a los jóvenes artistas de Colombia?
 
-El autor
-
-Se tomó un sorbo de agua y respondió
+El autor se tomó un sorbo de agua y respondió
 
 –En este mundo es preciso pararse y elegir
 
@@ -42,9 +40,7 @@ Pues de nada sirve la plata en la cuenta
 
 Sin la belleza misteriosa de las cosas
 
-El auditorio
-
-Estalló en aplausos de júbilo ante la respuesta del autor
+El auditorio estalló en aplausos de júbilo ante la respuesta del autor
 
 Quien, sin que nadie pudiera ya oírlo
 
@@ -65,6 +61,7 @@ _Nicolas y los fumadores - no es trabajo pero cansa_
 
 
 ## Bitácora de reflexión
+
 
 
 
