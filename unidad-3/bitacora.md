@@ -54,13 +54,26 @@ De algo hay que vivir"
 
 _No es trabajo pero cansa - Nicolas y los fumadores_
 
-### (Actividad 02)
+### Motion 101 (Actividad 02)
+
+Las fuerzas, 
+
+### Tres obras (Actividad 03)
+
+1. Fricción.
+   
+2. Resistencia al aire y fluidos
+   
+3. Atracción gravitacional.
 
 ## Bitácora de aplicación 
 
+### (Actividad 04)
 
 
 ## Bitácora de reflexión
+
+### (Actividad 05)
 
 
 
