@@ -52,9 +52,9 @@ Concluyó
 –Y sin embargo
 
 De algo hay que vivir"
-
-_No es trabajo pero cansa - Nicolas y los fumadores_
 ```
+_No es trabajo pero cansa - Nicolas y los fumadores_
+
 
 ### Motion 101 (Actividad 02)
 
@@ -284,6 +284,7 @@ Todas estas obras comparten muchas cosas en común, lo unico que cambia es la fo
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
