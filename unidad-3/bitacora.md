@@ -58,15 +58,64 @@ _No es trabajo pero cansa - Nicolas y los fumadores_
 
 Cada objeto suele tener tres vectores: posición, velocidad y aceleración. Las fuerzas (como gravedad o viento) también son vectores. Todas las fuerzas se suman, esa suma se convierte en aceleración (según F = m·a), la aceleración modifica la velocidad, y la velocidad modifica la posición en cada frame. Es un ciclo continuo que produce movimiento
  
-or ejemplo: imagina una partícula en pantalla. Le aplicas una fuerza de gravedad hacia abajo y una fuerza de viento hacia la derecha. Al sumar esos vectores, la partícula no cae recta ni se mueve solo a la derecha: se mueve en diagonal. Si agregas fricción, el movimiento se suaviza. Si aumentas la masa, la misma fuerza la afecta menos. Todo es combinación de vectores.
+Por ejemplo: imagina una partícula en pantalla. Le aplicas una fuerza de gravedad hacia abajo y una fuerza de viento hacia la derecha. Al sumar esos vectores, la partícula no cae recta ni se mueve solo a la derecha: se mueve en diagonal. Si agregas fricción, el movimiento se suaviza. Si aumentas la masa, la misma fuerza la afecta menos. Todo es combinación de vectores.
 
 ### Tres obras (Actividad 03)
 
 1. Fricción.
+
+ let particles = [];
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(10, 20);
+
+  if (mouseIsPressed) {
+    particles.push(new Particle(mouseX, mouseY));
+  }
+
+  for (let p of particles) {
+    p.update();
+    p.display();
+  }
+}
+
+class Particle {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.vel = p5.Vector.random2D().mult(random(2, 5));
+    this.acc = createVector(0, 0);
+  }
+
+  applyForce(force) {
+    this.acc.add(force);
+  }
+
+  update() {
+    let friction = this.vel.copy();
+    friction.mult(-1);
+    friction.normalize();
+    friction.mult(0.05); // coeficiente de fricción
+    this.applyForce(friction);
+
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+  }
+
+  display() {
+    noStroke();
+    fill(200, 150);
+    circle(this.pos.x, this.pos.y, 6);
+  }
+}
    
-2. Resistencia al aire y fluidos
+3. Resistencia al aire y fluidos
    
-3. Atracción gravitacional.
+4. Atracción gravitacional.
 
 ## Bitácora de aplicación 
 
@@ -76,6 +125,7 @@ or ejemplo: imagina una partícula en pantalla. Le aplicas una fuerza de graveda
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
