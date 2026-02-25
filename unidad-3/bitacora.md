@@ -314,11 +314,16 @@ El usuario cree que controla… pero en realidad solo altera el sistema, no lo d
 
 > Nodos
 
+
+
 > La obra
+
+
 
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
