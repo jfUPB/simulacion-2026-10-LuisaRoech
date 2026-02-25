@@ -279,11 +279,45 @@ Todas estas obras comparten muchas cosas en común, lo unico que cambia es la fo
 ### (Actividad 04)
 
 > La historia
-> 
+
+Es gracioso, pero después de la charla sobre arte generativo, la inteligencia artificial y el como estamos aplicando esto en los trabajos, sentí que lo que he hecho hasta ahora se percibe vacío. Y eso me frustra, porque amo el arte y la creación.
+
+Me inquieta la idea de que, al trabajar con sistemas generativos, estoy construyendo algo donde no tengo control absoluto. Una obra basada en condiciones y reglas nunca será tan específica o detallada como una pintura tradicional o una pieza completamente dirigida por la mano humana.
+
+Entonces me pregunto: ¿qué hacer?
+
+Quizás la respuesta no es intentar controlar todo desde el inicio, sino comenzar con algo simple, más manejable, y permitir que crezca hacia algo menos predecible. El comportamiento de las bandadas de aves puede parecer un recurso común dentro del arte generativo. Sin embargo, quiero experimentarlo por mi cuenta, no como efecto visual, sino como estructura conceptual.
+
+Las aves, simbólicamente, cargan significados profundos en culturas del Asia del Sur y Asia Central — regiones que últimamente me interesan mucho, especialmente India. En tradiciones sufíes del sur de Asia (Pakistán y norte de India), el ave representa el alma humana en búsqueda de lo divino. El vuelo es metáfora del viaje espiritual: desplazamiento, transformación, tránsito entre estados.
+
+En Asia Central — Mongolia, Irán, Kazajistán, Uzbekistán — el simbolismo cambia de matiz, pero mantiene su fuerza. En el tengrianismo (Tengrism), el cielo no es decorativo: es lo absoluto. Las aves, especialmente el águila — como el Golden eagle — son las únicas criaturas capaces de habitar ese dominio. Son mediadoras entre humanos y cielo, símbolos de poder, protección y legitimidad.
+
+En ambos contextos, el vuelo implica trascendencia.
+Pero la bandada introduce un significado extra, el individuo no existe aislado. La revelación no está en el ave sola, sino en el conjunto. La divinidad — o la conciencia — emerge colectivamente.
+
+Y mientras pensaba en todo esto, recordé el nuevo álbum de Gorillaz, _The Mountain_. Más allá de si el disco está inspirado directamente en Asia Central o no, sí toma influencias del sur de Asia y se nutre de experiencias ligadas a espiritualidad, duelo, tránsito y viaje cultural.
+
+```
+Así como el águila acompaña al viajero en la estepa,
+mi obra busca acompañar el tránsito entre control y pérdida de control.
+
+En las culturas de Asia Central, especialmente en aquellas vinculadas al Tengrism, el cielo no es un fondo: es lo absoluto. El águila históricamente en la cetrería nómada — no representa únicamente poder o libertad, sino mediación. Es puente entre la tierra y el cielo, entre lo humano y lo infinito.
+```
+
+> ¿Como implemento interactividad?
+
+Ya que no puedo enloquecerme con el scope de la obra (aunque me gustaria) pienso en algo simple, interacción con mouse donde los boids evitan el cursor. O lo siguen suavemente. O se dividen cuando el cursor entra.
+
+El usuario cree que controla… pero en realidad solo altera el sistema, no lo domina.
+
+> Nodos
+
+> La obra
 
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
