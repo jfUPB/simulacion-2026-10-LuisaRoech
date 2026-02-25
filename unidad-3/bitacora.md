@@ -64,6 +64,18 @@ Por ejemplo: imagina una partícula en pantalla. Le aplicas una fuerza de graved
 
 1. Fricción.
 
+La fricción es simplemente una fuerza opuesta a la velocidad:
+
+``` Javascript
+friction = velocity.copy()
+friction.mult(-1)
+friction.normalize()
+friction.mult(coef)
+```
+
+En este la idea fue crear partículas lanzadas al azar que poco a poco pierden energía, como recuerdos que se apagan.
+
+``` Javascript
  let particles = [];
 
 function setup() {
@@ -112,19 +124,165 @@ class Particle {
     circle(this.pos.x, this.pos.y, 6);
   }
 }
-   
-3. Resistencia al aire y fluidos
-   
-4. Atracción gravitacional.
+```
+
+2. Resistencia al aire y fluidos
+
+Para esta fuerza que depende de la velocidad, cree objetos cayendo en un “líquido invisible” en la mitad inferior del canvas (un tanto similar a los ejemplos _the nature of code_).
+
+``` Js
+let movers = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 10; i++) {
+    movers.push(new Mover(random(width), random(-200, 0), random(1, 4)));
+  }
+}
+
+function draw() {
+  background(15);
+
+  fill(40, 60, 120, 100);
+  rect(0, height/2, width, height/2); // zona de fluido
+
+  for (let m of movers) {
+    let gravity = createVector(0, 0.1 * m.mass);
+    m.applyForce(gravity);
+
+    if (m.pos.y > height/2) {
+      let drag = m.vel.copy();
+      let speed = drag.mag();
+      drag.mult(-1);
+      drag.normalize();
+      drag.mult(0.02 * speed * speed);
+      m.applyForce(drag);
+    }
+
+    m.update();
+    m.display();
+  }
+}
+
+class Mover {
+  constructor(x, y, m) {
+    this.pos = createVector(x, y);
+    this.vel = createVector(0, 0);
+    this.acc = createVector(0, 0);
+    this.mass = m;
+  }
+
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.acc.add(f);
+  }
+
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+  }
+
+  display() {
+    fill(200);
+    circle(this.pos.x, this.pos.y, this.mass * 8);
+  }
+}
+```
+
+3. Atracción gravitacional.
+
+La fuerza gravitacional depende de la distancia (F ∝ (m1 * m2) / distancia²) por ello experimente con partículas orbitando un centro como si fuera un núcleo cósmico.
+
+``` Js
+let attractor;
+let movers = [];
+
+function setup() {
+  createCanvas(600, 400);
+  attractor = new Attractor(width/2, height/2);
+
+  for (let i = 0; i < 20; i++) {
+    movers.push(new Mover(random(width), random(height), random(1, 3)));
+  }
+}
+
+function draw() {
+  background(5, 10, 20, 50);
+
+  attractor.display();
+
+  for (let m of movers) {
+    let force = attractor.attract(m);
+    m.applyForce(force);
+    m.update();
+    m.display();
+  }
+}
+
+class Attractor {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.mass = 20;
+  }
+
+  attract(mover) {
+    let force = p5.Vector.sub(this.pos, mover.pos);
+    let distance = constrain(force.mag(), 5, 25);
+    force.normalize();
+
+    let G = 1;
+    let strength = (G * this.mass * mover.mass) / (distance * distance);
+    force.mult(strength);
+
+    return force;
+  }
+
+  display() {
+    fill(255, 200);
+    circle(this.pos.x, this.pos.y, 30);
+  }
+}
+
+class Mover {
+  constructor(x, y, m) {
+    this.pos = createVector(x, y);
+    this.vel = p5.Vector.random2D();
+    this.acc = createVector(0, 0);
+    this.mass = m;
+  }
+
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.acc.add(f);
+  }
+
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+  }
+
+  display() {
+    fill(180);
+    circle(this.pos.x, this.pos.y, this.mass * 6);
+  }
+}
+``` 
+
+Todas estas obras comparten muchas cosas en común, lo unico que cambia es la forma en como calculo sus fuerzas. Eso es Motion 101 aplicado al arte generativo.
 
 ## Bitácora de aplicación 
 
 ### (Actividad 04)
 
+> La historia
+> 
 
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
