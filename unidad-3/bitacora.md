@@ -276,7 +276,7 @@ Todas estas obras comparten muchas cosas en común, lo unico que cambia es la fo
 
 ## Bitácora de aplicación 
 
-### (Actividad 04)
+### Las bandadas de aves (Actividad 04)
 
 > La historia
 
@@ -301,7 +301,9 @@ Y mientras pensaba en todo esto, recordé el nuevo álbum de Gorillaz, _The Moun
 Así como el águila acompaña al viajero en la estepa,
 mi obra busca acompañar el tránsito entre control y pérdida de control.
 
-En las culturas de Asia Central, especialmente en aquellas vinculadas al Tengrism, el cielo no es un fondo: es lo absoluto. El águila históricamente en la cetrería nómada — no representa únicamente poder o libertad, sino mediación. Es puente entre la tierra y el cielo, entre lo humano y lo infinito.
+En las culturas de Asia Central, especialmente en aquellas vinculadas al Tengrism, el cielo no es un fondo: es lo absoluto.
+El águila históricamente en la cetrería nómada — no representa únicamente poder o libertad, sino mediación.
+Es puente entre la tierra y el cielo, entre lo humano y lo infinito.
 ```
 
 > ¿Como implemento interactividad?
@@ -317,6 +319,7 @@ El usuario cree que controla… pero en realidad solo altera el sistema, no lo d
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
