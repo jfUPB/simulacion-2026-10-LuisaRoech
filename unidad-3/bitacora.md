@@ -24,6 +24,7 @@ Y aun asi, no puedo evitar en pensar que en este mundo moderno evitamos la fricc
 
 _Automat – Edward Hopper_
 
+```
 "–Por aquí hay una pregunta
 
 ¿Qué consejo puede darle a los jóvenes artistas de Colombia?
@@ -53,6 +54,7 @@ Concluyó
 De algo hay que vivir"
 
 _No es trabajo pero cansa - Nicolas y los fumadores_
+```
 
 ### Motion 101 (Actividad 02)
 
@@ -282,6 +284,7 @@ Todas estas obras comparten muchas cosas en común, lo unico que cambia es la fo
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
