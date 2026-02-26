@@ -312,7 +312,10 @@ Ya que no puedo enloquecerme con el scope de la obra (aunque me gustaria) pienso
 
 El usuario cree que controla… pero en realidad solo altera el sistema, no lo domina.
 
-> Nodos
+https://youtu.be/YsGeMIpEcY4?si=NYcN3tQaQZZf3Gxh
+
+
+> El codigo
 
 
 
@@ -323,6 +326,7 @@ El usuario cree que controla… pero en realidad solo altera el sistema, no lo d
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
