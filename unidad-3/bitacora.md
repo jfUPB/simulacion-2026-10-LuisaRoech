@@ -317,7 +317,220 @@ https://youtu.be/YsGeMIpEcY4?si=NYcN3tQaQZZf3Gxh
 
 > El codigo
 
+let flock = [];
+let totalBoids = 140;
 
+let mouseStillTime = 0;
+let lastMouse;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  background(18, 12, 8);
+  lastMouse = createVector(mouseX, mouseY);
+
+  for (let i = 0; i < totalBoids; i++) {
+    flock.push(new Boid(random(width), random(height)));
+  }
+}
+
+function draw() {
+  // Fondo desértico nocturno con estela cálida
+  fill(18, 12, 8, 40);
+  noStroke();
+  rect(0, 0, width, height);
+
+  // polvo sutil
+  for (let i = 0; i < 3; i++) {
+    stroke(120, 90, 50, 15);
+    point(random(width), random(height));
+  }
+
+  // detectar si el mouse está quieto
+  let currentMouse = createVector(mouseX, mouseY);
+  if (p5.Vector.dist(currentMouse, lastMouse) < 2) {
+    mouseStillTime++;
+  } else {
+    mouseStillTime = 0;
+  }
+  lastMouse = currentMouse.copy();
+
+  for (let boid of flock) {
+    boid.edges();
+
+    if (mouseStillTime > 120) {
+      boid.ritualOrbit(mouseX, mouseY);
+    } else {
+      boid.flock(flock);
+    }
+
+    boid.update();
+    boid.show();
+  }
+}
+
+class Boid {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.velocity = p5.Vector.random2D();
+    this.velocity.setMag(random(1, 2));
+    this.acceleration = createVector(0, 0);
+
+    this.mass = 1;
+    this.maxForce = 0.12;
+    this.maxSpeed = 2.4;
+  }
+
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.acceleration.add(f);
+  }
+
+  edges() {
+    if (this.position.x > width) this.position.x = 0;
+    if (this.position.x < 0) this.position.x = width;
+    if (this.position.y > height) this.position.y = 0;
+    if (this.position.y < 0) this.position.y = height;
+  }
+
+  // Fuerza vertical sutil (Tengri / cielo absoluto)
+  skyPull() {
+    return createVector(0, -0.015);
+  }
+
+  ritualOrbit(mx, my) {
+    let center = createVector(mx, my);
+    let toCenter = p5.Vector.sub(center, this.position);
+    let distToCenter = toCenter.mag();
+
+    // mantener órbita amplia
+    if (distToCenter > 200) {
+      toCenter.setMag(0.05);
+      this.applyForce(toCenter);
+    }
+
+    // rotación tangencial
+    let tangent = createVector(-toCenter.y, toCenter.x);
+    tangent.normalize();
+    tangent.mult(0.08);
+
+    this.applyForce(tangent);
+    this.applyForce(this.skyPull());
+  }
+
+  flock(boids) {
+    let alignment = this.align(boids);
+    let cohesion = this.cohesion(boids);
+    let separation = this.separation(boids);
+
+    this.applyForce(alignment);
+    this.applyForce(cohesion);
+    this.applyForce(separation);
+    this.applyForce(this.skyPull());
+  }
+
+  align(boids) {
+    let perception = 60;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of boids) {
+      let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+      if (other != this && d < perception) {
+        steering.add(other.velocity);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  cohesion(boids) {
+    let perception = 70;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of boids) {
+      let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+      if (other != this && d < perception) {
+        steering.add(other.position);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.sub(this.position);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  separation(boids) {
+    let perception = 40;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of boids) {
+      let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+      if (other != this && d < perception) {
+        let diff = p5.Vector.sub(this.position, other.position);
+        diff.normalize();
+        diff.div(d);
+        steering.add(diff);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce * 1.3);
+    }
+
+    return steering;
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  show() {
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(this.velocity.heading());
+
+    let flap = sin(frameCount * 0.4 + this.position.x * 0.05) * 4;
+
+    // aura cálida
+    noStroke();
+    fill(255, 180, 90, 25);
+    ellipse(0, 0, 28);
+
+    fill(255, 210, 140, 220);
+    beginShape();
+    vertex(12, 0);
+    vertex(-4, -10 - flap);
+    vertex(-8, 0);
+    vertex(-4, 10 + flap);
+    endShape(CLOSE);
+
+    pop();
+  }
+}
 
 > La obra
 
@@ -326,6 +539,7 @@ https://youtu.be/YsGeMIpEcY4?si=NYcN3tQaQZZf3Gxh
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
