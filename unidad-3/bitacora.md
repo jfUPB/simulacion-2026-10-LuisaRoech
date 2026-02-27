@@ -573,10 +573,18 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/JH9Gv0Y-l_
 
 https://github.com/user-attachments/assets/97a46563-69e3-4f9b-8af3-8dbebaacc9e1
 
-
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
+1.  ¿Qué es el marco de movimiento motion 101 y cómo se relacionan: fuerza, aceleración, velocidad y posición?
+
+
+  
+2. Alexander candler
+
+> Datos interesantes
+> Obra
 
 
 
