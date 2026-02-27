@@ -312,11 +312,9 @@ Ya que no puedo enloquecerme con el scope de la obra (aunque me gustaria) pienso
 
 El usuario cree que controla… pero en realidad solo altera el sistema, no lo domina.
 
-https://youtu.be/YsGeMIpEcY4?si=NYcN3tQaQZZf3Gxh
-
-
 > El codigo
 
+```
 let flock = [];
 let totalBoids = 140;
 
@@ -531,6 +529,7 @@ class Boid {
     pop();
   }
 }
+```
 
 > La obra
 
@@ -539,6 +538,7 @@ class Boid {
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
