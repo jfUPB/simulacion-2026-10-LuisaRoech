@@ -316,15 +316,25 @@ El usuario cree que controla… pero en realidad solo altera el sistema, no lo d
 
 ```
 let flock = [];
-let totalBoids = 140;
+let totalBoids = 120;
 
-let mouseStillTime = 0;
-let lastMouse;
+let memoryField = [];
+let cols, rows;
+let resolution = 30;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(18, 12, 8);
-  lastMouse = createVector(mouseX, mouseY);
+
+  cols = floor(width / resolution);
+  rows = floor(height / resolution);
+
+  for (let i = 0; i < cols; i++) {
+    memoryField[i] = [];
+    for (let j = 0; j < rows; j++) {
+      memoryField[i][j] = 0;
+    }
+  }
 
   for (let i = 0; i < totalBoids; i++) {
     flock.push(new Boid(random(width), random(height)));
@@ -332,39 +342,49 @@ function setup() {
 }
 
 function draw() {
-  // Fondo desértico nocturno con estela cálida
-  fill(18, 12, 8, 40);
+  fill(18, 12, 8, 60);
   noStroke();
   rect(0, 0, width, height);
 
-  // polvo sutil
-  for (let i = 0; i < 3; i++) {
-    stroke(120, 90, 50, 15);
-    point(random(width), random(height));
-  }
-
-  // detectar si el mouse está quieto
-  let currentMouse = createVector(mouseX, mouseY);
-  if (p5.Vector.dist(currentMouse, lastMouse) < 2) {
-    mouseStillTime++;
-  } else {
-    mouseStillTime = 0;
-  }
-  lastMouse = currentMouse.copy();
+  updateMemory();
+  drawMemory();
 
   for (let boid of flock) {
     boid.edges();
-
-    if (mouseStillTime > 120) {
-      boid.ritualOrbit(mouseX, mouseY);
-    } else {
-      boid.flock(flock);
-    }
-
+    boid.flock(flock);
     boid.update();
     boid.show();
   }
 }
+
+
+function updateMemory() {
+  let col = floor(mouseX / resolution);
+  let row = floor(mouseY / resolution);
+
+  if (col >= 0 && col < cols && row >= 0 && row < rows) {
+    memoryField[col][row] += 0.4;
+    memoryField[col][row] = constrain(memoryField[col][row], 0, 6);
+  }
+}
+
+function drawMemory() {
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+
+      let val = memoryField[i][j];
+
+      memoryField[i][j] *= 0.985;
+
+      if (val > 0.1) {
+        stroke(220, 170, 100, val * 30);
+        strokeWeight(2);
+        point(i * resolution, j * resolution);
+      }
+    }
+  }
+}
+
 
 class Boid {
   constructor(x, y) {
@@ -374,13 +394,13 @@ class Boid {
     this.acceleration = createVector(0, 0);
 
     this.mass = 1;
-    this.maxForce = 0.12;
-    this.maxSpeed = 2.4;
+    this.baseMaxSpeed = 2.2;
+    this.maxSpeed = this.baseMaxSpeed;
+    this.maxForce = 0.1;
   }
 
   applyForce(force) {
-    let f = p5.Vector.div(force, this.mass);
-    this.acceleration.add(f);
+    this.acceleration.add(p5.Vector.div(force, this.mass));
   }
 
   edges() {
@@ -390,41 +410,59 @@ class Boid {
     if (this.position.y < 0) this.position.y = height;
   }
 
-  // Fuerza vertical sutil (Tengri / cielo absoluto)
   skyPull() {
-    return createVector(0, -0.015);
-  }
-
-  ritualOrbit(mx, my) {
-    let center = createVector(mx, my);
-    let toCenter = p5.Vector.sub(center, this.position);
-    let distToCenter = toCenter.mag();
-
-    // mantener órbita amplia
-    if (distToCenter > 200) {
-      toCenter.setMag(0.05);
-      this.applyForce(toCenter);
-    }
-
-    // rotación tangencial
-    let tangent = createVector(-toCenter.y, toCenter.x);
-    tangent.normalize();
-    tangent.mult(0.08);
-
-    this.applyForce(tangent);
-    this.applyForce(this.skyPull());
+    return createVector(0, -0.01);
   }
 
   flock(boids) {
-    let alignment = this.align(boids);
-    let cohesion = this.cohesion(boids);
-    let separation = this.separation(boids);
-
-    this.applyForce(alignment);
-    this.applyForce(cohesion);
-    this.applyForce(separation);
+    this.applyForce(this.align(boids));
+    this.applyForce(this.cohesion(boids));
+    this.applyForce(this.separation(boids));
     this.applyForce(this.skyPull());
+    this.applyMemoryAvoidance();
   }
+
+  applyMemoryAvoidance() {
+  let searchRadius = 80;
+  let totalForce = createVector(0, 0);
+
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+
+      let influence = memoryField[i][j];
+
+      if (influence > 0.3) {
+        let cellPos = createVector(i * resolution, j * resolution);
+        let d = p5.Vector.dist(this.position, cellPos);
+
+        if (d < searchRadius) {
+
+          let flee = p5.Vector.sub(this.position, cellPos);
+
+          // fuerza inversamente proporcional a la distancia
+          let strength = map(d, 0, searchRadius, 1, 0);
+          strength *= influence * influence; // exponencial
+
+          flee.normalize();
+          flee.mult(strength * 0.6);
+
+          totalForce.add(flee);
+        }
+      }
+    }
+  }
+
+  // si la fuerza es significativa, rompe formación
+  if (totalForce.mag() > 0.05) {
+    totalForce.limit(0.8);
+    this.applyForce(totalForce);
+
+    // si están en zona marcada, se alteran
+    this.maxSpeed = this.baseMaxSpeed + 0.5;
+  } else {
+    this.maxSpeed = this.baseMaxSpeed;
+  }
+}
 
   align(boids) {
     let perception = 60;
@@ -493,7 +531,7 @@ class Boid {
       steering.div(total);
       steering.setMag(this.maxSpeed);
       steering.sub(this.velocity);
-      steering.limit(this.maxForce * 1.3);
+      steering.limit(this.maxForce * 1.2);
     }
 
     return steering;
@@ -511,12 +549,11 @@ class Boid {
     translate(this.position.x, this.position.y);
     rotate(this.velocity.heading());
 
-    let flap = sin(frameCount * 0.4 + this.position.x * 0.05) * 4;
+    let flap = sin(frameCount * 0.3 + this.position.x * 0.05) * 4;
 
-    // aura cálida
     noStroke();
     fill(255, 180, 90, 25);
-    ellipse(0, 0, 28);
+    ellipse(0, 0, 26);
 
     fill(255, 210, 140, 220);
     beginShape();
@@ -530,14 +567,16 @@ class Boid {
   }
 }
 ```
+_Link: https://editor.p5js.org/LuisaRoech/sketches/JH9Gv0Y-l_
 
 > La obra
 
-
+<img width="916" height="746" alt="image" src="https://github.com/user-attachments/assets/44871997-ac5c-4550-a81b-29b3c11f78c3" />
 
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
