@@ -571,11 +571,13 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/JH9Gv0Y-l_
 
 > La obra
 
-https://github.com/user-attachments/assets/f071907c-3dc1-462d-ab74-81eca7022e5d
+https://github.com/user-attachments/assets/97a46563-69e3-4f9b-8af3-8dbebaacc9e1
+
 
 ## Bitácora de reflexión
 
 ### (Actividad 05)
+
 
 
 
