@@ -15,7 +15,7 @@ Fase
 
 ### Repasa conceptos de las unidades anteriores (Actividad 07)
 
-´´´ Javascript
+``` Js
 class Oscillator {
   constructor() {
     this.angle = createVector();
@@ -80,13 +80,52 @@ class Oscillator {
     pop();
   }
 }
-´´´
+```
 
-### (Actividad 08)
+### Ondas (Actividad 08)
+
+``` Js
+let angle = 0;
+let angleVelocity = 0.2;
+let amplitude = 100;
+
+function setup() {
+  createCanvas(640, 240);
+ 
+}
+
+function draw(){
+  background(255);
+  
+  stroke(0);
+  strokeWeight(2);
+  fill(127, 127);
+  
+  let a  = angle;
+  
+  for (let x = 0; x <= width; x += 24) {
+    // 1) Calculate the y position according to amplitude and sine of the angle.
+    let y = amplitude * sin(a);
+    // 2) Draw a circle at the (x,y) position.
+    circle(x, y + height / 2, 48);
+    // 3) Increment the angle according to angular velocity.
+     a += 0.3;
+  }
+  
+   angle += angleVelocity;
+}
+```
+
+### Resortes (Actividad 09)
+
+
+
+### Péndulo (Actividad 10)
 
 ## Bitácora de aplicación 
 
 
 
 ## Bitácora de reflexión
+
 
