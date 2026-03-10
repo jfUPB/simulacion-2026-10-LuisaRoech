@@ -5,6 +5,7 @@
 ### Memo Akten (Actividad 01)
 
 [![tumblr-p5t67a10631qav3uso1-540.gif](https://i.postimg.cc/VLQSXpky/tumblr-p5t67a10631qav3uso1-540.gif)](https://postimg.cc/XXL7b25x)
+
 _Gloomy Sunday by Memo Akten_
 
 El sonido, un elemento que potencia mucho las emociones que pueden generar en un arte. Esta colecion de obras en especial me produce una sensación extraña: a veces parece que la obra me lleva hacia un estado de tranquilidad o contemplación, pero de repente puede aparecer un cambio inesperado que genera cierta incomodidad. Esa oscilación entre calma e inquietud hace que la experiencia sea muy particular.
@@ -145,6 +146,7 @@ function draw(){
 
 
 ## Bitácora de reflexión
+
 
 
 
