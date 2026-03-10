@@ -4,6 +4,8 @@
 
 ### Memo Akten (Actividad 01)
 
+[![image.png](https://i.postimg.cc/Zq7B3qCd/image.png)](https://postimg.cc/yJR8Csh1)
+
 <img width="540" height="304" alt="image" src="https://github.com/user-attachments/assets/4c00c2cd-0181-4d50-9c4a-810cbbadf416" />
 
 El sonido, un elemento que potencia mucho las emociones que pueden generar en un arte. Esta colecion de obras en especial me produce una sensación extraña: a veces parece que la obra me lleva hacia un estado de tranquilidad o contemplación, pero de repente puede aparecer un cambio inesperado que genera cierta incomodidad. Esa oscilación entre calma e inquietud hace que la experiencia sea muy particular.
@@ -144,6 +146,7 @@ function draw(){
 
 
 ## Bitácora de reflexión
+
 
 
 
