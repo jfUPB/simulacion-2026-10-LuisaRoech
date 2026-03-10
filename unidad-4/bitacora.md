@@ -12,7 +12,7 @@ El sonido, un elemento que potencia mucho las emociones que pueden generar en un
 
 Aún me resulta difícil imaginar cuál es el flujo de pensamiento necesario para crear obras así. Me pregunto cuánto del resultado puede ser realmente decidido por el artista y cuánto se deja a la aleatoriedad o al comportamiento del propio sistema que se crea. 
 
-Investigue investigue un poco sobre el y suele explorar preguntas sobre **la naturaleza de la realidad, la conciencia, la relación entre humanos y máquinas y la conexión entre ciencia y espiritualidad**. _Simple Harmonic Motion (2011–)_ es una serie de obras audiovisuales generativas basadas en principios matemáticos y físicos. El proyecto investiga cómo comportamientos complejos pueden surgir a partir de patrones de movimientos armónicos simples como la de un péndulo (como todo lo que estamos viendo en esta materia).
+Investigue un poco sobre el y suele explorar preguntas sobre **la naturaleza de la realidad, la conciencia, la relación entre humanos y máquinas y la conexión entre ciencia y espiritualidad**. _Simple Harmonic Motion (2011–)_ es una serie de obras audiovisuales generativas basadas en principios matemáticos y físicos. El proyecto investiga cómo comportamientos complejos pueden surgir a partir de patrones de movimientos armónicos simples como la de un péndulo (como todo lo que estamos viendo en esta materia).
 
 ### Conceptos fundamentales (Actividad 02)
 
@@ -146,6 +146,7 @@ function draw(){
 
 
 ## Bitácora de reflexión
+
 
 
 
