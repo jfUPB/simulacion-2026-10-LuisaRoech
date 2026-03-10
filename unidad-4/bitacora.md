@@ -2,6 +2,23 @@
 
 ## Bitácora de proceso de aprendizaje
 
+### Memo Akten (Actividad 01)
+
+<img width="1008" height="567" alt="image" src="https://github.com/user-attachments/assets/37e64dff-9e52-4515-8711-14d0cf199c04" />
+
+El sonido, un elemento que potencia mucho las emociones que pueden generar en un arte. Esta colecion de obras en especial me produce una sensación extraña: a veces parece que la obra me lleva hacia un estado de tranquilidad o contemplación, pero de repente puede aparecer un cambio inesperado que genera cierta incomodidad. Esa oscilación entre calma e inquietud hace que la experiencia sea muy particular.
+
+Aún me resulta difícil imaginar cuál es el flujo de pensamiento necesario para crear obras así. Me pregunto cuánto del resultado puede ser realmente decidido por el artista y cuánto se deja a la aleatoriedad o al comportamiento del propio sistema que se crea. 
+
+Investigue investigue un poco sobre el y suele explorar preguntas sobre **la naturaleza de la realidad, la conciencia, la relación entre humanos y máquinas y la conexión entre ciencia y espiritualidad**. _Simple Harmonic Motion (2011–)_ es una serie de obras audiovisuales generativas basadas en principios matemáticos y físicos. El proyecto investiga cómo comportamientos complejos pueden surgir a partir de patrones de movimientos armónicos simples como la de un péndulo (como todo lo que estamos viendo en esta materia).
+
+### Conceptos fundamentales (Actividad 02)
+
+a
+
+### (Actividad 03)
+### (Actividad 04)
+### (Actividad 05)
 
 ### Funciones sinusoides (Actividad 06)
 
@@ -127,5 +144,6 @@ function draw(){
 
 
 ## Bitácora de reflexión
+
 
 
