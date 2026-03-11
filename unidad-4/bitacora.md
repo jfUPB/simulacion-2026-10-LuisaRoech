@@ -27,7 +27,7 @@ El motion 101 referente al segundo código introduce el modelo básico del movim
  this.position.add(this.velocity); // suma velocidad a la posición
 ```
 
-Ahora bien, ¿que hace el heading()? En show() aparece:
+Ahora bien, ¿que hace el `heading()`? En `show()` aparece:
 
 ``` Js
 let angle = this.velocity.heading();
@@ -54,11 +54,72 @@ Por utlimo, `push()` y `pop()`; `push()` guarda el estado de la posición del si
 
 ### Practica un poco (Actividad 03)
 
-Partiendo del código anterior, 
+Partiendo del código anterior, se hará tres cambios, primero el vehículo será un triángulo. Usare `heading()` para que el triángulo apunte hacia la dirección de movimiento y por ultimo agregar las teclas de flecha para controlar la aceleración.
+
+``` Js
+
+class Mover {
+  constructor() {
+    this.position = createVector(width / 2, height / 2);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    this.topspeed = 5;
+    this.r = 16;
+  }
+
+  update() {
+
+    // reinicia aceleración 
+    this.acceleration.mult(0);
+
+    if (keyIsDown(LEFT_ARROW)) {
+      this.acceleration.x = -0.2;
+    }
+
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.acceleration.x = 0.2; // si lo pongo en 1 por ejemplo, el vehículo se acelera mucho más fuerte
+    }
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.topspeed);
+    this.position.add(this.velocity);
+  }
+
+  show() {
+
+    let angle = this.velocity.heading();
+
+    push();
+
+    translate(this.position.x, this.position.y);
+    rotate(angle);
+
+    stroke(0);
+    fill(127);
+
+    // triángulo apuntando hacia adelante
+    triangle(-15, 10, -15, -10, 15, 0);
+
+    pop();
+  }
+
+  checkEdges() {
+
+    if (this.position.x > width) this.position.x = 0;
+    if (this.position.x < 0) this.position.x = width;
+
+    if (this.position.y > height) this.position.y = 0;
+    if (this.position.y < 0) this.position.y = height;
+
+  }
+}
+``` 
 
 ### Relación con el marco motion 101 (Actividad 04)
 
-### (Actividad 05)
+
+
+### Coordenadas polares (Actividad 05)
 
 ### Funciones sinusoides (Actividad 06)
 
@@ -183,6 +244,7 @@ function draw(){
 
 
 ## Bitácora de reflexión
+
 
 
 
