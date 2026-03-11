@@ -259,7 +259,13 @@ _idea: ondas, música y aves, un flujo tipico al pensar en una combinación de i
 Pero si fuera acortar esto de forma más directa sería:
 
 ```
-La obra es una pieza que explora la relación entre ondas, movimiento y sonido. Un sistema de ondas dinámicas guía el vuelo de aves generativas, creando patrones cambiantes que evocan la observación prolongada del cielo. El espectador interactúa mediante el mouse, alterando el flujo de las ondas y, con ello, el comportamiento de las aves y la activación del sonido. La obra puede incorporar melodías generando una atmósfera contemplativa donde las aves funcionan como símbolo de aquello que parece más cercano al contacto con lo divino.
+La obra es una pieza que explora la relación entre ondas, movimiento y sonido.
+Un sistema de ondas dinámicas guía el vuelo de aves generativas,
+creando patrones cambiantes que evocan la observación prolongada del cielo.
+El espectador interactúa mediante el mouse, alterando el flujo de las ondas y, con ello,
+el comportamiento de las aves y la activación del sonido.
+La obra puede incorporar melodías generando una atmósfera contemplativa
+donde las aves funcionan como símbolo de aquello que parece más cercano al contacto con lo divino.
 ```
 
 > El código
@@ -271,6 +277,7 @@ La obra es una pieza que explora la relación entre ondas, movimiento y sonido. 
 
 
 ## Bitácora de reflexión
+
 
 
 
