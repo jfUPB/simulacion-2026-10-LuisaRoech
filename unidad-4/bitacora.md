@@ -18,73 +18,46 @@ Investigue un poco sobre el y suele explorar preguntas sobre **la naturaleza de 
 
 Analizando el código...Se dibuja una linea con dos circulos en los extremos que rota alrededor, se limpia la pantalla con `background(255);`, se aumenta un ángulo con `angle += 0.1;` que se activa cuando se presiona una tecla (aunque el cambio no es muy notorio porque se aumenta de igual forma en draw y keyPressed) yy el sistema de coordenadas se mueve y rota al centro. Pero, ¿para que se traslada el origen con `translate(width / 2, height / 2);`? bueno, en p5.js el origen se encuentra en la esquina superior izquierda por lo que esta función ayuda a que no se vea extraña la ubicación y no rote en la esquina, que no es necesariamente malo pero no siempre es el objetivo. 
 
-El motion 101 referente al segundo código
+El motion 101 referente al segundo código introduce el modelo básico del movimiento en simulaciones físicas _posición += velocidad_ y _velocidad += aceleración_ y en `update()` se refleja esto aqui:
 
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+``` Js
+// calcula dirección hacia el mouse
+ this.velocity.add(this.acceleration); // la convierte en aceleración y la suma
+ this.velocity.limit(this.topspeed); // limita la velocidad
+ this.position.add(this.velocity); // suma velocidad a la posición
+```
 
-class Mover {
-  constructor() {
-    this.position = createVector(width / 2, height / 2);
-    this.velocity = createVector(0, 0);
-    this.acceleration = 0;
-    this.topspeed = 4;
-    this.xoff = 1000;
-    this.yoff = 0;
-    this.r = 16;
-  }
+Ahora bien, ¿que hace el heading()? En show() aparece:
 
-  update() {
-    let mouse = createVector(mouseX, mouseY);
-    let dir = p5.Vector.sub(mouse, this.position);
-    dir.normalize();
-    dir.mult(0.5);
-    this.acceleration = dir;
+``` Js
+let angle = this.velocity.heading();
+```
 
-    this.velocity.add(this.acceleration);
-    this.velocity.limit(this.topspeed);
-    this.position.add(this.velocity);
-  }
+investigando, `heading()` es una función de p5.Vector que devuelve el ángulo del vector, es decir, calcula el ángulo entre el vector de velocidad y el eje x. Entonces el rectángulo se orienta en la dirección de la velocidad, si el objeto se mueve: 
 
-  show() {
-    let angle = this.velocity.heading();
+- hacia la derecha → el rectángulo apunta a la derecha
+- hacia arriba → el rectángulo rota hacia arriba
+- diagonal → rota en ese ángulo
 
-    stroke(0);
-    strokeWeight(2);
-    fill(127);
+Por utlimo, `push()` y `pop()`; `push()` guarda el estado de la posición del sistema, rotación, escala y estilo de dibujo, `pop()` lo restaura. Permitiendo que las transformaciones solo afecten al objeto actual
+
+``` Js
     push();
-    rectMode(CENTER);
+    rectMode(CENTER); // usa (x,y) como el centro del rectángulo, para que rote mejor sobre su centro
 
     translate(this.position.x, this.position.y);
     rotate(angle);
     rect(0, 0, 30, 10);
 
     pop();
-  }
+```
 
-  checkEdges() {
-    if (this.position.x > width) {
-      this.position.x = 0;
-    } else if (this.position.x < 0) {
-      this.position.x = width;
-    }
-
-    if (this.position.y > height) {
-      this.position.y = 0;
-    } else if (this.position.y < 0) {
-      this.position.y = height;
-    }
-  }
-}
-
-
-
-### (Actividad 03)
+### Practica un poco (Actividad 03)
 
 Partiendo del código anterior, 
 
-### (Actividad 04)
+### Relación con el marco motion 101 (Actividad 04)
+
 ### (Actividad 05)
 
 ### Funciones sinusoides (Actividad 06)
@@ -210,6 +183,7 @@ function draw(){
 
 
 ## Bitácora de reflexión
+
 
 
 
