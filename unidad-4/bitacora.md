@@ -16,9 +16,74 @@ Investigue un poco sobre el y suele explorar preguntas sobre **la naturaleza de 
 
 ### Conceptos fundamentales (Actividad 02)
 
-a
+Analizando el código...Se dibuja una linea con dos circulos en los extremos que rota alrededor, se limpia la pantalla con `background(255);`, se aumenta un ángulo con `angle += 0.1;` que se activa cuando se presiona una tecla (aunque el cambio no es muy notorio porque se aumenta de igual forma en draw y keyPressed) yy el sistema de coordenadas se mueve y rota al centro. Pero, ¿para que se traslada el origen con `translate(width / 2, height / 2);`? bueno, en p5.js el origen se encuentra en la esquina superior izquierda por lo que esta función ayuda a que no se vea extraña la ubicación y no rote en la esquina, que no es necesariamente malo pero no siempre es el objetivo. 
+
+El motion 101 referente al segundo código
+
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+class Mover {
+  constructor() {
+    this.position = createVector(width / 2, height / 2);
+    this.velocity = createVector(0, 0);
+    this.acceleration = 0;
+    this.topspeed = 4;
+    this.xoff = 1000;
+    this.yoff = 0;
+    this.r = 16;
+  }
+
+  update() {
+    let mouse = createVector(mouseX, mouseY);
+    let dir = p5.Vector.sub(mouse, this.position);
+    dir.normalize();
+    dir.mult(0.5);
+    this.acceleration = dir;
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.topspeed);
+    this.position.add(this.velocity);
+  }
+
+  show() {
+    let angle = this.velocity.heading();
+
+    stroke(0);
+    strokeWeight(2);
+    fill(127);
+    push();
+    rectMode(CENTER);
+
+    translate(this.position.x, this.position.y);
+    rotate(angle);
+    rect(0, 0, 30, 10);
+
+    pop();
+  }
+
+  checkEdges() {
+    if (this.position.x > width) {
+      this.position.x = 0;
+    } else if (this.position.x < 0) {
+      this.position.x = width;
+    }
+
+    if (this.position.y > height) {
+      this.position.y = 0;
+    } else if (this.position.y < 0) {
+      this.position.y = height;
+    }
+  }
+}
+
+
 
 ### (Actividad 03)
+
+Partiendo del código anterior, 
+
 ### (Actividad 04)
 ### (Actividad 05)
 
@@ -144,8 +209,8 @@ function draw(){
 ## Bitácora de aplicación 
 
 
-
 ## Bitácora de reflexión
+
 
 
 
