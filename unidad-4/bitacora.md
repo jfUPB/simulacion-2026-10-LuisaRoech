@@ -249,7 +249,23 @@ function draw(){
 ## Bitácora de aplicación 
 
 
+
+### Las bandadas de aves V2 (Actividad 11)
+
+> Concepto obra
+
+_ideas: ondas, música y aves, un flujo tipico al pensar en una combinación de interacción y movimiento. Asi que retomando el concepto de lo hecho anteriormente y probar algo nuevo, las aves podrian estar guiadas por las ondas, modificando la obra anterior, manteniendo la interacción con el mouse y que este incluya la forma en como los sonidos se reproducen, seria gracioso poner "Westminster" (una melodia que por algún motivo quedo grabada en mi mente tras escucharla como una campanada de una iglesia de cienaga) o "coody freestyle" de steve lacy, algo tranquilo, como observar el cielo durante mucho tiempo y algo religioso para que refuerce el concepto de las aves como lo mas cercano al contacto de un dios_
+
+> El código
+
+
+
+> La obra
+
+
+
 ## Bitácora de reflexión
+
 
 
 
