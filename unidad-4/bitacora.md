@@ -254,7 +254,13 @@ function draw(){
 
 > Concepto obra
 
-_ideas: ondas, música y aves, un flujo tipico al pensar en una combinación de interacción y movimiento. Asi que retomando el concepto de lo hecho anteriormente y probar algo nuevo, las aves podrian estar guiadas por las ondas, modificando la obra anterior, manteniendo la interacción con el mouse y que este incluya la forma en como los sonidos se reproducen, seria gracioso poner "Westminster" (una melodia que por algún motivo quedo grabada en mi mente tras escucharla como una campanada de una iglesia de cienaga) o "coody freestyle" de steve lacy, algo tranquilo, como observar el cielo durante mucho tiempo y algo religioso para que refuerce el concepto de las aves como lo mas cercano al contacto de un dios_
+_idea: ondas, música y aves, un flujo tipico al pensar en una combinación de interacción y movimiento. Asi que retomando el concepto de lo hecho anteriormente y probar algo nuevo, las aves podrian estar guiadas por las ondas, modificando la obra anterior, manteniendo la interacción con el mouse y que este incluya la forma en como los sonidos se reproducen, seria gracioso poner "Westminster" (una melodia que por algún motivo quedo grabada en mi mente tras escucharla como una campanada de una iglesia de cienaga) o "coody freestyle" de steve lacy, algo tranquilo, como observar el cielo durante mucho tiempo e implementar algo religioso para que refuerce el concepto de las aves como lo mas cercano al contacto de un dios._
+
+Pero si fuera acortar esto de forma más directa sería:
+
+```
+La obra es una pieza que explora la relación entre ondas, movimiento y sonido. Un sistema de ondas dinámicas guía el vuelo de aves generativas, creando patrones cambiantes que evocan la observación prolongada del cielo. El espectador interactúa mediante el mouse, alterando el flujo de las ondas y, con ello, el comportamiento de las aves y la activación del sonido. La obra puede incorporar melodías generando una atmósfera contemplativa donde las aves funcionan como símbolo de aquello que parece más cercano al contacto con lo divino.
+```
 
 > El código
 
@@ -265,6 +271,7 @@ _ideas: ondas, música y aves, un flujo tipico al pensar en una combinación de 
 
 
 ## Bitácora de reflexión
+
 
 
 
