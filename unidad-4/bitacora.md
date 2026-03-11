@@ -270,13 +270,14 @@ donde las aves funcionan como símbolo de aquello que parece más cercano al con
 
 > El código
 
-
+_link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 > La obra
 
 
 
 ## Bitácora de reflexión
+
 
 
 
