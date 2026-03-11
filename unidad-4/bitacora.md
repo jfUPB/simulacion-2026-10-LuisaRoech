@@ -117,7 +117,13 @@ class Mover {
 
 ### Relación con el marco motion 101 (Actividad 04)
 
+En este código parece que varios circulos orbitan o se atraen por uno mas grande o central. Para modificarlo aun cuando tiene fuerzas acumulativas como la gravedad, fricción, viento y atracción es necesario reiniciar la aceleración como se hace aqui:
 
+``` Js
+this.acceleration.mult(0);
+```
+
+Si no se hiciera las fuerzas se seguirían acumulando en cada frame y ace
 
 ### Coordenadas polares (Actividad 05)
 
@@ -236,14 +242,15 @@ function draw(){
 
 ### Resortes (Actividad 09)
 
-
-
 ### Péndulo (Actividad 10)
+
+
 
 ## Bitácora de aplicación 
 
 
 ## Bitácora de reflexión
+
 
 
 
