@@ -242,13 +242,89 @@ function draw(){
 
 ### Resortes (Actividad 09)
 
+Para incluir un sistema de dos resortes conectados en serie, el flujo de pensamiento es simple. Consistiendo en agregar un segundo resorte (`spring`) y una seguna masa (`bob`). En esto solo es necesario modificar el sketch.js. 
+
+Para conectarlos use `spring1.connect(bob1); // Que calcula la fuerza élastica entre el ancla y bob1, ley de hooke` para el primer resorte y con el segundo resorte cambie su ancla para que sea la posición del bob1:
+
+```
+spring2.anchor = bob1.position;
+spring2.connect(bob2);
+```
+
+De resto para dibujarlo, mostralo, limitar su longitud y darle gravedad e incluso poder arrastrarlos fue duplicar lo ya dado en el código anterior con solo un bob (y bueno cambiar posiciones o valores ya que se encuentran en diferentes posiciones).
+
+``` Js
+let bob1;
+let bob2;
+
+let spring1;
+let spring2;
+
+function setup() {
+  createCanvas(640, 240);
+
+  // primer resorte (anclado arriba)
+  spring1 = new Spring(width / 2, 10, 100);
+
+  // segundo resorte
+  spring2 = new Spring(width / 2, 110, 100);
+
+  bob1 = new Bob(width / 2, 100);
+  bob2 = new Bob(width / 2, 180);
+}
+
+function draw() {
+  background(255);
+
+  let gravity = createVector(0, 2);
+
+  bob1.applyForce(gravity);
+  bob2.applyForce(gravity);
+
+  bob1.update();
+  bob2.update();
+
+  // arrastre con mouse
+  bob1.handleDrag(mouseX, mouseY);
+  bob2.handleDrag(mouseX, mouseY);
+
+  // primer resorte conecta al primer bob
+  spring1.connect(bob1);
+
+  // segundo resorte usa al primer bob como ancla
+  spring2.anchor = bob1.position;
+  spring2.connect(bob2);
+
+  spring1.constrainLength(bob1, 30, 200);
+  spring2.constrainLength(bob2, 30, 200);
+
+  spring1.showLine(bob1);
+  spring2.showLine(bob2);
+
+  bob1.show();
+  bob2.show();
+
+  spring1.show();
+}
+
+// mouse
+
+function mousePressed() {
+  bob1.handleClick(mouseX, mouseY);
+  bob2.handleClick(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  bob1.stopDragging();
+  bob2.stopDragging();
+}
+```
+
 ### Péndulo (Actividad 10)
 
 
 
 ## Bitácora de aplicación 
-
-
 
 ### Las bandadas de aves V2 (Actividad 11)
 
@@ -270,6 +346,7 @@ donde las aves funcionan como símbolo de aquello que parece más cercano al con
 
 > El código
 
+
 _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 > La obra
@@ -277,6 +354,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
