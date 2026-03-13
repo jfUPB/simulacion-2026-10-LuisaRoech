@@ -284,7 +284,6 @@ function draw() {
   bob1.update();
   bob2.update();
 
-  // arrastre con mouse
   bob1.handleDrag(mouseX, mouseY);
   bob2.handleDrag(mouseX, mouseY);
 
@@ -354,6 +353,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
