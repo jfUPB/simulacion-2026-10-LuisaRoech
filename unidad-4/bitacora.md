@@ -208,6 +208,7 @@ class Oscillator {
 
 ### Ondas (Actividad 08)
 
+Para poner las ondas en funcionamiento agregue un ángulo (a) que 
 ``` Js
 let angle = 0;
 let angleVelocity = 0.2;
@@ -246,7 +247,7 @@ Para incluir un sistema de dos resortes conectados en serie, el flujo de pensami
 
 Para conectarlos use `spring1.connect(bob1); // Que calcula la fuerza élastica entre el ancla y bob1, ley de hooke` para el primer resorte y con el segundo resorte cambie su ancla para que sea la posición del bob1:
 
-```
+``` Js
 spring2.anchor = bob1.position;
 spring2.connect(bob2);
 ```
@@ -321,7 +322,52 @@ function mouseReleased() {
 
 ### Péndulo (Actividad 10)
 
+Ahora bien, este se asimila al anterior ejercicio, no tanto la lógica general del sistema sino el concepto para realizar un sistema en el que dos péndulos esten conectados en serie. Para este tambien solo es necesario modificar sketch.js y agregar dos masas conectadas una a otra.
 
+```
+let p1;
+let p2;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+
+  p1 = new Pendulum(width / 2, 0, 175);
+
+
+  p2 = new Pendulum(width / 2, 175, 175);
+}
+
+function draw() {
+  background(255);
+
+  p1.update();
+  p2.update();
+
+
+  p1.drag();
+  p2.drag();
+
+
+  p1.show();
+
+  // conectar el segundo al primero
+  p2.pivot = p1.bob;
+
+
+  p2.show();
+}
+
+function mousePressed() {
+  p1.clicked(mouseX, mouseY);
+  p2.clicked(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  p1.stopDragging();
+  p2.stopDragging();
+}
+```
 
 ## Bitácora de aplicación 
 
@@ -353,6 +399,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
