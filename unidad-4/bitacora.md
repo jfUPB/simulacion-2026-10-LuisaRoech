@@ -408,7 +408,7 @@ donde las aves funcionan como símbolo de aquello que parece más cercano al con
 
 > El código
 
-```
+``` Js
 let flock = [];
 let totalBoids = 100;
 
@@ -747,6 +747,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 <img width="1065" height="489" alt="Sin título-2026-03-13-1030" src="https://github.com/user-attachments/assets/e1954f1e-bc3f-45c7-ba5b-aed3a36dc14f" />
 
 _Link: [https://excalidraw.com/#json=QJvHCCeyre7qNbVQv1ut3,rIrSWGLG_XhnPJMVyps5tA](https://excalidraw.com/#json=7QTVBlaeemL9XVlYn8_Bc,ve4dS2l2oST5yI2FS6faKA)_
+
 
 
 
