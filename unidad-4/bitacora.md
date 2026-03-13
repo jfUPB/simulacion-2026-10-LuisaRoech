@@ -742,9 +742,9 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 ## Bitácora de reflexión
 
+### Recopilando (Actividad 12)
 
-
-
+https://excalidraw.com/#json=QJvHCCeyre7qNbVQv1ut3,rIrSWGLG_XhnPJMVyps5tA
 
 
 
