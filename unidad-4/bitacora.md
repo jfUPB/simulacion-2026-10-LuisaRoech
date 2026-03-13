@@ -123,7 +123,7 @@ En este código parece que varios circulos orbitan o se atraen por uno mas grand
 this.acceleration.mult(0);
 ```
 
-Si no se hiciera las fuerzas se seguirían acumulando en cada frame y ace
+Si no se hiciera las fuerzas se seguirían acumulando en cada frame. El **Attractor** es el objeto que ejerce la fuerza de atracción sobre los Movers. Además, los atributos dragging y rollover permiten interacción con el mouse: rollover puede activarse calculando la distancia entre el mouse y el attractor para cambiar su color cuando el cursor está encima, y dragging puede implementarse usando las funciones de p5.js `mousePressed()`, `mouseDragged()` y `mouseReleased()` para que el attractor pueda ser arrastrado por la pantalla.
 
 ### Coordenadas polares (Actividad 05)
 
@@ -208,7 +208,8 @@ class Oscillator {
 
 ### Ondas (Actividad 08)
 
-Para poner las ondas en funcionamiento agregue un ángulo (a) que 
+Para poner las ondas en funcionamiento agregue un ángulo (a) que guarda y cambia el ángulo `a += 0.3` por cada iteración, primero sen(0), despues sen(0.3), sen(0.6) y asi.
+
 ``` Js
 let angle = 0;
 let angleVelocity = 0.2;
@@ -322,7 +323,7 @@ function mouseReleased() {
 
 ### Péndulo (Actividad 10)
 
-Ahora bien, este se asimila al anterior ejercicio, no tanto la lógica general del sistema sino el concepto para realizar un sistema en el que dos péndulos esten conectados en serie. Para este tambien solo es necesario modificar sketch.js y agregar dos masas conectadas una a otra.
+Ahora bien, este se asimila al anterior ejercicio, no tanto la lógica general del sistema sino el concepto para realizar un sistema en el que dos péndulos esten conectados en serie. Para este tambien solo es necesario modificar sketch.js y agregar dos masas conectadas una a otra. La linea que consideraria mas importante es `p2.pivot = p1.bob;` que seria algo como pivote del segundo péndulo = posición del bob del primero.
 
 ```
 let p1;
@@ -399,6 +400,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
