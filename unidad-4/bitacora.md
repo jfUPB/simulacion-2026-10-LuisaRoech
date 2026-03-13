@@ -151,7 +151,7 @@ _y(t) = Asen(wt + π)_
 
   Relaciones importantes
 
-  w = 2πf y T = 1/f
+_w = 2πf y T = 1/f_
 
 ### Repasa conceptos de las unidades anteriores (Actividad 07)
 
@@ -408,6 +408,363 @@ donde las aves funcionan como símbolo de aquello que parece más cercano al con
 
 > El código
 
+```
+let flock = [];
+let totalBoids = 120;
+
+let memoryField = [];
+let cols, rows;
+let resolution = 30;
+
+// ondas
+let angle = 0;
+let angleVelocity = 0.02;
+let amplitude = 120;
+
+// sonido
+let song;
+let smoothVolume = 0;
+let filter;
+
+// energía del flock
+let flockEnergy = 0;
+let disturbedBirds = 0;
+
+function preload(){
+  song = loadSound("music.mp3");
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  cols = floor(width / resolution);
+  rows = floor(height / resolution);
+
+  for (let i = 0; i < cols; i++) {
+    memoryField[i] = [];
+    for (let j = 0; j < rows; j++) {
+      memoryField[i][j] = 0;
+    }
+  }
+
+  for (let i = 0; i < totalBoids; i++) {
+    flock.push(new Boid(random(width), random(height)));
+  }
+
+  // filtro de audio
+  filter = new p5.LowPass();
+  song.disconnect();
+  song.connect(filter);
+}
+
+function draw() {
+
+  flockEnergy = 0;
+  disturbedBirds = 0;
+
+  fill(18,12,8,60);
+  noStroke();
+  rect(0,0,width,height);
+
+  drawWave();
+
+  updateMemory();
+  drawMemory();
+
+  for (let boid of flock) {
+    boid.edges();
+    boid.flock(flock);
+    boid.update();
+    boid.show();
+  }
+
+  angle += angleVelocity;
+
+  // interacción
+  let interaction = map(disturbedBirds,0,totalBoids,0,1,true);
+
+  // volumen
+  let baseVolume = 0.20;
+  let reactiveVolume = interaction * 0.25;
+  let targetVolume = baseVolume + reactiveVolume;
+
+  smoothVolume = lerp(smoothVolume,targetVolume,0.03);
+  song.setVolume(smoothVolume);
+
+  // velocidad musical
+  let rate = map(interaction,0,1,0.9,1.1);
+  song.rate(rate);
+
+  // filtro (abre el sonido)
+  let cutoff = map(interaction,0,1,800,5000);
+  filter.freq(cutoff);
+}
+
+function mousePressed(){
+  if(!song.isPlaying()){
+    song.loop();
+  }
+}
+
+function drawWave(){
+
+  stroke(120,140,200,60);
+  strokeWeight(2);
+  noFill();
+
+  let a = angle;
+
+  beginShape();
+
+  for(let x=0;x<=width;x+=24){
+
+    let y = amplitude * sin(a);
+    vertex(x,y + height/2);
+
+    a += 0.3;
+  }
+
+  endShape();
+}
+
+function updateMemory(){
+  let col = floor(mouseX / resolution);
+  let row = floor(mouseY / resolution);
+
+  if(col>=0 && col<cols && row>=0 && row<rows){
+    memoryField[col][row] += 0.4;
+    memoryField[col][row] = constrain(memoryField[col][row],0,6);
+  }
+}
+
+function drawMemory(){
+  for(let i=0;i<cols;i++){
+    for(let j=0;j<rows;j++){
+
+      let val = memoryField[i][j];
+      memoryField[i][j] *= 0.985;
+
+      if(val > 0.1){
+        stroke(220,170,100,val*30);
+        strokeWeight(2);
+        point(i*resolution,j*resolution);
+      }
+    }
+  }
+}
+
+class Boid{
+
+  constructor(x,y){
+    this.position = createVector(x,y);
+    this.velocity = p5.Vector.random2D();
+    this.velocity.setMag(random(1,2));
+    this.acceleration = createVector(0,0);
+
+    this.baseMaxSpeed = 2.2;
+    this.maxSpeed = this.baseMaxSpeed;
+    this.maxForce = 0.1;
+  }
+
+  applyForce(force){
+    this.acceleration.add(force);
+  }
+
+  edges(){
+    if(this.position.x > width) this.position.x = 0;
+    if(this.position.x < 0) this.position.x = width;
+    if(this.position.y > height) this.position.y = 0;
+    if(this.position.y < 0) this.position.y = height;
+  }
+
+  waveFollow(){
+
+    let waveY = amplitude * sin(angle + this.position.x * 0.02) + height/2;
+    let d = waveY - this.position.y;
+
+    return createVector(0,d*0.0015);
+  }
+
+  flock(boids){
+
+    this.applyForce(p5.Vector.mult(this.align(boids),0.15));
+    this.applyForce(p5.Vector.mult(this.cohesion(boids),0.05));
+    this.applyForce(p5.Vector.mult(this.separation(boids),0.08));
+
+    this.applyForce(p5.Vector.mult(this.waveFollow(),1.4));
+
+    this.applyMemoryAvoidance();
+  }
+
+  applyMemoryAvoidance(){
+
+    let searchRadius = 80;
+    let totalForce = createVector(0,0);
+
+    for(let i=0;i<cols;i++){
+      for(let j=0;j<rows;j++){
+
+        let influence = memoryField[i][j];
+
+        if(influence>0.3){
+
+          let cellPos = createVector(i*resolution,j*resolution);
+          let d = p5.Vector.dist(this.position,cellPos);
+
+          if(d<searchRadius){
+
+            let flee = p5.Vector.sub(this.position,cellPos);
+
+            let strength = map(d,0,searchRadius,1,0);
+            strength *= influence*influence;
+
+            flee.normalize();
+            flee.mult(strength*0.6);
+
+            totalForce.add(flee);
+          }
+        }
+      }
+    }
+
+    if(totalForce.mag()>0.05){
+
+      disturbedBirds++;
+
+      totalForce.limit(0.8);
+      this.applyForce(totalForce);
+      this.maxSpeed = this.baseMaxSpeed + 0.5;
+
+    }else{
+
+      this.maxSpeed = this.baseMaxSpeed;
+    }
+  }
+
+  align(boids){
+
+    let perception = 60;
+    let steering = createVector(0,0);
+    let total = 0;
+
+    for(let other of boids){
+
+      let d = dist(this.position.x,this.position.y,other.position.x,other.position.y);
+
+      if(other!=this && d<perception){
+
+        steering.add(other.velocity);
+        total++;
+      }
+    }
+
+    if(total>0){
+
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  cohesion(boids){
+
+    let perception = 70;
+    let steering = createVector(0,0);
+    let total = 0;
+
+    for(let other of boids){
+
+      let d = dist(this.position.x,this.position.y,other.position.x,other.position.y);
+
+      if(other!=this && d<perception){
+
+        steering.add(other.position);
+        total++;
+      }
+    }
+
+    if(total>0){
+
+      steering.div(total);
+      steering.sub(this.position);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  separation(boids){
+
+    let perception = 40;
+    let steering = createVector(0,0);
+    let total = 0;
+
+    for(let other of boids){
+
+      let d = dist(this.position.x,this.position.y,other.position.x,other.position.y);
+
+      if(other!=this && d<perception){
+
+        let diff = p5.Vector.sub(this.position,other.position);
+        diff.normalize();
+        diff.div(d);
+
+        steering.add(diff);
+        total++;
+      }
+    }
+
+    if(total>0){
+
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce*1.2);
+    }
+
+    return steering;
+  }
+
+  update(){
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+
+    flockEnergy += this.velocity.mag();
+  }
+
+  show(){
+
+    push();
+    translate(this.position.x,this.position.y);
+    rotate(this.velocity.heading());
+
+    let flap = sin(frameCount*0.3 + this.position.x*0.05)*20;
+
+    noStroke();
+    fill(255,180,90,25);
+    ellipse(0,0,26);
+
+    fill(255,210,140,220);
+
+    beginShape();
+    vertex(12,0);
+    vertex(-4,-10-flap);
+    vertex(-8,0);
+    vertex(-4,10+flap);
+    endShape(CLOSE);
+
+    pop();
+  }
+}
+```
 
 _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
@@ -416,6 +773,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
