@@ -127,15 +127,31 @@ Si no se hiciera las fuerzas se seguirían acumulando en cada frame. El **Attrac
 
 ### Coordenadas polares (Actividad 05)
 
+La relación entre 𝑟 y 𝜃 con las posiciones 𝑥 y 𝑦 viene de la conversión entre coordenadas polares y cartesianas. En coordenadas polares un punto se describe por su distancia al origen (r) y un ángulo (𝜃), mientras que en cartesianas se describe por (x,y). La conversión es:
+
+``` 
+ x = r ⋅ cos(θ) , y = r ⋅ sin(θ)
+```
+
+Esto significa que 𝜃 determina la dirección y 𝑟 la distancia desde el origen.
+
+En la primera modificación `fromAngle(theta)`crea un vector unitario (longitud 1) apuntando en el ángulo `theta`. Por eso el círculo gira alrededor del origen pero muy cerca del centro, porque el vector tiene magnitud 1. El ángulo aumenta (`theta += 0.02`), entonces el punto rota continuamente. Con la segunda r se pasa como magnitud del vector, por lo que `fromAngle()` genera directamente las coordenadas equivalentes. Ahora el punto está a una distancia r del centro por lo que se mueve describiendo un círculo de radio r mientras `theta` aumenta. Tambien algo interesante esta en `r = height * 0.5 * sin(theta);` que genera un movimiento oscilatorio tipo espiral o respiración radial.
+
 ### Funciones sinusoides (Actividad 06)
 
 Una función que aparece en sonido, luz, movimiento, mareas, electricidad y vibraciones (patrones rítmicos).
 
 _y(t) = Asen(wt + π)_
 
-Amplitud (A)
-Frecuencia()
-Fase
+- A (amplitud) → qué tan alta es la onda
+- ω (velocidad angular) → qué tan rápido cambia el ángulo
+- f (frecuencia) → cuántos ciclos ocurren por unidad de tiempo
+- T (periodo) → cuánto tarda un ciclo completo
+- φ (fase) → desplazamiento horizontal de la onda
+
+  Relaciones importantes
+
+  w = 2πf y T = 1/f
 
 ### Repasa conceptos de las unidades anteriores (Actividad 07)
 
@@ -400,6 +416,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
