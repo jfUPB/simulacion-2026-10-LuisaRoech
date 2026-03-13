@@ -410,7 +410,7 @@ donde las aves funcionan como símbolo de aquello que parece más cercano al con
 
 ```
 let flock = [];
-let totalBoids = 120;
+let totalBoids = 100;
 
 let memoryField = [];
 let cols, rows;
@@ -427,7 +427,6 @@ let smoothVolume = 0;
 let filter;
 
 // energía del flock
-let flockEnergy = 0;
 let disturbedBirds = 0;
 
 function preload(){
@@ -451,7 +450,6 @@ function setup() {
     flock.push(new Boid(random(width), random(height)));
   }
 
-  // filtro de audio
   filter = new p5.LowPass();
   song.disconnect();
   song.connect(filter);
@@ -459,14 +457,11 @@ function setup() {
 
 function draw() {
 
-  flockEnergy = 0;
   disturbedBirds = 0;
 
   fill(18,12,8,60);
   noStroke();
   rect(0,0,width,height);
-
-  drawWave();
 
   updateMemory();
   drawMemory();
@@ -480,10 +475,8 @@ function draw() {
 
   angle += angleVelocity;
 
-  // interacción
   let interaction = map(disturbedBirds,0,totalBoids,0,1,true);
 
-  // volumen
   let baseVolume = 0.20;
   let reactiveVolume = interaction * 0.25;
   let targetVolume = baseVolume + reactiveVolume;
@@ -491,11 +484,9 @@ function draw() {
   smoothVolume = lerp(smoothVolume,targetVolume,0.03);
   song.setVolume(smoothVolume);
 
-  // velocidad musical
   let rate = map(interaction,0,1,0.9,1.1);
   song.rate(rate);
 
-  // filtro (abre el sonido)
   let cutoff = map(interaction,0,1,800,5000);
   filter.freq(cutoff);
 }
@@ -504,27 +495,6 @@ function mousePressed(){
   if(!song.isPlaying()){
     song.loop();
   }
-}
-
-function drawWave(){
-
-  stroke(120,140,200,60);
-  strokeWeight(2);
-  noFill();
-
-  let a = angle;
-
-  beginShape();
-
-  for(let x=0;x<=width;x+=24){
-
-    let y = amplitude * sin(a);
-    vertex(x,y + height/2);
-
-    a += 0.3;
-  }
-
-  endShape();
 }
 
 function updateMemory(){
@@ -736,8 +706,6 @@ class Boid{
     this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
-
-    flockEnergy += this.velocity.mag();
   }
 
   show(){
@@ -773,6 +741,7 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
 
 
 ## Bitácora de reflexión
+
 
 
 
