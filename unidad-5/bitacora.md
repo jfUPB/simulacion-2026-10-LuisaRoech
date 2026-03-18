@@ -22,6 +22,11 @@ Aunque dentro de este código existe una estructura interesante al momento de le
 
 ### Del array al sistema: la abstracción del emisor (Actividad 02)
 
+Del ejemplo 4.4 lo importante y diferenciador del ejemplo 4.2 (el anterior) esta en el `emitter.js`, quien se encarga ahora de agregar un origen de donde se generarán las particula en base de donde se ha presionado con el mouse y el chequeo for que se encarga de leer el estado de una particula ahora se encuentra en esta, pero ¿por que separar esto en una nueva clase? Para que la lectura sea más eficiente :p 
+
+Como ejemplo seria pensar en...
+
+
 ## Bitácora de aplicación 
 
 
