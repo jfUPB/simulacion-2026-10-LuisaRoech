@@ -27,6 +27,43 @@ Del ejemplo 4.4 lo importante y diferenciador del ejemplo 4.2 (el anterior) esta
 Como ejemplo seria pensar en...
 
 
+### Heterogeneidad: herencia y polimorfismo (Actividad 03)
+
+Del ejemplo 4.5, en esta se incluye dos tipos distintos de particulas, en la que `confetti.js` hereda de la otra particula `particle.js`, comparten el mismo constructor, las mismas fuerzas y la misma estructura del motion 101, lo unico que se diferencia la una de la otra es en el `show()` que permite que tengan una forma distinta, una esta dada por cuadros y la otra por circulos.
+
+Cosas interesantes explicadas es del porque el `emitter.js` no necesita saber que tipo de particula esta gestionando. estas funciones en general son interesantes:
+
+``` Js
+ addParticle() {
+    let r = random(1);
+    if (r < 0.5) {
+      this.particles.push(new Particle(this.origin.x, this.origin.y));
+    } else {
+      this.particles.push(new Confetti(this.origin.x, this.origin.y));
+    }
+  }
+
+  run() {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      let p = this.particles[i];
+      p.run();
+      if (p.isDead()) {
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+}
+```
+
+La razón principal es para generar mayor eficiencia en el momento de querer expandir el proyecto y agregar mas particulas. En `run()` se ejecuta las dos particulas agregadas anteriormente en `addParticle()`, por lo que no es necesario tocar esta función al momento de implementar nuevas cosas, pues esta independientemente si se agregan mas o menos ejecutara todas las que estan listadas en `addParticle()`, que justo esta tambien podria realizarse lo mismo agregrando un objeto que tome `particle.js` (si suponemos que todas las particulas van a heredar de esta como lo hizo confetti) y se ejecute de forma general. Lo unico malo es que es un proceso más lento y menos eficiente que agregar una por una, ya que se llama una por una para ejecutarla y no todas al tiempo.
+
+Si quiero agregar una nueva particula, solo es necesario crear un nuevo archivo .js que herede de particle, llamar las funciones que quiero retormar de esta y crear otras, despues simplemente este nuevo archivo debe ser llamado en el emitter en `addParticle()`, por ejemplo:
+
+
+
+###  Fuerzas y partículas (Actividad 04)
+
+
 ## Bitácora de aplicación 
 
 
