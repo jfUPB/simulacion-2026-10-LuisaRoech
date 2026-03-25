@@ -69,4 +69,44 @@ a
 ## Bitácora de aplicación 
 
 
+### Ciclo de vida (Actividad 05)
+
+> concepto
+
+Siempre me resulta natural comenzar a desarrollar una obra a partir de algo reciente que me haya impactado. En este caso, dejo de lado mi interés en las aves para centrarme en este poema, el cual explora una relación profundamente ambigua entre madre e hijo.
+
+```
+Mother, mother... Mother of me,
+
+I know I know I should not miss you so, but mother of me, I do. Your
+pained breaths that rasp'd and reverberated in your rusted iron tomb...
+The blood of your breast that nourish'd me and warmed me in its caress,
+when corpse and cruelty were all I witnessed...
+
+Mother, mother... Mother of me,
+
+I know I know you would hate me so, and mother of me, I do too. But I
+would not feel, not think, not dream, were it not for you in my rusted
+iron womb... Your tortured love brought me to this war, that I could
+take the heart of another, and need you no more.
+
+Mother, mother... Mother of me,
+
+I know I know your thoughts had left you long ago, and mother of me, I
+will never truly know. But I hope it redeems my life even just a slight,
+when I cried... And crushed your skull that final night.
+```
+
+La obra se construye a partir de una dependencia afectiva extrema, donde el hijo existe gracias a la madre, pero al mismo tiempo es moldeado por su sufrimiento, su deterioro y su incapacidad de brindar un amor sano. La madre es simultáneamente origen, refugio y prisión.
+
+Esta relación no es solo de cuidado, sino de violencia, culpa y transformación. El hijo reconoce que todo lo que es proviene de ella —su capacidad de sentir, pensar y existir—, pero también que ese origen está marcado por el dolor. Esto genera una dualidad constante entre amor y rechazo, donde la necesidad de liberarse implica necesariamente destruir aquello que le dio vida.
+
+El acto final no se presenta únicamente como violencia, sino como una forma ambigua de emancipación, redención o ruptura, en la que el hijo deja de depender de la madre al costo de perderla.
+
+> Boceto
+
+
+
+
+
 ## Bitácora de reflexión
