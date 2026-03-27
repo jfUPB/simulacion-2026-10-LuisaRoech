@@ -176,11 +176,11 @@ El acto final no se presenta únicamente como violencia, sino como una forma amb
 
 1 Boceto conceptual
 
-<img width="1000" height="1000" alt="Boceto concep" src="https://github.com/user-attachments/assets/41b8a686-7ff7-430c-866d-8e53ffb43f17" />
+<img width="500" height="500" alt="Boceto concep (2)" src="https://github.com/user-attachments/assets/70149833-330d-4c87-a129-240447d9d28c" />
 
 2 Boceto visual
 
-<img width="1000" height="1000" alt="Boceto visual" src="https://github.com/user-attachments/assets/a2006de0-a47c-41e7-831d-0b6f2a5a26e5" />
+<img width="500" height="500" alt="Boceto visual (2)" src="https://github.com/user-attachments/assets/2a3dbbc1-b309-402f-a8bf-65dc92c070c5" />
 
 > Mapa de desiciones
 
