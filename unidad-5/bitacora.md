@@ -174,9 +174,13 @@ El acto final no se presenta únicamente como violencia, sino como una forma amb
 
 > Boceto
 
-Opción 1 Hijo
+1 Boceto conceptual
 
-Opción 2 Madre
+<img width="1000" height="1000" alt="Boceto concep" src="https://github.com/user-attachments/assets/41b8a686-7ff7-430c-866d-8e53ffb43f17" />
+
+2 Boceto visual
+
+<img width="1000" height="1000" alt="Boceto visual" src="https://github.com/user-attachments/assets/a2006de0-a47c-41e7-831d-0b6f2a5a26e5" />
 
 > Mapa de desiciones
 
@@ -192,6 +196,68 @@ _Link:https://miro.com/welcomeonboard/WTBLekZOa2YxYk9GQTRpU3lIbm13QTZVS1FBeExNc2
 
 > Código
 
+PARTICLE.JS
+``` Js
+class Particle {
+  constructor(x, y, tipo = "hijo") {
+    this.pos = createVector(x, y);
+    this.vel = p5.Vector.random2D().mult(random(0.5, 2));
+    this.life = 255;
+    this.tipo = tipo;
+  }
+
+  update(mother) {
+    let n = noise(this.pos.x * 0.01, this.pos.y * 0.01, frameCount * 0.01);
+    let angle = n * TWO_PI * 2;
+
+    let flow = p5.Vector.fromAngle(angle);
+    flow.mult(0.3);
+
+    this.vel.add(flow);
+
+    if (this.tipo === "madre") {
+      let centro = p5.Vector.sub(mother, this.pos);
+      centro.mult(0.01);
+      this.vel.add(centro);
+      this.vel.limit(1.5);
+    } else {
+      this.vel.limit(2.5);
+    }
+
+    this.pos.add(this.vel);
+    this.life -= 2;
+  }
+
+  draw(nutricion, tipoMuerte) {
+    noStroke();
+
+    let col;
+
+    if (this.tipo === "madre") {
+      col = color(150, 50, 50, 80);
+    } else {
+      col = lerpColor(
+        color(50, 100, 255),
+        color(255, 50, 50),
+        nutricion
+      );
+    }
+
+    if (tipoMuerte === "sobrecarga") {
+      col = color(255, 80, 80);
+    }
+
+    fill(red(col), green(col), blue(col), this.life);
+    ellipse(this.pos.x, this.pos.y, 3);
+  }
+
+  isDead() {
+    return this.life < 0;
+  }
+}
+```
+
+SKETCH.JS
 ``` Js
 // ==========================
 // VARIABLES
@@ -209,6 +275,8 @@ let tiempoMuerte = 0;
 // cola
 let tail = [];
 let tailLength = 25;
+
+let particles = [];
 
 // ==========================
 // SETUP
@@ -244,6 +312,10 @@ function draw() {
 
   dibujarCordon();
   dibujarCola();
+  
+  sistemaParticulas();   
+  dibujarParticulas();  
+  
   dibujarHijo();
   dibujarMadre();
 
@@ -265,7 +337,7 @@ function actualizarSistema() {
   let dir = p5.Vector.sub(mother, child);
   dir.mult(0.02 * nutricion);
 
-  // 🔥 RECHAZO SI SE ACERCA A SOBRECARGA
+  //  RECHAZO SI SE ACERCA A SOBRECARGA
   if (nutricion > 0.8) {
     let repulsion = p5.Vector.sub(child, mother);
     repulsion.normalize();
@@ -328,7 +400,7 @@ function comportamientoPostMuerte() {
   tiempoMuerte++;
 
   if (tipoMuerte === "sobrecarga") {
-    // 🔥 sigue huyendo incluso muerto
+    //  sigue huyendo incluso muerto
     let repulsion = p5.Vector.sub(child, mother);
     repulsion.normalize();
     repulsion.mult(2);
@@ -530,6 +602,65 @@ function efectosMuerte() {
   if (tipoMuerte === "abandono") {
     fill(0, 10);
     rect(0, 0, width, height);
+  }
+}
+
+// ==========================
+// DIBUJAR PARTICULAS
+// ==========================
+function dibujarParticulas() {
+  for (let p of particles) {
+    p.draw(nutricion, tipoMuerte);
+  }
+}
+
+// ==========================
+// PARTICULAS
+// ==========================
+function sistemaParticulas() {
+
+  // ======================
+  // HIJO
+  // ======================
+  for (let i = 0; i < 3; i++) {
+    particles.push(new Particle(child.x, child.y, "hijo"));
+  }
+
+  // ======================
+  // MADRE 
+  // ======================
+  for (let i = 0; i < 2; i++) {
+    let angle = random(TWO_PI);
+    let r = random(20, 80);
+
+    let x = mother.x + cos(angle) * r;
+    let y = mother.y + sin(angle) * r;
+
+    particles.push(new Particle(x, y, "madre"));
+  }
+
+  // ======================
+  // CORDÓN (opcional)
+  // ======================
+  if (!cordonRoto) {
+    let t = random();
+    let x = lerp(mother.x, child.x, t);
+    let y = lerp(mother.y, child.y, t);
+
+    particles.push(new Particle(x, y, "hijo"));
+  }
+
+  // ======================
+  // UPDATE
+  // ======================
+  for (let i = particles.length - 1; i >= 0; i--) {
+    let p = particles[i];
+
+    p.update(mother);
+
+    if (p.isDead()) {
+      particles.splice(i, 1);
+    }
   }
 }
 
