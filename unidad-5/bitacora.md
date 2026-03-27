@@ -174,6 +174,30 @@ El acto final no se presenta únicamente como violencia, sino como una forma amb
 
 > Boceto
 
+Opción 1 Hijo
+
+Opción 2 Madre
+
+> Mapa de desiciones
+
+**Opción 1 Hijo**
+
+![Mother of me - Mapa de desiciones](https://github.com/user-attachments/assets/a7a13d31-6a27-4816-8ba3-5db1853ea4e0)
+
+**Opción 2 Madre**
+
+![Mother of me - Mapa de desiciones (1)](https://github.com/user-attachments/assets/8313fe37-32a2-4a21-85b2-bfa92aa7370b)
+
+_Link: https://miro.com/welcomeonboard/WTBLekZOa2YxYk9GQTRpU3lIbm13QTZVS1FBeExNc2N4NnZORkY2d283L3R4Z1I0aUpVd3RaMXlVRUt6Z0JHMzlWVWpTZnptS1EvaFBSVjVNMFBEUnZrMlRUbHB5SzlHdHcrZ1E2eWpJbWhha08yRWlzT2kyckc4WjIrOWlieDJ3VHhHVHd5UWtSM1BidUtUYmxycDRnPT0hdjE=?share_link_id=752482876973_
+
+> Código
+
+``` Js
+
+```
+_link:_
+
+> Obra
 
 ## Bitácora de reflexión
 
