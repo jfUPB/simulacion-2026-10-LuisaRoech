@@ -193,9 +193,364 @@ _Link:https://miro.com/welcomeonboard/WTBLekZOa2YxYk9GQTRpU3lIbm13QTZVS1FBeExNc2
 > Código
 
 ``` Js
+// ==========================
+// VARIABLES
+// ==========================
+let mother;
+let child;
 
+let nutricion = 0.5;
+let muerto = false;
+let tipoMuerte = "";
+
+let cordonRoto = false;
+let tiempoMuerte = 0;
+
+// cola
+let tail = [];
+let tailLength = 25;
+
+// ==========================
+// SETUP
+// ==========================
+function setup() {
+  createCanvas(800, 600);
+  mother = createVector(width / 2, height / 2);
+  child = createVector(width / 2 + 120, height / 2);
+
+  for (let i = 0; i < tailLength; i++) {
+    tail.push(createVector(child.x, child.y));
+  }
+}
+
+// ==========================
+// DRAW
+// ==========================
+function draw() {
+  background(5, 5, 10);
+
+  mother.x = mouseX;
+  mother.y = mouseY;
+
+  if (!muerto) {
+    actualizarSistema();
+  } else {
+    comportamientoPostMuerte();
+  }
+  
+  aplicarLimitesSuaves();
+
+  actualizarCola();
+
+  dibujarCordon();
+  dibujarCola();
+  dibujarHijo();
+  dibujarMadre();
+
+  if (muerto) efectosMuerte();
+}
+
+// ==========================
+// SISTEMA
+// ==========================
+function actualizarSistema() {
+  let d = dist(mother.x, mother.y, child.x, child.y);
+
+  let maxDist = 300;
+  let proximidad = 1 - constrain(d / maxDist, 0, 1);
+
+  nutricion = lerp(nutricion, proximidad, 0.05);
+
+  // fuerza hacia la madre
+  let dir = p5.Vector.sub(mother, child);
+  dir.mult(0.02 * nutricion);
+
+  // 🔥 RECHAZO SI SE ACERCA A SOBRECARGA
+  if (nutricion > 0.8) {
+    let repulsion = p5.Vector.sub(child, mother);
+    repulsion.normalize();
+    repulsion.mult(0.05 * map(nutricion, 0.8, 1, 0.5, 2));
+
+    dir.add(repulsion);
+  }
+
+  child.add(dir);
+
+  // inestabilidad
+  if (nutricion < 0.3) {
+    child.x += random(-2, 2);
+    child.y += random(-2, 2);
+  }
+
+  // ======================
+  // MUERTES
+  // ======================
+  if (d > 350) muerte("distancia");
+
+  if (nutricion <= 0.05) muerte("abandono");
+
+  if (nutricion >= 0.98) muerte("sobrecarga");
+}
+
+// ==========================
+// LIMITES SUAVES
+// ==========================
+
+function aplicarLimitesSuaves() {
+  let margen = 80;
+  let fuerza = 0.05;
+
+  // izquierda
+  if (child.x < margen) {
+    child.x += (margen - child.x) * fuerza;
+  }
+
+  // derecha
+  if (child.x > width - margen) {
+    child.x -= (child.x - (width - margen)) * fuerza;
+  }
+
+  // arriba
+  if (child.y < margen) {
+    child.y += (margen - child.y) * fuerza;
+  }
+
+  // abajo
+  if (child.y > height - margen) {
+    child.y -= (child.y - (height - margen)) * fuerza;
+  }
+}
+
+// ==========================
+// COMPORTAMIENTO POST MUERTE
+// ==========================
+function comportamientoPostMuerte() {
+  tiempoMuerte++;
+
+  if (tipoMuerte === "sobrecarga") {
+    // 🔥 sigue huyendo incluso muerto
+    let repulsion = p5.Vector.sub(child, mother);
+    repulsion.normalize();
+    repulsion.mult(2);
+
+    child.add(repulsion);
+
+    // movimiento errático
+    child.x += random(-3, 3);
+    child.y += random(-3, 3);
+  }
+
+  if (tipoMuerte === "abandono") {
+    child.lerp(mother, 0.03);
+  }
+}
+
+// ==========================
+// MUERTE
+// ==========================
+function muerte(tipo) {
+  muerto = true;
+  tipoMuerte = tipo;
+  tiempoMuerte = 0;
+
+  if (tipo === "distancia") {
+    cordonRoto = true;
+  }
+}
+
+// ==========================
+// COLA
+// ==========================
+function actualizarCola() {
+  tail[0].lerp(child, 0.4);
+
+  for (let i = 1; i < tail.length; i++) {
+    let prev = tail[i - 1];
+    let current = tail[i];
+
+    let dir = p5.Vector.sub(prev, current);
+
+    // más agresiva en sobrecarga
+    let fuerza = (tipoMuerte === "sobrecarga") ? 0.5 : 0.3;
+
+    dir.mult(fuerza);
+    current.add(dir);
+
+    let ruido = (tipoMuerte === "sobrecarga") ? 3 : 1.5;
+
+    current.x += map(noise(i, frameCount * 0.02), 0, 1, -ruido, ruido);
+    current.y += map(noise(i + 100, frameCount * 0.02), 0, 1, -ruido, ruido);
+  }
+}
+
+// ==========================
+// DIBUJAR COLA
+// ==========================
+function dibujarCola() {
+  noFill();
+
+  for (let i = 0; i < tail.length - 1; i++) {
+    let t = i / tail.length;
+
+    let grosor = map(t, 0, 1, 6, 0.5);
+    strokeWeight(grosor);
+
+    let col = lerpColor(
+      color(220, 220, 220, 180),
+      color(80, 80, 80, 40),
+      t
+    );
+
+    if (tipoMuerte === "sobrecarga") {
+      col = color(255, 80, 80, 120);
+    }
+
+    stroke(col);
+
+    line(
+      tail[i].x,
+      tail[i].y,
+      tail[i + 1].x,
+      tail[i + 1].y
+    );
+  }
+}
+
+// ==========================
+// CORDÓN
+// ==========================
+function dibujarCordon() {
+  if (cordonRoto) return;
+
+  let fibras = 6;
+
+  for (let j = 0; j < fibras; j++) {
+    strokeWeight(random(1, 2));
+
+    let col = lerpColor(color(80, 20, 20), color(200, 0, 0), nutricion);
+    stroke(col);
+    noFill();
+
+    beginShape();
+
+    let steps = 20;
+
+    for (let i = 0; i <= steps; i++) {
+      let t = i / steps;
+
+      let x = lerp(mother.x, child.x, t);
+      let y = lerp(mother.y, child.y, t);
+
+      let offset = map(
+        noise(t * 5, frameCount * 0.02 + j * 10),
+        0, 1,
+        -15, 15
+      );
+
+      x += offset;
+      y += offset;
+
+      vertex(x, y);
+    }
+
+    endShape();
+  }
+}
+
+// ==========================
+// HIJO
+// ==========================
+function dibujarHijo() {
+  push();
+  translate(child.x, child.y);
+
+  noStroke();
+
+  let size = map(nutricion, 0, 1, 12, 25);
+
+  if (muerto && tipoMuerte === "abandono") {
+    fill(120, 120, 120, 150);
+  } 
+  else if (tipoMuerte === "sobrecarga") {
+    fill(255, 80, 80, 150);
+    size *= random(0.8, 1.4);
+  } 
+  else if (tipoMuerte === "distancia") {
+    fill(150, 0, 0, 150);
+  } 
+  else {
+    fill(230, 230, 230, 200);
+  }
+
+  ellipse(0, 0, size * 1.4, size);
+
+  pop();
+}
+
+// ==========================
+// MADRE
+// ==========================
+function dibujarMadre() {
+  noStroke();
+
+  let baseSize = 120;
+
+  if (muerto && tipoMuerte === "abandono") {
+    fill(80, 80, 80, 60);
+    baseSize *= 0.8;
+  } 
+  else if (muerto && tipoMuerte === "distancia") {
+    fill(50, 20, 20, 50);
+    baseSize *= 0.6;
+  } 
+  else if (tipoMuerte === "sobrecarga") {
+    fill(200, 50, 50, 100);
+    baseSize *= 1.5;
+  } 
+  else {
+    fill(120, 40, 40, 80);
+  }
+
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += 0.1) {
+    let r = baseSize + noise(a, frameCount * 0.02) * 40;
+
+    let x = mother.x + cos(a) * r;
+    let y = mother.y + sin(a) * r;
+
+    vertex(x, y);
+  }
+  endShape(CLOSE);
+}
+
+// ==========================
+// EFECTOS
+// ==========================
+function efectosMuerte() {
+  if (tipoMuerte === "abandono") {
+    fill(0, 10);
+    rect(0, 0, width, height);
+  }
+}
+
+// ==========================
+// RESET
+// ==========================
+function mousePressed() {
+  muerto = false;
+  cordonRoto = false;
+  nutricion = 0.5;
+  tipoMuerte = "";
+
+  child = createVector(width / 2 + 120, height / 2);
+
+  tail = [];
+  for (let i = 0; i < tailLength; i++) {
+    tail.push(createVector(child.x, child.y));
+  }
+}
 ```
-_link:_
+_link: https://editor.p5js.org/LuisaRoech/sketches/5p-l5PqYa_
 
 > Obra
 
