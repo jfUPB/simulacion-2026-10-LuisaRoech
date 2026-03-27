@@ -4,7 +4,7 @@
 
 ### Anatomía de una partícula (Actividad 01)
 
-Analizando el ejemplo 4.2, `Update()` es quien abarca el marco motion 101 de este sistema que actualiza la particula de cada frame, dentro de este algo interesante es que se reduce de forma gradual la vida de la particula, quien inicialmente esta dada por `this.lifespan = 255.0;`
+Analizando el ejemplo 4.2, `Update()` es quien abarca el marco motion 101 de este sistema, actualizando la particula en cada frame. Dentro de este, algo interesante es que se reduce de forma gradual la vida de la particula, quien inicialmente esta dada por `this.lifespan = 255.0;`, lo que indica un desvanecimiento progresivo en lugar de una desaparición instantánea.
 
 ``` Js
  // Method to update position
@@ -16,16 +16,31 @@ Analizando el ejemplo 4.2, `Update()` es quien abarca el marco motion 101 de est
   }
 ```
 
-El constructor es quien define todo lo principal de la particula y su clase es quien las crea, despues en `sketch.js ` se recorre estas para saber su estado (si estan vivas o muertas). Ahora bien, el no reiniciar las particulas le exigirá mucho mas a la CPU para recorrer y leer todas las particulas dadas.
+El constructor define las propiedades principales de la particula y su clase es quien las crea, despues en `sketch.js ` se recorren para evaluar su estado (si estan vivas o muertas). Ahora bien, si las partículas no se eliminaran, el sistema acumularía cada vez más instancias, aumentando el uso de memoria y afectando el rendimiento (frame rate).
 
-Aunque dentro de este código existe una estructura interesante al momento de leer la vida de una particula, en vez de leerla de la forma tradicional esta se lee al reves usando `let i = particles.length - 1;` (lo clave esta en el -1). Principalmente se hace por el uso de `particles.splice(i, 1);` que elimina una particula del array de particulas, por lo tanto hacerlo de forma tradicional lo vuelve suceptible a no recorrer correctamente todo el for.
+Aunque dentro de este código existe una estructura interesante al momento de leer la vida de una particula, en vez de leerla de la forma tradicional esta se lee al reves usando `let i = particles.length - 1;` (lo clave esta en el -1). Esto se debe a que se emplea `particles.splice(i, 1);` para eliminar partículas del arreglo; si se recorriera de forma tradicional (de inicio a fin), los índices cambiarían al eliminar elementos, provocando que algunas partículas no se procesen correctamente dentro del `for`.
 
 ### Del array al sistema: la abstracción del emisor (Actividad 02)
 
-Del ejemplo 4.4 lo importante y diferenciador del ejemplo 4.2 (el anterior) esta en el `emitter.js`, quien se encarga ahora de agregar un origen de donde se generarán las particula en base de donde se ha presionado con el mouse y el chequeo for que se encarga de leer el estado de una particula ahora se encuentra en esta, pero ¿por que separar esto en una nueva clase? Para que la lectura sea más eficiente :p 
+Del ejemplo 4.4 lo importante y diferenciador del ejemplo 4.2 (el anterior) esta en el `emitter.js`. Quien ahora se encarga de agregar un origen que generará las particula en base donde se ha presionado con el mouse, al hacer click las crea y el chequeo `for` que se encarga de leer el estado de una particula ahora se encuentra en esta. 
+Pero ¿por qué separar esto en una nueva clase? Principalmente para que sea modular, cada emisor funciona de forma independiente, se puede tener múltiples sistemas sin duplicar la lógica, puede servir en distintos contextos y separa "quién emite" de "qué se emite".
 
-Como ejemplo seria pensar en...
+¿Quién crea qué?
 
+- Emitters → los crea el _sketch_ (por ejemplo en `setup()` o eventos)
+- Partículas → las crea cada Emitter
+
+> Diagrama
+
+```
+[ Sketch ]
+     ↓
+[ Emitters ]  →  [Emitter 1] → [Partículas]
+              →  [Emitter 2] → [Partículas]
+              →  [Emitter 3] → [Partículas]
+```
+
+> El sistema está organizado jerárquicamente: una entidad principal contiene múltiples emisores, y cada emisor gestiona su propia colección de partículas. Los niveles de colección son 1. Array de emitters y 2. Array de particulas dentro de cada emitter
 
 ### Heterogeneidad: herencia y polimorfismo (Actividad 03)
 
@@ -59,15 +74,12 @@ La razón principal es para generar mayor eficiencia en el momento de querer exp
 
 Si quiero agregar una nueva particula, solo es necesario crear un nuevo archivo .js que herede de particle, llamar las funciones que quiero retormar de esta y crear otras, despues simplemente este nuevo archivo debe ser llamado en el emitter en `addParticle()`, por ejemplo:
 
-
-
 ###  Fuerzas y partículas (Actividad 04)
 
 a
 
 
 ## Bitácora de aplicación 
-
 
 ### Ciclo de vida (Actividad 05)
 
