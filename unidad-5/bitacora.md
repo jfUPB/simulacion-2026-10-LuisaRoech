@@ -739,3 +739,4 @@ Piensa en tu pieza del Apply: si la quisieras recrear en Unity (o TouchDesigner,
 
 **La arquitectura mental del sistema es la misma**, el como la madre e hijo interactuan entre si, como se mueven y que desenlace genera lo que se haga, es el mismo. Principalmente lo que no puede ser replicable de igual forma seria la estructura visual, en blender se necesitaria ya un objeto riggeado para simular el movimiento del embrión, la trasparencia depende de materiales ajenos a los nodos y esto ocurre de igual forma a las otras aplicaciones, el lenguaje cambia, la forma de crear partículas se da con nodos visuales o con sistemas ya integrados (como Unity Particle System) y la memoria y rendimiento es distinta para cada una. 
 
+<img width="259" height="224" alt="image" src="https://github.com/user-attachments/assets/e1529ef0-514c-4e66-a09c-275df5979e55" />
