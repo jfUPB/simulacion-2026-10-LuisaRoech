@@ -685,6 +685,8 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/5p-l5PqYa_
 
 > Obra
 
+https://github.com/user-attachments/assets/e8623f10-5b22-47ed-b29d-6d9dfdf3e431
+
 ## Bitácora de reflexión
 
 ### (Actividad 06)
