@@ -40,11 +40,11 @@ Pero ¿por qué separar esto en una nueva clase? Principalmente para que sea mod
               →  [Emitter 3] → [Partículas]
 ```
 
-> El sistema está organizado jerárquicamente: una entidad principal contiene múltiples emisores, y cada emisor gestiona su propia colección de partículas. Los niveles de colección son 1. Array de emitters y 2. Array de particulas dentro de cada emitter
+> El sistema está organizado como: una entidad principal contiene múltiples emisores, y cada emisor gestiona su propia colección de partículas. Los niveles de colección son 1. Array de emitters y 2. Array de particulas dentro de cada emitter.
 
 ### Heterogeneidad: herencia y polimorfismo (Actividad 03)
 
-Del ejemplo 4.5, en esta se incluye dos tipos distintos de particulas, en la que `confetti.js` hereda de la otra particula `particle.js`, comparten el mismo constructor, las mismas fuerzas y la misma estructura del motion 101, lo unico que se diferencia la una de la otra es en el `show()` que permite que tengan una forma distinta, una esta dada por cuadros y la otra por circulos.
+Del ejemplo 4.5 se incluye dos tipos distintos de particulas, en la que `confetti.js` hereda de la otra particula `particle.js`, comparten el mismo constructor, las mismas fuerzas, el ciclo de vida y la misma estructura del motion 101, lo unico que se diferencia la una de la otra es en el `show()` que permite que tengan una forma distinta, una esta dada por cuadros y la otra por circulos.
 
 Cosas interesantes explicadas es del porque el `emitter.js` no necesita saber que tipo de particula esta gestionando. estas funciones en general son interesantes:
 
@@ -70,14 +70,35 @@ Cosas interesantes explicadas es del porque el `emitter.js` no necesita saber qu
 }
 ```
 
-La razón principal es para generar mayor eficiencia en el momento de querer expandir el proyecto y agregar mas particulas. En `run()` se ejecuta las dos particulas agregadas anteriormente en `addParticle()`, por lo que no es necesario tocar esta función al momento de implementar nuevas cosas, pues esta independientemente si se agregan mas o menos ejecutara todas las que estan listadas en `addParticle()`, que justo esta tambien podria realizarse lo mismo agregrando un objeto que tome `particle.js` (si suponemos que todas las particulas van a heredar de esta como lo hizo confetti) y se ejecute de forma general. Lo unico malo es que es un proceso más lento y menos eficiente que agregar una por una, ya que se llama una por una para ejecutarla y no todas al tiempo.
+La razón principal es para hacer el sistema más flexible y extensible. En `run()` se ejecuta las dos particulas agregadas anteriormente en `addParticle()`, por lo que no es necesario tocar esta función al momento de implementar nuevas cosas, pues esta independientemente si se agregan mas o menos ejecutara todas las que estan listadas en `addParticle()`, que justo con esta tambien podria realizarse lo mismo agregrando un objeto que tome `particle.js` (si suponemos que todas las particulas van a heredar de esta como lo hizo confetti) y se ejecute de forma general. Lo unico malo es que es un proceso más lento y menos eficiente que agregar una por una, ya que se llama una por una para ejecutarla y no todas al tiempo.
 
-Si quiero agregar una nueva particula, solo es necesario crear un nuevo archivo .js que herede de particle, llamar las funciones que quiero retormar de esta y crear otras, despues simplemente este nuevo archivo debe ser llamado en el emitter en `addParticle()`, por ejemplo:
+> En resumen: El Emitter trata a todas las partículas como “entidades genéricas” sin importar cómo se vean.
+
+Ahora si quiero agregar una nueva particula, solo es necesario crear un nuevo archivo .js que herede de particle, llamar las funciones que quiero retormar de esta y crear otras, despues simplemente este nuevo archivo debe ser llamado en el emitter en `addParticle()`. _NO MODIFICAR: el emiiter, sketch y la lógica de vida o actualización base._
 
 ###  Fuerzas y partículas (Actividad 04)
 
-a
+- Ejemplo 4.6: La gravedad se define en el _sketch_ como un vector constante y el sistema (el emitter) la aplica usando `applyForce()` sobre cada particula. Siendo global, pues es la misma para todas las partículas y no depende de su posición
+  
+- Ejemplo 4.7: por otro lado en este la gravedad se mantiene constante que ¨vive¨ fuera, como condicion general y se incluye un repeller que depende de la distancia que "vive" en una entidad específica siendo una fuente localizada de fuerza.
 
+_Nota: El repeller se basa en una fuerza inversamente proporcional a la distancia (tipo ley de atracción/repulsión, similar a gravedad o Coulomb) = A menor distancia, mayor fuerza._
+
+Y de estos dos ejemplos `particle.js` no cambia, la partícula no "sabe" de dónde vienen las fuerzas, solo sabe cómo aplicarlas. 
+
+| Aspecto | 4.2 | 4.4 | 4.5 | 4.6 | 4.7 |
+|--------|-----|-----|-----|-----|-----|
+| ¿Quién crea partículas? | Sketch | Emitter | Emitter | Emitter | Emitter |
+| ¿Hay clase Emitter? | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ¿Hay herencia? | ❌ | ❌ | ✅ | ❌ | ❌ |
+| ¿Hay fuerzas externas? | ❌ | ❌ | ❌ | ✅ | ✅ |
+| ¿Hay interacción? | ❌ | ❌ | ❌ | ❌ | ✅ |
+| ¿Cómo mueren? | Lifespan | Lifespan | Lifespan | Lifespan | Lifespan |
+
+**MODIFICACIÓN QUIRÚRGICA**
+
+
+> código
 
 ## Bitácora de aplicación 
 
@@ -118,7 +139,23 @@ El acto final no se presenta únicamente como violencia, sino como una forma amb
 > Boceto
 
 
-
-
-
 ## Bitácora de reflexión
+
+### (Actividad 06)
+
+**PARTE 1** — Describe con tus propias palabras cada uno de estos 10 principios:
+
+1. Una partícula es una entidad con estado.
+2. Una partícula tiene ciclo de vida.
+3. Un sistema de partículas gestiona colecciones dinámicas de elementos.
+4. La creación y eliminación de partículas no es un detalle técnico menor, sino parte central del modelo.
+5. Debe haber separación entre la lógica de una partícula individual y la lógica del sistema/emisor.
+6. Un emisor o particle system es una abstracción importante.
+7. Pueden existir sistemas de sistemas.
+8. Puede haber heterogeneidad usando herencia y polimorfismo.
+9. Las partículas pueden responder a fuerzas globales y locales.
+10. La representación visual puede variar sin cambiar el principio algorítmico de fondo.
+
+**PARTE 2** — Transferencia a otra herramienta
+
+Piensa en tu pieza del Apply: si la quisieras recrear en Unity (o TouchDesigner, o Blender), ¿Qué se mantendría igual y qué cambiaría? ¿Qué partes de tu diseño son independientes de la herramienta?
