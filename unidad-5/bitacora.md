@@ -694,16 +694,48 @@ https://github.com/user-attachments/assets/e8623f10-5b22-47ed-b29d-6d9dfdf3e431
 **PARTE 1** — Describe con tus propias palabras cada uno de estos 10 principios:
 
 1. Una partícula es una entidad con estado.
+
+No es solo un punto visual, es un objeto que guarda información propia como su posición, velocidad, aceleración, color, tamaño, etc. Ed decir, cada partícula tiene la capacidad de "recordar" quién es.
+   
 2. Una partícula tiene ciclo de vida.
+
+Ellas nacen, evolucionan y mueren. Teniendo un tiempo de "vida" dictado por nosotros, un ser vivo artificial.
+   
 3. Un sistema de partículas gestiona colecciones dinámicas de elementos.
+
+El sistema no trabaja con una sola partícula, sino con muchas. Su función es crear, actualizar y eliminar constantemente las partículas ya muertas, manejando un grupo que cambia con el tiempo.
+   
 4. La creación y eliminación de partículas no es un detalle técnico menor, sino parte central del modelo.
+
+Es el núcleo. El efecto visual depende de cómo y cuándo se generan y destruyen partículas (emisiones continuas, explosiones, humo, etc.). Asi que no es solo por "optimización", va mas allá de solo eso.
+   
 5. Debe haber separación entre la lógica de una partícula individual y la lógica del sistema/emisor.
+
+Claro, la partícula se debe encargar de su propio comportamiento, como su vida por ejemplo, mientras que el sistema/emisor es quien decide cuántas crear, cuándo hacerlo y cómo van a interactuar en conjunto.
+    
 6. Un emisor o particle system es una abstracción importante.
+
+El emisor representa la fuente, es una capa que organiza la generación del sistema.
+    
 7. Pueden existir sistemas de sistemas.
+
+Por ejemplo, un sistema que controla varios emisores, o efectos complejos compuestos por múltiples sistemas. Mas simple es como decir que una empresa (sistema grande) cuenta con departamentos (sistemas pequeños) y cada departamento cuenta con empleados (las partículas).
+    
 8. Puede haber heterogeneidad usando herencia y polimorfismo.
-9. Las partículas pueden responder a fuerzas globales y locales.
+
+No todas las partículas tienen que ser iguales, pueden tener sus diferencias aun usando herencia o estructuras polimórficas para definir variantes. 
+    
+9. Las partículas pueden responder a fuerzas globales y locales
+
+Esto permite comportamientos más ricos. Se pueden ver afectas por la gravedad o el viento o por fuerzas más especificas como una atracción a un punto o repulsión del mismo.
+    
 10. La representación visual puede variar sin cambiar el principio algorítmico de fondo.
+
+Pueden tomar cualquier forma ya sea a circulos, imágenes, sprites o shaders sin tocar la lógica. La apariencia siempre setá separada del comportamiento (en mucho de los casos).
 
 **PARTE 2** — Transferencia a otra herramienta
 
 Piensa en tu pieza del Apply: si la quisieras recrear en Unity (o TouchDesigner, o Blender), ¿Qué se mantendría igual y qué cambiaría? ¿Qué partes de tu diseño son independientes de la herramienta?
+
+**La arquitectura mental del sistema es la misma**, el como la madre e hijo interactuan entre si, como se mueven y que desenlace genera lo que se haga, es el mismo. Principalmente lo que no puede ser replicable de igual forma seria la estructura visual, en blender se necesitaria ya un objeto riggeado para simular el movimiento del embrión, la trasparencia depende de materiales ajenos a los nodos y esto ocurre de igual forma a las otras aplicaciones, el lenguaje cambia, la forma de crear partículas se da con nodos visuales o con sistemas ya integrados (como Unity Particle System) y la memoria y rendimiento es distinta para cada una. 
+
