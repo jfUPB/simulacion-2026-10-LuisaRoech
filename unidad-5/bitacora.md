@@ -88,12 +88,12 @@ Y de estos dos ejemplos `particle.js` no cambia, la partícula no "sabe" de dón
 
 | Aspecto | 4.2 | 4.4 | 4.5 | 4.6 | 4.7 |
 |--------|-----|-----|-----|-----|-----|
-| ¿Quién crea partículas? | Sketch | Emitter | Emitter | Emitter | Emitter |
-| ¿Hay clase Emitter? | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ¿Hay herencia? | ❌ | ❌ | ✅ | ❌ | ❌ |
-| ¿Hay fuerzas externas? | ❌ | ❌ | ❌ | ✅ | ✅ |
-| ¿Hay interacción? | ❌ | ❌ | ❌ | ❌ | ✅ |
-| ¿Cómo mueren? | Lifespan | Lifespan | Lifespan | Lifespan | Lifespan |
+| ¿Quién crea partículas? | _Sketch_ | _Emitter_ | _Emitter_ | _Emitter_ | _Emitter_ |
+| ¿Hay clase Emitter? | NO | SI | SI | SI | SI |
+| ¿Hay herencia? | NO | NO | SI | NO | NO |
+| ¿Hay fuerzas externas? | NO | NO | NO | SI | SI |
+| ¿Hay interacción? | NO | SI(?) | NO | NO | SI |
+| ¿Cómo mueren? | _Lifespan_ | _Lifespan_ | _Lifespan_ | _Lifespan_ | _Lifespan_ |
 
 **MODIFICACIÓN QUIRÚRGICA**
 
