@@ -86,6 +86,8 @@ _Nota: El repeller se basa en una fuerza inversamente proporcional a la distanci
 
 Y de estos dos ejemplos `particle.js` no cambia, la partícula no "sabe" de dónde vienen las fuerzas, solo sabe cómo aplicarlas. 
 
+_Tabla_
+
 | Aspecto | 4.2 | 4.4 | 4.5 | 4.6 | 4.7 |
 |--------|-----|-----|-----|-----|-----|
 | ¿Quién crea partículas? | _Sketch_ | _Emitter_ | _Emitter_ | _Emitter_ | _Emitter_ |
@@ -97,8 +99,42 @@ Y de estos dos ejemplos `particle.js` no cambia, la partícula no "sabe" de dón
 
 **MODIFICACIÓN QUIRÚRGICA**
 
+Para este ejercicio decidi tomar el **(b)** Cambiar las fuerzas sin cambiar la estructura ni la visualización. Reemplazando la gravedad por una que oscile:
 
-> código
+``` Js
+let g = map(sin(frameCount * 0.05), -1, 1, 0.05, 0.2);
+let gravity = createVector(0, g);
+emitter.applyForce(gravity);
+```
+
+> código (solo _sketch_ que fue el que modifique)
+
+``` Js
+// One ParticleSystem
+let emitter;
+
+//{!1} One repeller
+let repeller;
+
+function setup() {
+  createCanvas(640 , 240);
+  emitter = new Emitter(width / 2, 60);
+  repeller = new Repeller(width / 2, 250);
+}
+
+function draw() {
+  background(255);
+  emitter.addParticle();
+  let g = map(sin(frameCount * 0.05), -1, 1, 0.05, 0.2);
+let gravity = createVector(0, g);
+emitter.applyForce(gravity);
+  //{!1} Applying the repeller
+  emitter.applyRepeller(repeller);
+  emitter.run();
+
+  repeller.show();
+}
+```
 
 ## Bitácora de aplicación 
 
