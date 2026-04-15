@@ -56,7 +56,7 @@ Principalmente porque el flow field funciona como una red de vectores que define
 No vemos esas fuerzas en la vida real, pero las sentimos:
 los caminos que tomamos siempre, los lugares donde dejamos cosas, las formas en que ocupamos un hogar.
 
-Las hormigas siguen lo que queda de quienes ya no están, no convirtiendolo en un hogar ya abandonado, es un hogar que sigue operando bajo otra lógica.
+Las hormigas siguen lo que queda de quienes ya no están, no como representación de abandono, es un hogar que sigue operando bajo otra lógica.
 
 > Explicación de la relación audio-visual.
 
