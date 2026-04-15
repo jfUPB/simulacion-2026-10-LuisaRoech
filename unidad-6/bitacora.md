@@ -35,7 +35,7 @@ De esta forma, la música deja de ser acompañamiento y se convierte en una dime
 
 > Moodboard o referencias.
 
-<img width="1752" height="2048" alt="BiteBoxAnim" src="https://github.com/user-attachments/assets/315a680e-0562-469d-8143-1df373bc7b90" />
+<img width="1450" height="1154" alt="BiteBoxAnim" src="https://github.com/user-attachments/assets/113ff0f4-ded8-46b3-962e-f7c081f2678f" />
 
 > Dos o más bocetos.
 
