@@ -51,8 +51,12 @@ De esta forma, la música deja de ser acompañamiento y se convierte en una dime
 
 > Justificación del algoritmo elegido.
 
+Principalmente porque el flow field funciona como una red de vectores que define hacia dónde moverse en cada punto del espacio representandose como una memoria residual (rutinas pasadas), la incercia del habitar (el espacio sigue “sabiendo” cómo se usaba) y una organización que no desaparece, solo deja de ser humana.
 
+No vemos esas fuerzas en la vida real, pero las sentimos:
+los caminos que tomamos siempre, los lugares donde dejamos cosas, las formas en que ocupamos un hogar.
 
+Las hormigas siguen lo que queda de quienes ya no están, no convirtiendolo en un hogar ya abandonado, es un hogar que sigue operando bajo otra lógica.
 
 > Explicación de la relación audio-visual.
 
@@ -64,7 +68,7 @@ De esta forma, la música deja de ser acompañamiento y se convierte en una dime
 
 > Código fuente.
 
-
+_link: https://editor.p5js.org/LuisaRoech/sketches/J_E2Htck-_
 
 > Enlace al sketch.
 
