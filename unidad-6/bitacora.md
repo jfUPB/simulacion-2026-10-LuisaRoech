@@ -2,16 +2,19 @@
 
 ## Bitácora de proceso de aprendizaje
 
-<img width="637" height="626" alt="image" src="https://github.com/user-attachments/assets/8fa5fe28-be57-4361-93b1-0db3c2d7be35" />
+<img width="300" height="294" alt="Captura de pantalla 2026-04-16 173147-Photoroom (1)" src="https://github.com/user-attachments/assets/5201e062-fef6-4450-868a-e2e91cb87c6a" />
+
 _The Blob's Groovy Dance | Mesmerizing Physarum_
 
 ### Actividad 01
 
-<img width="20" height="30" alt="image" src="https://github.com/user-attachments/assets/f05de151-ec37-481b-8733-3f99bf976b8a" />
+<img width="1778" height="702" alt="image" src="https://github.com/user-attachments/assets/b16fcacf-d57e-4d73-b61c-17d645c9f91f" />
 
-<img width="20" height="25" alt="image" src="https://github.com/user-attachments/assets/2d583fa0-ecfc-4212-a605-d689b0bd8ff5" />
-<img width="20" height="25" alt="image" src="https://github.com/user-attachments/assets/fdd7c969-6611-4baf-8ff7-bdab37986059" />
+_One One Overflow - Tyler Hobbs_
 
+<img width="1313" height="672" alt="image" src="https://github.com/user-attachments/assets/1b8bb85f-ce6a-4fcb-b873-48873a034c7e" />
+
+_Strength of Night - Tyler Hobbs_
 
 ### Actividad 02
 
