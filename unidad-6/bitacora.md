@@ -2,7 +2,13 @@
 
 ## Bitácora de proceso de aprendizaje
 
+<img width="637" height="626" alt="image" src="https://github.com/user-attachments/assets/8fa5fe28-be57-4361-93b1-0db3c2d7be35" />
+_The Blob's Groovy Dance | Mesmerizing Physarum_
+
 ### Actividad 01
+<img width="20" height="25" alt="image" src="https://github.com/user-attachments/assets/2d583fa0-ecfc-4212-a605-d689b0bd8ff5" />
+<img width="20" height="25" alt="image" src="https://github.com/user-attachments/assets/fdd7c969-6611-4baf-8ff7-bdab37986059" />
+
 
 ### Actividad 02
 
