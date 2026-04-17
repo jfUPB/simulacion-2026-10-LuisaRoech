@@ -84,6 +84,7 @@ De esta forma, la música deja de ser acompañamiento y se convierte en una dime
 > Mapa de interpretación.
 
 <img width="1330" height="568" alt="image" src="https://github.com/user-attachments/assets/fbd4097a-6db4-4be1-978c-4cf574152573" />
+<img width="2217" height="704" alt="image" src="https://github.com/user-attachments/assets/322b020c-4ad7-48ec-a107-9c99192f4fba" />
 
 > Justificación del algoritmo elegido.
 
