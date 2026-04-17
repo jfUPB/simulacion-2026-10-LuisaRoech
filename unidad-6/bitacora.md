@@ -102,9 +102,7 @@ Además, el sonido influye en el desgaste de la pintura: en momentos más intens
 
 > Evidencia del uso de IA.
 
-<img width="823" height="738" alt="image" src="https://github.com/user-attachments/assets/c5743ef5-06f0-4e64-acc0-60fa43186a93" />
-<img width="851" height="750" alt="image" src="https://github.com/user-attachments/assets/080d52a1-9975-41a2-80aa-9b44c92a1ebe" />
-<img width="860" height="768" alt="image" src="https://github.com/user-attachments/assets/9f6d5e76-5ed6-492a-8781-022dc8fba003" />
+<img width="1050" height="925" alt="Untitled" src="https://github.com/user-attachments/assets/79b97d77-06c5-4f65-8cdb-36f822da6533" />
 
 > Código fuente.
 
