@@ -6,21 +6,35 @@
 
 _The Blob's Groovy Dance | Mesmerizing Physarum_
 
-### Actividad 01
+### Un referente para pensar sistemas visuales (Actividad 01)
 
 <img width="1778" height="702" alt="image" src="https://github.com/user-attachments/assets/b16fcacf-d57e-4d73-b61c-17d645c9f91f" />
 
 _One One Overflow - Tyler Hobbs_
 
+Esta obra esta compuesta por bandas horizontales que ocupan todo el plano, sin jerarquía evidente. No se encuentra un foco en especial, solo tu mirada se desplaza lateralmente. Esto rompe con la composición tradicional, estas lineas generan una corriente pero hay zonas que generan casi ruido visual por la acumulación de elementos extrema y otras ocurre lo opuesto. El ojo busca descanso, pero nunca lo encuentra del todo. El azul funciona como base estructural con acentos cálidos como los rojos, amarillos, rosas funcionando como interferencias o eventos. El ritmo se contruye con la repetición de patrones lineales y punteados pero constantemente interrumpido.
+
 <img width="1313" height="672" alt="image" src="https://github.com/user-attachments/assets/1b8bb85f-ce6a-4fcb-b873-48873a034c7e" />
 
 _Strength of Night - Tyler Hobbs_
 
-### Actividad 02
+En esta la composición suele estar mas agrupada como "masas" suspendidas en el espacio. Genera algo más escultórico pues no recorres la imagen, la enfrentas. Su densidad es mucho mas controlada creando un contraste entre presencia y asuencia, teniendo un movimiento orgánico. Predomina todos oscuros como los negros, azules y grises con ligeras variaciones. Tiene un ritmo lento, se construye más por acumulación progresiva.
 
-### Actividad 03
+### Agentes autónomos y steering forces (Actividad 02)
 
-### Actividad 04
+a
+
+### Flow Fields (Actividad 03)
+
+s
+
+### Flocking (Actividad 04)
+
+Un tema del cual ya me adelante de entregas pasadas, el flocking
+
+### Comparar algoritmos como herramientas de diseño  (Actividad 05)
+
+s
 
 ## Bitácora de aplicación 
 
@@ -80,11 +94,11 @@ Las hormigas siguen lo que queda de quienes ya no están, no como representació
 
 > Código fuente.
 
-_link: https://editor.p5js.org/LuisaRoech/sketches/J_E2Htck-_
+
 
 > Enlace al sketch.
 
-
+_link: https://editor.p5js.org/LuisaRoech/sketches/J_E2Htck-_
 
 > Capturas o registros de momentos importantes de la pieza.
 
