@@ -30,7 +30,7 @@ Es un campo de flujo está construido como una grilla donde cada celda contiene 
 
 ### Flocking (Actividad 04)
 
-Un tema del cual ya me adelante de entregas pasadas, el `flocking` contiee reglas base que son bastante intuitivas: 
+Un tema del cual ya me adelante de entregas pasadas, el `flocking` contiene reglas base que son bastante intuitivas: 
 
 - **separación** hace que cada agente evite estar demasiado cerca de los demás para no colisionar;
 - **alineación** hace que intente moverse en la misma dirección que sus vecinos; y
@@ -79,11 +79,11 @@ De esta forma, la música deja de ser acompañamiento y se convierte en una dime
 
 > Mapa de decisiones.
 
-
+<img width="1003" height="1557" alt="Mapa de desiciones" src="https://github.com/user-attachments/assets/8ba7b06a-1a87-4275-aeb4-08b4744d03c0" />
 
 > Mapa de interpretación.
 
-
+<img width="1330" height="568" alt="image" src="https://github.com/user-attachments/assets/fbd4097a-6db4-4be1-978c-4cf574152573" />
 
 > Justificación del algoritmo elegido.
 
@@ -96,11 +96,17 @@ Las hormigas siguen lo que queda de quienes ya no están, no como representació
 
 > Explicación de la relación audio-visual.
 
+En los momentos de mayor intensidad sonora, el sistema responde aumentando la energía del flujo: el campo se vuelve más caótico, las trayectorias se aceleran y aparecen eventos más marcados, como las hormigas de mayor peso visual. Esto genera una sensación de acumulación y densidad, donde la imagen se carga y se vuelve más activa.
 
+Por el contrario, en las secciones más suaves o cercanas al silencio, el sistema reduce su intensidad: el movimiento se estabiliza, las trayectorias se vuelven más suaves y la composición respira. Esto permite que la imagen se disperse y que la memoria visual acumulada se perciba con mayor claridad.
+
+Además, el sonido influye en el desgaste de la pintura: en momentos más intensos, la imagen se transforma más rápidamente, mientras que en pasajes más calmados, las huellas permanecen por más tiempo. De esta manera, la música no solo afecta el movimiento, sino también la permanencia de la imagen.
 
 > Evidencia del uso de IA.
 
-
+<img width="823" height="738" alt="image" src="https://github.com/user-attachments/assets/c5743ef5-06f0-4e64-acc0-60fa43186a93" />
+<img width="851" height="750" alt="image" src="https://github.com/user-attachments/assets/080d52a1-9975-41a2-80aa-9b44c92a1ebe" />
+<img width="860" height="768" alt="image" src="https://github.com/user-attachments/assets/9f6d5e76-5ed6-492a-8781-022dc8fba003" />
 
 > Código fuente.
 
