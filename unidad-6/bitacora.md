@@ -22,19 +22,29 @@ En esta la composición suele estar mas agrupada como "masas" suspendidas en el 
 
 ### Agentes autónomos y steering forces (Actividad 02)
 
-a
+Un agente autónomo es una entidad dentro de un sistema que toma decisiones por sí misma según reglas internas y lo que percibe del entorno, sin que cada paso esté controlado directamente; en ese contexto, una `steering force` es una fuerza calculada dinámicamente que orienta su movimiento (por ejemplo, acercarse, evitar o seguir algo), a diferencia de una fuerza externa como la gravedad que actúa siempre igual y no depende de “intención” o comportamiento. La diferencia clave es que la steering force responde a objetivos y contexto, mientras que la gravedad es constante y predecible. Estas ideas son útiles no solo para simular movimiento sino para diseñar comportamiento visual porque permiten crear sistemas que parecen vivos, donde las formas no solo se mueven sino que reaccionan, se organizan y generan patrones complejos a partir de reglas simples, lo que da lugar a composiciones más orgánicas y menos rígidas.
 
 ### Flow Fields (Actividad 03)
 
-s
+Es un campo de flujo está construido como una grilla donde cada celda contiene un vector que indica una dirección (y a veces intensidad), y puede generarse a partir de ruido, funciones matemáticas o reglas; cada uno de esos vectores representa “hacia dónde debería moverse algo” en ese punto del espacio. Un agente, al moverse, usa su posición para ubicar en qué celda está y leer ese vector, y luego lo transforma en una decisión aplicando una `steering force` que ajusta su velocidad teniendo en cuenta límites como **maxspeed** y **maxforce**. Parámetros clave del sistema son la **resolución** del campo (qué tan detallado es), la cantidad de agentes (densidad visual), y esos límites de velocidad y fuerza que afectan qué tan suave o abrupto es el movimiento. Por ejemplo, si reduces la resolución, el movimiento se vuelve más brusco y segmentado; si la aumentas, todo fluye más orgánicamente. En general, este algoritmo produce movimientos continuos, tipo corrientes o fluidos, con trayectorias suaves que pueden parecer viento, agua o energía; visualmente sugiere algo vivo, envolvente, incluso hipnótico, y encajaría muy bien con música ambiental, electrónica suave o piezas más atmosféricas donde el ritmo no es rígido sino expansivo.
 
 ### Flocking (Actividad 04)
 
-Un tema del cual ya me adelante de entregas pasadas, el flocking
+Un tema del cual ya me adelante de entregas pasadas, el `flocking` contiee reglas base que son bastante intuitivas: 
+
+- **separación** hace que cada agente evite estar demasiado cerca de los demás para no colisionar;
+- **alineación** hace que intente moverse en la misma dirección que sus vecinos; y
+- **cohesión** lo empuja a mantenerse cerca del grupo, evitando que se disperse.
+
+Estas reglas suelen estar controladas por parámetros como el radio de percepción (qué tan lejos “ve” a otros agentes) y los pesos o intensidades de cada fuerza. Si, por ejemplo, aumentas mucho el peso de separación, el sistema se vuelve más disperso y tenso, casi nervioso; si subes cohesión, el grupo se compacta y se siente más sólido; y si dominas con alineación, aparece un movimiento más fluido y coordinado, como una bandada real. Lo interesante es que de estas reglas simples emerge un comportamiento colectivo que puede ser compacto o disperso, estable o caótico, dependiendo del balance: bien ajustado se siente fluido, mal balanceado puede parecer errático o incluso fragmentado. Visualmente, el flocking produce una atmósfera orgánica, casi biológica, como si estuvieras viendo algo vivo que respira y se adapta; funciona muy bien en relación con música cuando no sigue el ritmo de forma literal, sino como una capa que reacciona o acompaña, por ejemplo en piezas electrónicas, ambient o incluso pasajes más suaves donde el movimiento colectivo puede amplificar la sensación de flujo o tensión.
+
 
 ### Comparar algoritmos como herramientas de diseño  (Actividad 05)
 
-s
+Los `flow fields` y el `flocking` producen movimientos que, aunque pueden parecer similares a primera vista, nacen de lógicas distintas: en los flow fields el movimiento es continuo, como corrientes invisibles que arrastran a los agentes en trayectorias suaves y envolventes, mientras que en el flocking el movimiento es colectivo y reactivo, basado en la interacción entre vecinos, lo que genera agrupaciones, rupturas y reorganizaciones constantes. Esto hace que los flow fields ofrezcan un mayor **control visual global**, pero menor nivel de emergencia, mientras que el flocking tiene menos control directo sobre la forma final pero un **alto nivel de comportamiento emergente**, donde el sistema sorprende con dinámicas complejas. En términos de atmósfera, los flow fields suelen sentirse más fluidos, meditativos o naturales (como viento o agua), mientras que el flocking tiende a lo orgánico y social, a veces estable y armonioso, otras veces tenso o caótico. En relación con música, los flow fields funcionan muy bien como capas continuas que acompañan piezas ambientales o progresivas, mientras que el flocking puede dialogar mejor con cambios rítmicos o energéticos, respondiendo de forma más “viva”. Como ventajas, los flow fields permiten diseñar direcciones claras y composiciones más controladas, pero pueden volverse predecibles; el flocking, en cambio, genera riqueza y sorpresa, aunque puede ser difícil de controlar y ajustar visualmente.
+
+Si tuviera que elegir según emoción: para una canción **contemplativa** usaría flow fields por su suavidad y continuidad; para algo **agresivo**, flocking con parámetros extremos (alta separación o cambios bruscos) para generar tensión; para una pieza **melancólica**, flow fields más lentos y con baja variación, casi como deriva; y para algo **eufórico**, flocking bien balanceado, donde la coordinación y expansión del grupo transmitan energía colectiva.
+
 
 ## Bitácora de aplicación 
 
@@ -94,7 +104,285 @@ Las hormigas siguen lo que queda de quienes ya no están, no como representació
 
 > Código fuente.
 
+// sketch
 
+``` Js
+let ants = [];
+let flowField;
+
+let cols, rows;
+let scale = 20;
+
+let paintLayer;
+
+// globals
+let attractors = [];
+let disturbances = [];
+
+let audioLevel = 0;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  initSystem();
+
+  setupAudio();
+}
+
+function initSystem() {
+  // crear capa persistente
+  paintLayer = createGraphics(windowWidth, windowHeight);
+  paintLayer.clear();
+
+  // recalcular grid
+  cols = floor(width / scale);
+  rows = floor(height / scale);
+
+  flowField = new Array(cols * rows);
+
+  // reiniciar hormigas
+  ants = [];
+  for (let i = 0; i < 300; i++) {
+    ants.push(new Ant(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(210, 190, 160);
+
+  // desgaste pintura
+  let fadeAmount = map(audioLevel, 0, 0.3, 5, 18);
+  paintLayer.noStroke();
+  paintLayer.fill(210, 190, 160, fadeAmount);
+  paintLayer.rect(0, 0, width, height);
+
+  image(paintLayer, 0, 0);
+
+  updateAudio();
+  updateInteraction();
+  updateFlowField();
+
+  for (let ant of ants) {
+    ant.follow(flowField);
+    ant.update();
+    ant.edges();
+    ant.paint(paintLayer);
+  }
+
+  // líneas efímeras
+  stroke(140, 100, 80, 40);
+  strokeWeight(1);
+
+  for (let ant of ants) {
+    line(ant.pos.x, ant.pos.y, ant.prev.x, ant.prev.y);
+  }
+
+  // hormigas evento
+  if (audioLevel > 0.18 && random() < 0.2) {
+    ants.push(new Ant(random(width), random(height), true));
+  }
+}
+
+function mousePressed() {
+  let fs = fullscreen();
+  fullscreen(!fs);
+
+  if (!song.isPlaying()) {
+    song.loop();
+  }
+}
+
+// 🔁 resize dinámico
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  initSystem();
+}
+```
+
+// ants
+
+``` Js
+class Ant {
+  constructor(x, y, painter = false) {
+    this.pos = createVector(x, y);
+    this.prev = this.pos.copy();
+
+    this.vel = p5.Vector.random2D();
+    this.acc = createVector(0, 0);
+
+    this.isPainter = painter;
+
+    this.maxSpeed = painter ? 3 : 1.5;
+    this.maxForce = 0.1;
+  }
+
+  follow(field) {
+    let x = floor(this.pos.x / scale);
+    let y = floor(this.pos.y / scale);
+
+    let index = x + y * cols;
+    let force = field[index];
+
+    if (force) this.applyForce(force);
+  }
+
+  applyForce(force) {
+    this.acc.add(force);
+  }
+
+  update() {
+    this.prev = this.pos.copy();
+
+    this.vel.add(this.acc);
+    this.vel.limit(this.maxSpeed);
+    this.pos.add(this.vel);
+
+    this.acc.mult(0);
+  }
+
+  edges() {
+    if (this.pos.x > width) this.pos.x = 0;
+    if (this.pos.x < 0) this.pos.x = width;
+    if (this.pos.y > height) this.pos.y = 0;
+    if (this.pos.y < 0) this.pos.y = height;
+  }
+
+  paint(layer) {
+    layer.strokeCap(ROUND);
+
+    if (this.isPainter) {
+      // 🔥 NARANJA EVENTO
+      layer.strokeWeight(2 + audioLevel * 4);
+
+      layer.stroke(
+        255,
+        140 + random(40),
+        90,
+        180
+      );
+    } else {
+      // 🟤 MARRÓN BASE
+      layer.strokeWeight(1);
+
+      layer.stroke(
+        160 + random(20),
+        110 + random(20),
+        80,
+        90
+      );
+    }
+
+    layer.line(this.pos.x, this.pos.y, this.prev.x, this.prev.y);
+  }
+}
+```
+
+// flowField
+
+``` Js
+function updateFlowField() {
+  let yoff = 0;
+
+  for (let y = 0; y < rows; y++) {
+    let xoff = 0;
+
+    for (let x = 0; x < cols; x++) {
+      let index = x + y * cols;
+
+      let angle = noise(xoff, yoff, frameCount * 0.001) * TWO_PI;
+
+      let audioForce = map(audioLevel, 0, 0.3, 0.8, 2.5);
+      angle *= audioForce;
+
+      flowField[index] = p5.Vector.fromAngle(angle);
+
+      xoff += 0.1;
+    }
+    yoff += 0.1;
+  }
+}
+```
+
+// interaction
+
+``` Js
+let lastXFrame = 0;
+let cooldown = 25; // frames (~0.4s)
+
+function updateInteraction() {
+
+  let timeSinceLast = frameCount - lastXFrame;
+
+  // 🎧 condición controlada
+  if (
+    audioLevel > 0.18 &&
+    timeSinceLast > cooldown &&
+    random() < 0.25
+  ) {
+
+    let size = dist(0, 0, width, height);
+
+    let x = mouseX;
+    let y = mouseY;
+
+    // leve variación angular
+    let angleOffset = random(-0.2, 0.2);
+
+    let dx = cos(angleOffset) * size;
+    let dy = sin(angleOffset) * size;
+
+    // 🔥 color contraste
+    paintLayer.stroke(255, 245, 200, 140);
+
+    let weight = map(audioLevel, 0.18, 0.3, 2, 5);
+    paintLayer.strokeWeight(weight);
+
+    // X gigante
+    paintLayer.line(x - dx, y - dy, x + dx, y + dy);
+    paintLayer.line(x + dy, y - dx, x - dy, y + dx);
+
+    // registrar evento
+    lastXFrame = frameCount;
+  }
+
+  // disturbio base (suave)
+  disturbances.push({
+    pos: createVector(mouseX, mouseY),
+    strength: 1,
+    life: 50
+  });
+
+  disturbances = disturbances.filter(d => {
+    d.life--;
+    return d.life > 0;
+  });
+}
+```
+
+// audio
+
+``` Js
+let song;
+let amplitude;
+
+function preload() {
+  song = loadSound('Some Better.mp3');
+}
+
+function setupAudio() {
+  amplitude = new p5.Amplitude();
+}
+
+function mouseClicked() {
+  if (!song.isPlaying()) {
+    song.loop();
+  }
+}
+
+function updateAudio() {
+  audioLevel = amplitude.getLevel();
+}
+```
 
 > Enlace al sketch.
 
