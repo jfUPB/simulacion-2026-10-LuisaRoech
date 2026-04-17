@@ -38,13 +38,11 @@ Un tema del cual ya me adelante de entregas pasadas, el `flocking` contiene regl
 
 Estas reglas suelen estar controladas por parámetros como el radio de percepción (qué tan lejos “ve” a otros agentes) y los pesos o intensidades de cada fuerza. Si, por ejemplo, aumentas mucho el peso de separación, el sistema se vuelve más disperso y tenso, casi nervioso; si subes cohesión, el grupo se compacta y se siente más sólido; y si dominas con alineación, aparece un movimiento más fluido y coordinado, como una bandada real. Lo interesante es que de estas reglas simples emerge un comportamiento colectivo que puede ser compacto o disperso, estable o caótico, dependiendo del balance: bien ajustado se siente fluido, mal balanceado puede parecer errático o incluso fragmentado. Visualmente, el flocking produce una atmósfera orgánica, casi biológica, como si estuvieras viendo algo vivo que respira y se adapta; funciona muy bien en relación con música cuando no sigue el ritmo de forma literal, sino como una capa que reacciona o acompaña, por ejemplo en piezas electrónicas, ambient o incluso pasajes más suaves donde el movimiento colectivo puede amplificar la sensación de flujo o tensión.
 
-
 ### Comparar algoritmos como herramientas de diseño  (Actividad 05)
 
 Los `flow fields` y el `flocking` producen movimientos que, aunque pueden parecer similares a primera vista, nacen de lógicas distintas: en los flow fields el movimiento es continuo, como corrientes invisibles que arrastran a los agentes en trayectorias suaves y envolventes, mientras que en el flocking el movimiento es colectivo y reactivo, basado en la interacción entre vecinos, lo que genera agrupaciones, rupturas y reorganizaciones constantes. Esto hace que los flow fields ofrezcan un mayor **control visual global**, pero menor nivel de emergencia, mientras que el flocking tiene menos control directo sobre la forma final pero un **alto nivel de comportamiento emergente**, donde el sistema sorprende con dinámicas complejas. En términos de atmósfera, los flow fields suelen sentirse más fluidos, meditativos o naturales (como viento o agua), mientras que el flocking tiende a lo orgánico y social, a veces estable y armonioso, otras veces tenso o caótico. En relación con música, los flow fields funcionan muy bien como capas continuas que acompañan piezas ambientales o progresivas, mientras que el flocking puede dialogar mejor con cambios rítmicos o energéticos, respondiendo de forma más “viva”. Como ventajas, los flow fields permiten diseñar direcciones claras y composiciones más controladas, pero pueden volverse predecibles; el flocking, en cambio, genera riqueza y sorpresa, aunque puede ser difícil de controlar y ajustar visualmente.
 
 Si tuviera que elegir según emoción: para una canción **contemplativa** usaría flow fields por su suavidad y continuidad; para algo **agresivo**, flocking con parámetros extremos (alta separación o cambios bruscos) para generar tensión; para una pieza **melancólica**, flow fields más lentos y con baja variación, casi como deriva; y para algo **eufórico**, flocking bien balanceado, donde la coordinación y expansión del grupo transmitan energía colectiva.
-
 
 ## Bitácora de aplicación 
 
@@ -84,7 +82,6 @@ De esta forma, la música deja de ser acompañamiento y se convierte en una dime
 > Mapa de interpretación.
 
 <img width="1330" height="568" alt="image" src="https://github.com/user-attachments/assets/fbd4097a-6db4-4be1-978c-4cf574152573" />
-<img width="2217" height="704" alt="image" src="https://github.com/user-attachments/assets/322b020c-4ad7-48ec-a107-9c99192f4fba" />
 
 > Justificación del algoritmo elegido.
 
@@ -397,6 +394,9 @@ _link: https://editor.p5js.org/LuisaRoech/sketches/J_E2Htck-_
 
 > Capturas o registros de momentos importantes de la pieza.
 
+<img width="806" height="724" alt="image" src="https://github.com/user-attachments/assets/3afc0ca6-221c-49e2-8a9f-cbcd916597b5" />
+<img width="807" height="722" alt="Captura de pantalla 2026-04-17 085525" src="https://github.com/user-attachments/assets/d897dca1-3063-47f3-8c78-31098c0b6dc1" />
+<img width="809" height="724" alt="Captura de pantalla 2026-04-17 085617" src="https://github.com/user-attachments/assets/19aa52a3-db5d-429a-9f2b-39e8baf0808d" />
 
 
 ## Bitácora de reflexión
