@@ -221,7 +221,33 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/UdvXVnde4_
 
 ### Exploración de audio en p5.js (Actividad 03)
 
+### _Experimento #1_
 
+En este quitando la generalidad de la actividad, decidi enfocarlo a palabras guiadas a la principal (si, palabras dentro de la palabra), entonces para este primer experimento decidi manejar "Pulpa". La idea no es escalar un cículo, sino que la forma se vuelva blanda y reaccione como masa.
+
+Entonces,
+
+- Qué dato leo: Amplitud (volumen)
+  
+- Qué activa: Más "peso", más deformación
+
+_Link: https://editor.p5js.org/LuisaRoech/full/-vXhd053z_
+
+### _Experimento #2_
+
+La idea en este es que varias partículas que se atraen o se dispersan según el sonido, como un 
+"siste,a vivo" guiado por el sonido. Aunque spoiler, el sistema de este es más inestable por lo que se debe pensar mejor.
+
+Entonces,
+
+- Qué dato leo: Bajos (bass) → unión y agudos (treble) → separación
+
+- Qué activa: El sistema cambia entre compacto (masa) y disperso (fragmentado)
+
+_Link: https://editor.p5js.org/LuisaRoech/sketches/dGRAw8L41_
+
+> [!NOTE]
+> Al ver algo expandiendose, me recordo a mi pelicula favorita, _el color de las granadas_ en el que se encontraban tomas donde una mancha roja (de la fruta) se expandia en la tela, esto podria alejarme de lo repetitivo de mis trabajos, pensar más en la textura.
 
 ### Integración inicial de palabra, física y audio (Actividad 04)
 
@@ -229,8 +255,6 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/UdvXVnde4_
 
 ## Bitácora de aplicación 
 
-
 si
-
 
 ## Bitácora de reflexión
