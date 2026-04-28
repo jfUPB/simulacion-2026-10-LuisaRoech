@@ -341,7 +341,7 @@ function mouseReleased() {
 
 Ahora bien, este se asimila al anterior ejercicio, no tanto la lógica general del sistema sino el concepto para realizar un sistema en el que dos péndulos esten conectados en serie. Para este tambien solo es necesario modificar sketch.js y agregar dos masas conectadas una a otra. La linea que consideraria mas importante es `p2.pivot = p1.bob;` que seria algo como pivote del segundo péndulo = posición del bob del primero.
 
-```
+``` Js
 let p1;
 let p2;
 
