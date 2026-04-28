@@ -251,10 +251,14 @@ _Link: https://editor.p5js.org/LuisaRoech/sketches/dGRAw8L41_
 
 ### Integración inicial de palabra, física y audio (Actividad 04)
 
+En este experimento quise alejarme de mostrar la palabra de forma directa y trabajar más desde la sensación. Construí una especie de “tela” usando física, como una superficie tensa, y debajo hay una masa rosada que empuja constantemente, como si fuera pulpa tratando de salir. El audio afecta ese comportamiento: los bajos hacen que la presión aumente y la tela se deforme más, mientras que los agudos generan vibración e inestabilidad. La palabra “guayabas” no aparece como texto plano, sino que se revela cuando la tela se deforma, como si estuviera atrapada debajo y solo se dejara ver en ciertos momentos. Es más una presencia que una lectura directa.
+
 
 
 ## Bitácora de aplicación 
 
-si
+# GUAYABAS
+
+
 
 ## Bitácora de reflexión
