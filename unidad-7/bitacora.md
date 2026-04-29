@@ -289,11 +289,12 @@ N/A
 
 > Audio & Comportamiento
 
-
+El uso de un sonido de corte estilizado, cercano al lenguaje de los videojuegos, algo que busca activar una lectura inmediata del gesto. Este tipo de sonido condensa la idea de “corte” en una señal clara, reconocible y rápida, casi simbólica. En lugar de enfatizar lo orgánico o lo violento de manera explícita, busco convertir el acto de cortar en una acció
+n precisa, limpia y casi mecánica. Así, el sonido no imita la realidad, sino que traduce el concepto de “CUT” a un lenguaje audiovisual inmediato, reforzando la idea de intervención directa sobre la estructura más que sobre la materia.
 
 > Evidencia uso de IA
 
-
+<img width="1280" height="1302" alt="IA" src="https://github.com/user-attachments/assets/acf09dd6-e112-475e-b3e7-dd6236653f76" />
 
 > Código fuente
 
@@ -314,10 +315,18 @@ let cutEnd = null;
 
 let cutData = null;
 
+// 🔊 AUDIO
+let cutSound;
+
+function preload() {
+  // 👇 cambia la ruta si lo necesitas
+  cutSound = loadSound("assets/cut.mp3");
+}
+
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
 
-  // 👇 importante: asegura foco para teclado
+  // 👇 asegura foco para teclado
   cnv.mousePressed(() => {
     window.focus();
   });
@@ -380,7 +389,7 @@ function draw() {
 }
 
 // ----------------------------
-// INPUT (solo corte)
+// INPUT
 // ----------------------------
 function mousePressed() {
   cutting = true;
@@ -397,7 +406,21 @@ function mouseReleased() {
 
   if (cutStart && cutEnd) {
     let speed = p5.Vector.dist(cutStart, cutEnd);
+
     applyCut(cutStart, cutEnd, speed);
+
+    // 🔊 AUDIO DINÁMICO
+    if (cutSound && cutSound.isLoaded()) {
+      let vol = map(speed, 0, 200, 0.1, 1);
+      vol = constrain(vol, 0, 1);
+
+      let rate = map(speed, 0, 200, 0.8, 1.5);
+
+      cutSound.setVolume(vol);
+      cutSound.rate(rate);
+
+      cutSound.play();
+    }
 
     cutData = {
       start: cutStart.copy(),
@@ -410,22 +433,20 @@ function mouseReleased() {
 }
 
 // ----------------------------
-// FULLSCREEN (FIX REAL)
+// FULLSCREEN
 // ----------------------------
 function keyPressed() {
-  // 👇 funciona incluso con layouts raros
-  if (keyCode === 70) { // 70 = F
+  if (keyCode === 70) { // F
     fullscreen(!fullscreen());
   }
 }
 
-// 👇 respaldo más fiable que tecla
 function doubleClicked() {
   fullscreen(!fullscreen());
 }
 
 // ----------------------------
-// CREAR PALABRA CENTRADA
+// CREAR PALABRA
 // ----------------------------
 function createWordCentered(word) {
   blocks = [];
@@ -544,7 +565,7 @@ function applyCut(start, end, speed = 1) {
 }
 
 // ----------------------------
-// HERIDA ORGÁNICA
+// HERIDA
 // ----------------------------
 function drawWound(cut) {
   let start = cut.start;
