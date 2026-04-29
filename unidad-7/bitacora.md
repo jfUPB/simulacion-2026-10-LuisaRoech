@@ -634,7 +634,7 @@ function windowResized() {
 
 _Link V1 (DOLOR): https://editor.p5js.org/LuisaRoech/sketches/e2N31XzRa_
 
-_Link V2 (CUT): https://editor.p5js.org/LuisaRoech/sketches/e2N31XzRa_
+_Link V2 (CUT): https://editor.p5js.org/LuisaRoech/sketches/EB2MnBpir_
 
 > Obra
 
