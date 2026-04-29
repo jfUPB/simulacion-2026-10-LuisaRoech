@@ -219,7 +219,7 @@ function draw() {
 _Link: https://editor.p5js.org/LuisaRoech/sketches/UdvXVnde4_
 
 > [!NOTE]
-> Entonces, ¿Qué me interesa más...? Si pienso en la palabra "guayaba" (AHORA DOLOR) seria en el peso/caída (cosas orgánicas, fruta madura) y la conexión (crecimiento, raíces, floración).
+> Entonces, ¿Qué me interesa más...? Si pienso en la palabra "guayaba" (DOLOR) seria en el peso/caída (cosas orgánicas, fruta madura) y la conexión (crecimiento, raíces, floración).
 
 ### Exploración de audio en p5.js (Actividad 03)
 
@@ -261,25 +261,31 @@ _Que cosas no funcionaron: Aunque los tiempos son corregibles, se distingue muy 
 
 ## Bitácora de aplicación 
 
-# GUAYABAS (AHORA DOLOR)
+# GUAYABAS (DOLOR) // Ahora CUT
 
-> Analisis significado
+Un cambio significativo en palabras, **_guayabas_** contiene un significado especial para mi pero al no ser global, es dificil representar esta palabra de forma más directa más allá de sus colores, no existe una libreria mental en lo que la gente piensa al ver esta palabra/fruta, pero esta palabra me guio al  **_dolor_** que es una sensación y sentimiento que se siente como una fruta exprimida, que mancha, que se expande y deja marca, que se diluye y pierde significado con el tiempo, pero aun sigue ahi. Ahora bien, esta palabra no requiere de fisicas para poder ser representada, por lo tanto forzarla a cumplir las condiciones pierde la intención dada. Asi que llegue a **_CUT_**, una palabra que puede derivar de dolor y puede cumplir sus mismas condiciones de otra forma, en esta la fisica cobra mas sentido y es una palabra más literal que no es dificil de representar.
+
+> Análisis significado
+
+**_CUT_** no es solo un gesto, es una interrupción que deja rastro. Es el momento en que algo continuo se rompe y revela que nunca fue tan sólido como parecía. Cortar no borra: abre. Hace visible una interioridad que normalmente permanece oculta, como si la superficie fuera apenas una promesa de estabilidad. La palabra no desaparece al ser herida; se separa, respira, tiembla, y luego intenta recomponerse. Ese vaivén convierte el corte en un lenguaje: cada trazo no destruye el significado, lo desplaza, lo pone en duda, lo vuelve inestable pero persistente.
 
 > Moodboard
 
 <img width="954" height="1411" alt="DOLOR_GUAYABA" src="https://github.com/user-attachments/assets/d29664cf-1d30-4f2e-a5e5-f22302b35bbf" />
 
+<img width="1067" height="800" alt="image" src="https://github.com/user-attachments/assets/21de5941-ca2f-4283-9bd6-a87e55090d60" />
+
 > Bocetos
 
-
+N/A
 
 > Mapa de desiciones
 
-
+<img width="2727" height="572" alt="Mapa de desiciones" src="https://github.com/user-attachments/assets/9aa512b7-54f4-4ea8-8f92-17f23074f9df" />
 
 > Mapa de interpretación
 
-
+<img width="1045" height="1494" alt="Mapa de interpretación" src="https://github.com/user-attachments/assets/c60c10e4-3217-4bcc-ba2b-1e62a52233d6" />
 
 > Audio & Comportamiento
 
@@ -291,17 +297,329 @@ _Que cosas no funcionaron: Aunque los tiempos son corregibles, se distingue muy 
 
 > Código fuente
 
-``` Js
+CUT CODE
 
+``` Js
+let Engine = Matter.Engine;
+let World = Matter.World;
+let Bodies = Matter.Bodies;
+let Body = Matter.Body;
+
+let engine, world;
+let blocks = [];
+
+let cutting = false;
+let cutStart = null;
+let cutEnd = null;
+
+let cutData = null;
+
+function setup() {
+  let cnv = createCanvas(windowWidth, windowHeight);
+
+  // 👇 importante: asegura foco para teclado
+  cnv.mousePressed(() => {
+    window.focus();
+  });
+
+  engine = Engine.create();
+  world = engine.world;
+
+  createWordCentered("CUT");
+  createGround();
+}
+
+function draw() {
+  background(240);
+
+  Engine.update(engine);
+
+  // 🧲 retorno suave
+  for (let b of blocks) {
+    if (!b.isStatic) {
+      let home = createVector(b.home.x, b.home.y);
+      let pos = createVector(b.position.x, b.position.y);
+
+      let dir = p5.Vector.sub(home, pos);
+      let d = dir.mag();
+
+      if (d > 1) {
+        dir.normalize();
+        Body.applyForce(b, b.position, {
+          x: dir.x * 0.0008,
+          y: dir.y * 0.0008
+        });
+      }
+    }
+  }
+
+  // 🧱 letras
+  noStroke();
+  fill(200, 0, 0);
+
+  for (let b of blocks) {
+    push();
+    translate(b.position.x, b.position.y);
+    rotate(b.angle);
+    rectMode(CENTER);
+    rect(0, 0, b.w, b.h);
+    pop();
+  }
+
+  // ✂️ línea guía
+  if (cutting && cutStart && cutEnd) {
+    stroke(180, 0, 0);
+    strokeWeight(2);
+    line(cutStart.x, cutStart.y, cutEnd.x, cutEnd.y);
+  }
+
+  // 🩸 herida
+  if (cutData) {
+    drawWound(cutData);
+  }
+}
+
+// ----------------------------
+// INPUT (solo corte)
+// ----------------------------
+function mousePressed() {
+  cutting = true;
+  cutStart = createVector(mouseX, mouseY);
+  cutEnd = cutStart.copy();
+}
+
+function mouseDragged() {
+  cutEnd = createVector(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  cutting = false;
+
+  if (cutStart && cutEnd) {
+    let speed = p5.Vector.dist(cutStart, cutEnd);
+    applyCut(cutStart, cutEnd, speed);
+
+    cutData = {
+      start: cutStart.copy(),
+      end: cutEnd.copy()
+    };
+  }
+
+  cutStart = null;
+  cutEnd = null;
+}
+
+// ----------------------------
+// FULLSCREEN (FIX REAL)
+// ----------------------------
+function keyPressed() {
+  // 👇 funciona incluso con layouts raros
+  if (keyCode === 70) { // 70 = F
+    fullscreen(!fullscreen());
+  }
+}
+
+// 👇 respaldo más fiable que tecla
+function doubleClicked() {
+  fullscreen(!fullscreen());
+}
+
+// ----------------------------
+// CREAR PALABRA CENTRADA
+// ----------------------------
+function createWordCentered(word) {
+  blocks = [];
+
+  let spacing = min(width, height) * 0.08;
+  let totalWidth = word.length * spacing;
+
+  let startX = width / 2 - totalWidth / 2;
+  let startY = height / 2 - spacing;
+
+  createWord(word, startX, startY, spacing);
+}
+
+function createWord(word, startX, startY, spacing) {
+  for (let i = 0; i < word.length; i++) {
+    createLetter(word[i], startX + i * spacing, startY, spacing);
+  }
+}
+
+function createLetter(letter, x, y, spacing) {
+  let pattern = [];
+
+  if (letter === "C") {
+    pattern = [
+      [0,0],[1,0],[2,0],
+      [0,1],
+      [0,2],
+      [0,3],
+      [0,4],[1,4],[2,4]
+    ];
+  }
+
+  if (letter === "U") {
+    pattern = [
+      [0,0],[2,0],
+      [0,1],[2,1],
+      [0,2],[2,2],
+      [0,3],[2,3],
+      [0,4],[1,4],[2,4]
+    ];
+  }
+
+  if (letter === "T") {
+    pattern = [
+      [0,0],[1,0],[2,0],
+              [1,1],
+              [1,2],
+              [1,3],
+              [1,4]
+    ];
+  }
+
+  let size = spacing / 4;
+
+  for (let p of pattern) {
+    let body = Bodies.rectangle(
+      x + p[0] * size,
+      y + p[1] * size,
+      size,
+      size,
+      { isStatic: true }
+    );
+
+    body.w = size;
+    body.h = size;
+    body.home = { x: body.position.x, y: body.position.y };
+
+    World.add(world, body);
+    blocks.push(body);
+  }
+}
+
+// ----------------------------
+// SUELO
+// ----------------------------
+function createGround() {
+  let ground = Bodies.rectangle(width / 2, height + 50, width, 100, {
+    isStatic: true
+  });
+  World.add(world, ground);
+}
+
+// ----------------------------
+// CORTE
+// ----------------------------
+function applyCut(start, end, speed = 1) {
+  let cutVec = p5.Vector.sub(end, start);
+  if (cutVec.mag() < 5) return;
+
+  let dir = cutVec.copy().normalize();
+  let normal = createVector(-dir.y, dir.x);
+
+  let forceScale = map(speed, 0, 200, 0.002, 0.02);
+
+  for (let b of blocks) {
+    let pos = createVector(b.position.x, b.position.y);
+    let d = distToSegment(pos, start, end);
+
+    let radius = 30;
+
+    if (d < radius) {
+      Body.setStatic(b, false);
+
+      let toPoint = p5.Vector.sub(pos, start);
+      let side = Math.sign(p5.Vector.dot(toPoint, normal));
+
+      let forceDir = p5.Vector.mult(normal, side);
+      let strength = map(d, 0, radius, 1, 0);
+
+      Body.applyForce(b, b.position, {
+        x: forceDir.x * forceScale * strength,
+        y: forceDir.y * forceScale * strength
+      });
+    }
+  }
+}
+
+// ----------------------------
+// HERIDA ORGÁNICA
+// ----------------------------
+function drawWound(cut) {
+  let start = cut.start;
+  let end = cut.end;
+
+  let dir = p5.Vector.sub(end, start);
+  let normal = createVector(-dir.y, dir.x).normalize();
+
+  let thickness = min(width, height) * 0.03;
+
+  noStroke();
+  fill(20);
+
+  beginShape();
+
+  for (let i = 0; i <= 1; i += 0.05) {
+    let p = p5.Vector.lerp(start, end, i);
+    let offset = sin(i * PI) * thickness;
+    let n = normal.copy().mult(offset);
+    vertex(p.x + n.x, p.y + n.y);
+  }
+
+  for (let i = 1; i >= 0; i -= 0.05) {
+    let p = p5.Vector.lerp(start, end, i);
+    let offset = sin(i * PI) * thickness;
+    let n = normal.copy().mult(-offset);
+    vertex(p.x + n.x, p.y + n.y);
+  }
+
+  endShape(CLOSE);
+}
+
+// ----------------------------
+// DISTANCIA
+// ----------------------------
+function distToSegment(p, v, w) {
+  let l2 = dist(v.x, v.y, w.x, w.y) ** 2;
+  if (l2 === 0) return dist(p.x, p.y, v.x, v.y);
+
+  let t = ((p.x - v.x)*(w.x - v.x) + (p.y - v.y)*(w.y - v.y)) / l2;
+  t = constrain(t, 0, 1);
+
+  let projX = v.x + t*(w.x - v.x);
+  let projY = v.y + t*(w.y - v.y);
+
+  return dist(p.x, p.y, projX, projY);
+}
+
+// ----------------------------
+// RESIZE
+// ----------------------------
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+
+  engine = Engine.create();
+  world = engine.world;
+
+  blocks = [];
+
+  createWordCentered("CUT");
+  createGround();
+}
 ```
 
 > Link Sketch
 
-_Link: https://editor.p5js.org/LuisaRoech/sketches/e2N31XzRa_
+_Link V1 (DOLOR): https://editor.p5js.org/LuisaRoech/sketches/e2N31XzRa_
+
+_Link V2 (CUT): https://editor.p5js.org/LuisaRoech/sketches/e2N31XzRa_
 
 > Obra
 
+<img width="831" height="508" alt="image" src="https://github.com/user-attachments/assets/608eeb5e-8cdb-4081-b486-63b001dfa3d1" />
 
+<img width="825" height="498" alt="image" src="https://github.com/user-attachments/assets/b60b5a36-b9c0-475a-b2cb-1f52606ba9e2" />
 
 ## Bitácora de reflexión
 
