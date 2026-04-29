@@ -39,6 +39,8 @@ crea un resultado elegante pero disruptivo, sketchy si pudiera darle una palabra
 - Amor: Es una palabra ambigua, puede definirse de muchas cosas, es una definición que puede ser tanto global como personal. Si tuviera que darle una forma, seria lo más amplia posible, algo que cambie de letra, color, una forma que se rompa, que se reconstruya, que en ocasiones no pueda ser legible, o pueda considerarse fea, pero que tambien sea bella y tranquila.
   
 - Cruz: Me gusta las alegorias o referencias a la religión, la cruz es el peso, el sacrificio, equilibrio e incluso una intersección, colores palidos, tipografia limpia, ordenada, algo que pueda generar opiniones opuestas.
+  
+- DOLOR: Una nueva palabra al pensar en todo lo que me gustaria representar la palabra guayaba, algo que se expande, se deshace y deja una mancha que no puede ser borrada.
 
 > [!NOTE]
 > _La que más me llama la atención de hacer es guayabas, pues al ser la palabra más directa y menos global, quiero ver que tanto le podria exprimir._
@@ -217,7 +219,7 @@ function draw() {
 _Link: https://editor.p5js.org/LuisaRoech/sketches/UdvXVnde4_
 
 > [!NOTE]
-> Entonces, ¿Qué me interesa más...? Si pienso en la palabra "guayaba" seria en el peso/caída (cosas orgánicas, fruta madura) y la conexión (crecimiento, raíces, floración).
+> Entonces, ¿Qué me interesa más...? Si pienso en la palabra "guayaba" (AHORA DOLOR) seria en el peso/caída (cosas orgánicas, fruta madura) y la conexión (crecimiento, raíces, floración).
 
 ### Exploración de audio en p5.js (Actividad 03)
 
@@ -257,8 +259,45 @@ En este experimento quise alejarme de mostrar la palabra de forma directa y trab
 
 ## Bitácora de aplicación 
 
-# GUAYABAS
+# GUAYABAS (AHORA DOLOR)
+
+> Analisis significado
+
+> Moodboard
+
+<img width="954" height="1411" alt="DOLOR_GUAYABA" src="https://github.com/user-attachments/assets/d29664cf-1d30-4f2e-a5e5-f22302b35bbf" />
+
+> Bocetos
+
+> Mapa de desiciones
+
+
+
+> Mapa de interpretación
+
+
+
+> Audio & Comportamiento
+
+
+
+> Evidencia uso de IA
+
+
+
+> Código fuente
+
+
+
+> Link Sketch
+
+
+
+> Obra
 
 
 
 ## Bitácora de reflexión
+
+<img width="736" height="414" alt="image" src="https://github.com/user-attachments/assets/7b9841c6-9f70-4873-9d48-ba77206f217b" />
+
