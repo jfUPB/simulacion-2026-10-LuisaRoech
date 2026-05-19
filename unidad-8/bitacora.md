@@ -38,13 +38,17 @@ También necesito profundizar en el manejo de vectores, ruido procedural, instan
 
 **PRUEBA 1**
 
-La primera prueba técnica consistió en explorar cómo mover múltiples instancias dentro de una Simulation Zone. La idea era comprobar si podía recrear un sistema básico de agentes que conservara información de posición y movimiento entre frames.
+En esta primera prueba técnica comencé explorando el funcionamiento básico de Simulation Zones dentro de Geometry Nodes para entender cómo manejar comportamiento dinámico en Blender. La intención principal era familiarizarme con sistemas de simulación similares a los vistos en Nature of Code, especialmente relacionados con fuerzas, movimiento de agentes y comportamiento emergente.
+
+Durante esta prueba experimenté con distintos tipos de fuerzas aplicadas a partículas y con las diferentes formas y distribuciones que puede tomar un sistema procedural dentro del espacio 3D. Inicialmente trabajé con movimiento básico y actualización de posición entre frames para comprender cómo las partículas podían conservar información y reaccionar continuamente dentro de la simulación.
 
 <img width="1574" height="851" alt="Captura de pantalla 2026-05-19 142722" src="https://github.com/user-attachments/assets/fbb981fa-010a-4838-9e5d-53c82c466f61" />
 
 <img width="1555" height="666" alt="Captura de pantalla 2026-05-19 142811" src="https://github.com/user-attachments/assets/31da2fbb-75e5-4b38-98a2-ac9efa461a8d" />
 
+Además, implementé un pequeño script que detecta la posición del mouse y genera una fuerza de repulsión sobre las partículas. Esto permitió introducir interacción en tiempo real dentro del sistema, haciendo que los agentes reaccionaran dinámicamente dependiendo de la ubicación del usuario.
 
+``` python
 import bpy
 from bpy_extras import view3d_utils
 from mathutils import Vector
@@ -104,18 +108,71 @@ def unregister():
 if __name__ == "__main__":
     register()
     bpy.ops.wm.mouse_follower('INVOKE_DEFAULT')
- 
+``` 
 
 **PRUEBA 2**
 
-Este más acercado a lo que quiero realizar, es un funcionamiento básico de 
+Este más acercado a lo que quiero realizar. A diferencia de la primera exploración, donde el objetivo era comprender Simulation Zones y fuerzas básicas, aquí ya comence a construir un sistema de comportamiento colectivo similar a organismos o insectos moviéndose dentro de un espacio.
 
+<img width="1562" height="852" alt="Captura de pantalla 2026-05-19 144325" src="https://github.com/user-attachments/assets/ac4aeaf0-0c4b-4917-b78d-df04cb665562" />
 
+El sistema parte de un Collection Info, donde se utiliza una colección externa —en este caso un Empty placeholder— para representar las partículas o “bichos”. Esto significa que el sistema no trabaja únicamente con puntos abstractos, sino con instancias visuales que luego pueden reemplazarse por modelos más complejos en el futuro.
+
+Después, estas instancias se distribuyen dentro del espacio utilizando Distribute Points on Faces, lo que permite generar múltiples agentes dentro de una superficie determinada. Esto crea la base de la simulación: muchos individuos ocupando un entorno común.
+
+<img width="1524" height="737" alt="Captura de pantalla 2026-05-19 144346" src="https://github.com/user-attachments/assets/82643471-804f-4b43-a1ed-352cc2d1d52e" />
+
+Dentro de la Simulation Zone sucede la parte más importante del comportamiento dinámico:
+
+- Cada agente conserva información entre frames.
+- Las posiciones se actualizan continuamente.
+- Los movimientos son modificados mediante vectores y fuerzas.
+- El sistema calcula cercanía entre partículas.
+
+<img width="917" height="510" alt="Captura de pantalla 2026-05-19 144351" src="https://github.com/user-attachments/assets/599905d2-b4a7-4554-a280-aa2b72a11618" />
+
+Uno de los elementos clave aquí es el uso de Geometry Proximity y Sample Nearest Surface. Estos nodos permiten que cada agente detecte cuál es el punto o vecino más cercano dentro del sistema. A partir de esta información se calcula la distancia entre partículas utilizando nodos como Distance y Subtract.
+
+Luego, mediante un nodo Less Than, el sistema verifica cuándo dos partículas están demasiado cerca entre sí. Cuando esa condición se cumple, se genera una fuerza de separación:
+
+- Se calcula la dirección entre partículas.
+- Esa dirección se normaliza.
+- Finalmente se aplica un desplazamiento contrario usando Set Position.
+
+Esto crea el efecto de repulsión entre agentes, evitando que se agrupen completamente o colisionen. Básicamente, cada “bicho” intenta mantener cierta distancia de los demás mientras continúa moviéndose dentro del entorno.
 
 ### Estudio de transferencia (Actividad 04)
 
+| Aspecto | En p5.js | En Blender / Geometry Nodes | Qué se mantiene | Qué cambia | Ventajas nuevas | Nuevas limitaciones |
+|---|---|---|---|---|---|---|
+| Sistema base | El sistema se construía mediante código JavaScript y agentes dibujados en un canvas 2D. | El sistema se construye visualmente mediante nodos y Simulation Zones dentro de Geometry Nodes. | La lógica de agentes autónomos y comportamiento emergente. | Cambia la forma de programar: de código textual a lógica visual basada en nodos. | Mayor visualización espacial | Los sistemas complejos pueden volverse difíciles de organizar visualmente. |
+| Flow Fields | Los agentes seguían vectores calculados matemáticamente dentro de una grilla. | Los vectores se generan mediante atributos, ruido procedural y cálculos dentro de nodos. | El movimiento guiado por campos vectoriales. | El espacio pasa de 2D a 3D y los cálculos se vuelven más visuales. | Mayor sensación de profundidad e inmersión. | Mayor complejidad matemática. T_T |
+| Agentes / partículas | Las partículas eran formas simples dibujadas con código. | Los agentes son instancias de objetos o empties distribuidos proceduralmente. | La idea de múltiples entidades autónomas moviéndose colectivamente. | Ahora los agentes pueden tener geometría, materiales y animación real. | Más posibilidades narrativas y visuales. | El rendimiento puede verse afectado. |
+| Aleatoriedad | Se utilizaban funciones random() y ruido Perlin para variar movimiento y comportamiento. | Se utilizan nodos Random Value, Noise y atributos aleatorios. | La variación orgánica y el comportamiento no repetitivo. | La aleatoriedad ahora afecta también espacio, escala y geometría 3D. | Más control visual sobre la distribución procedural. | Puede ser difícil controlar resultados demasiado caóticos. |
+| Fuerzas y movimiento | Las fuerzas se calculaban mediante vectores. | Las fuerzas se aplican modificando posiciones y atributos. | El uso de vectores y dirección de movimiento. | El movimiento ahora ocurre en simulación temporal persistente. | Permite simulaciones más naturales y complejas. | Requiere entender mejor atributos y flujo de simulación. |
+| Interacción entre agentes | Se calculaban distancias entre partículas usando funciones matemáticas. | Se usan nodos como Geometry Proximity, Distance y Sample Nearest Surface. | La detección de cercanía y comportamiento colectivo. | El cálculo ocurre sobre geometría real dentro del espacio 3D. | Interacciones más visuales y físicas. | Sistemas más pesados. |
+| Relación con música | El audio modificaba velocidad o comportamiento de partículas. | La idea es conectar parámetros sonoros con Geometry Nodes y simulaciones. | La sincronización entre sonido y comportamiento visual. | La integración sonora aún requiere exploración técnica adicional. | Posibilidad de experiencias inmersivas audiovisuales. | Integrar audio proceduralmente en Blender es MUCHO más complejo. |
+| Enfoque visual | Predominaba lo abstracto y gráfico en 2D. | Se busca construir un entorno 3D narrativo y atmosférico. | La intención emocional detrás del comportamiento generativo. | El sistema ahora forma parte de un espacio inmersivo. | Más potencial cinematográfico y narrativo. | Requiere más trabajo artístico y optimización. |
+
+En general es chévere observar cómo los conceptos no dependen realmente de una herramienta específica, sino de la lógica detrás de los comportamientos. Fuerzas, flow fields, agentes y comportamiento emergente pueden trasladarse a distintos entornos siempre que exista una manera de manejar información, vectores y simulación en el tiempo. Aunque saber esto no hizo precisamente fácil entender la lógica en una herramienta diferente como Blender.
+
+En p5.js muchos procesos eran más directos porque todo se resolvía escribiendo código y viendo inmediatamente el resultado sobre un canvas 2D. En cambio, dentro de Geometry Nodes tuve que aprender a pensar el sistema de otra manera: entender cómo fluye la información entre nodos, cómo se almacenan atributos y cómo una simulación mantiene datos entre frames. Muchas veces conceptos que en código parecían relativamente simples se volvieron más difíciles de visualizar y reconstruir dentro de un entorno procedural y visual.
 
 ## Bitácora de aplicación 
+
+**HERRAMIENTA**
+
+Blender
+
+**MOODBOARD // Concepto visual**
+
+> Retomando lo pensado de la _UNIDAD 6_
+> 
+<img width="2769" height="2424" alt="BiteBoxAnim" src="https://github.com/user-attachments/assets/13045584-d65e-4744-9617-b4c30bce9f3f" />
+
+**BOCETOS**
+
+<img width="1283" height="829" alt="BiteBox" src="https://github.com/user-attachments/assets/a8e5313e-8b68-4645-85aa-dde6798af5bf" />
 
 
 ## Bitácora de reflexión
