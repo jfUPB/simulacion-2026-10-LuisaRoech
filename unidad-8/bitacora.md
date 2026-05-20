@@ -164,17 +164,29 @@ En p5.js muchos procesos eran más directos porque todo se resolvía escribiendo
 
 Blender
 
+**SISTEMA TRANSFERIDO**
+
+
+
 **MOODBOARD // Concepto visual**
 
 > Retomando lo pensado de la _UNIDAD 6_
-> 
+
 <img width="2769" height="2424" alt="BiteBoxAnim" src="https://github.com/user-attachments/assets/13045584-d65e-4744-9617-b4c30bce9f3f" />
 
 **BOCETOS**
 
-<img width="1283" height="829" alt="BiteBox" src="https://github.com/user-attachments/assets/a8e5313e-8b68-4645-85aa-dde6798af5bf" />
+<img width="5071" height="3431" alt="BiteBoxAnim (1)" src="https://github.com/user-attachments/assets/7f2d0af2-701d-4eb5-ba0f-d6b3f8dade70" />
 
+**Mapa de desiciones**
+
+
+
+**USO DE IA**
+
+Sorprendentemente para este trabajo no me apoye de la IA, más que todo para temas de redacción (como podría ser ahora). Más que todo me apegue de tutoriales que esplicaron a mayor profundidad el manejo de "simulation zones". Eso si, no quita que más adelante lo llegue a usar, como para agregar nuevos elementos que los agentes eviten y preguntar por mejores arreglos o soluciones para que estos no se rompan con las colisiones.
 
 ## Bitácora de reflexión
 
-a
+<img width="735" height="522" alt="image" src="https://github.com/user-attachments/assets/642d096c-93da-4cfa-9afd-02cc0fbeedf0" />
+
