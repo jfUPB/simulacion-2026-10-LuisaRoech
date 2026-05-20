@@ -2,8 +2,772 @@
 
 ## Bitácora de proceso de aprendizaje
 
+### Memo Akten (Actividad 01)
+
+[![tumblr-p5t67a10631qav3uso1-540.gif](https://i.postimg.cc/VLQSXpky/tumblr-p5t67a10631qav3uso1-540.gif)](https://postimg.cc/XXL7b25x)
+
+_Gloomy Sunday by Memo Akten_
+
+El sonido, un elemento que potencia mucho las emociones que pueden generar en un arte. Esta colecion de obras en especial me produce una sensación extraña: a veces parece que la obra me lleva hacia un estado de tranquilidad o contemplación, pero de repente puede aparecer un cambio inesperado que genera cierta incomodidad. Esa oscilación entre calma e inquietud hace que la experiencia sea muy particular.
+
+Aún me resulta difícil imaginar cuál es el flujo de pensamiento necesario para crear obras así. Me pregunto cuánto del resultado puede ser realmente decidido por el artista y cuánto se deja a la aleatoriedad o al comportamiento del propio sistema que se crea. 
+
+Investigue un poco sobre el y suele explorar preguntas sobre **la naturaleza de la realidad, la conciencia, la relación entre humanos y máquinas y la conexión entre ciencia y espiritualidad**. _Simple Harmonic Motion (2011–)_ es una serie de obras audiovisuales generativas basadas en principios matemáticos y físicos. El proyecto investiga cómo comportamientos complejos pueden surgir a partir de patrones de movimientos armónicos simples como la de un péndulo (como todo lo que estamos viendo en esta materia).
+
+### Conceptos fundamentales (Actividad 02)
+
+Analizando el código...Se dibuja una linea con dos circulos en los extremos que rota alrededor, se limpia la pantalla con `background(255);`, se aumenta un ángulo con `angle += 0.1;` que se activa cuando se presiona una tecla (aunque el cambio no es muy notorio porque se aumenta de igual forma en draw y keyPressed) yy el sistema de coordenadas se mueve y rota al centro. Pero, ¿para que se traslada el origen con `translate(width / 2, height / 2);`? bueno, en p5.js el origen se encuentra en la esquina superior izquierda por lo que esta función ayuda a que no se vea extraña la ubicación y no rote en la esquina, que no es necesariamente malo pero no siempre es el objetivo. 
+
+El motion 101 referente al segundo código introduce el modelo básico del movimiento en simulaciones físicas _posición += velocidad_ y _velocidad += aceleración_ y en `update()` se refleja esto aqui:
+
+``` Js
+// calcula dirección hacia el mouse
+ this.velocity.add(this.acceleration); // la convierte en aceleración y la suma
+ this.velocity.limit(this.topspeed); // limita la velocidad
+ this.position.add(this.velocity); // suma velocidad a la posición
+```
+
+Ahora bien, ¿que hace el `heading()`? En `show()` aparece:
+
+``` Js
+let angle = this.velocity.heading();
+```
+
+investigando, `heading()` es una función de p5.Vector que devuelve el ángulo del vector, es decir, calcula el ángulo entre el vector de velocidad y el eje x. Entonces el rectángulo se orienta en la dirección de la velocidad, si el objeto se mueve: 
+
+- hacia la derecha → el rectángulo apunta a la derecha
+- hacia arriba → el rectángulo rota hacia arriba
+- diagonal → rota en ese ángulo
+
+Por utlimo, `push()` y `pop()`; `push()` guarda el estado de la posición del sistema, rotación, escala y estilo de dibujo, `pop()` lo restaura. Permitiendo que las transformaciones solo afecten al objeto actual
+
+``` Js
+    push();
+    rectMode(CENTER); // usa (x,y) como el centro del rectángulo, para que rote mejor sobre su centro
+
+    translate(this.position.x, this.position.y);
+    rotate(angle);
+    rect(0, 0, 30, 10);
+
+    pop();
+```
+
+### Practica un poco (Actividad 03)
+
+Partiendo del código anterior, se hará tres cambios, primero el vehículo será un triángulo. Usare `heading()` para que el triángulo apunte hacia la dirección de movimiento y por ultimo agregar las teclas de flecha para controlar la aceleración.
+
+``` Js
+
+class Mover {
+  constructor() {
+    this.position = createVector(width / 2, height / 2);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    this.topspeed = 5;
+    this.r = 16;
+  }
+
+  update() {
+
+    // reinicia aceleración 
+    this.acceleration.mult(0);
+
+    if (keyIsDown(LEFT_ARROW)) {
+      this.acceleration.x = -0.2;
+    }
+
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.acceleration.x = 0.2; // si lo pongo en 1 por ejemplo, el vehículo se acelera mucho más fuerte
+    }
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.topspeed);
+    this.position.add(this.velocity);
+  }
+
+  show() {
+
+    let angle = this.velocity.heading();
+
+    push();
+
+    translate(this.position.x, this.position.y);
+    rotate(angle);
+
+    stroke(0);
+    fill(127);
+
+    // triángulo apuntando hacia adelante
+    triangle(-15, 10, -15, -10, 15, 0);
+
+    pop();
+  }
+
+  checkEdges() {
+
+    if (this.position.x > width) this.position.x = 0;
+    if (this.position.x < 0) this.position.x = width;
+
+    if (this.position.y > height) this.position.y = 0;
+    if (this.position.y < 0) this.position.y = height;
+
+  }
+}
+``` 
+
+### Relación con el marco motion 101 (Actividad 04)
+
+En este código parece que varios circulos orbitan o se atraen por uno mas grande o central. Para modificarlo aun cuando tiene fuerzas acumulativas como la gravedad, fricción, viento y atracción es necesario reiniciar la aceleración como se hace aqui:
+
+``` Js
+this.acceleration.mult(0);
+```
+
+Si no se hiciera las fuerzas se seguirían acumulando en cada frame. El **Attractor** es el objeto que ejerce la fuerza de atracción sobre los Movers. Además, los atributos dragging y rollover permiten interacción con el mouse: rollover puede activarse calculando la distancia entre el mouse y el attractor para cambiar su color cuando el cursor está encima, y dragging puede implementarse usando las funciones de p5.js `mousePressed()`, `mouseDragged()` y `mouseReleased()` para que el attractor pueda ser arrastrado por la pantalla.
+
+### Coordenadas polares (Actividad 05)
+
+La relación entre 𝑟 y 𝜃 con las posiciones 𝑥 y 𝑦 viene de la conversión entre coordenadas polares y cartesianas. En coordenadas polares un punto se describe por su distancia al origen (r) y un ángulo (𝜃), mientras que en cartesianas se describe por (x,y). La conversión es:
+
+``` 
+ x = r ⋅ cos(θ) , y = r ⋅ sin(θ)
+```
+
+Esto significa que 𝜃 determina la dirección y 𝑟 la distancia desde el origen.
+
+En la primera modificación `fromAngle(theta)`crea un vector unitario (longitud 1) apuntando en el ángulo `theta`. Por eso el círculo gira alrededor del origen pero muy cerca del centro, porque el vector tiene magnitud 1. El ángulo aumenta (`theta += 0.02`), entonces el punto rota continuamente. Con la segunda r se pasa como magnitud del vector, por lo que `fromAngle()` genera directamente las coordenadas equivalentes. Ahora el punto está a una distancia r del centro por lo que se mueve describiendo un círculo de radio r mientras `theta` aumenta. Tambien algo interesante esta en `r = height * 0.5 * sin(theta);` que genera un movimiento oscilatorio tipo espiral o respiración radial.
+
+### Funciones sinusoides (Actividad 06)
+
+Una función que aparece en sonido, luz, movimiento, mareas, electricidad y vibraciones (patrones rítmicos).
+
+_y(t) = Asen(wt + π)_
+
+- A (amplitud) → qué tan alta es la onda
+- ω (velocidad angular) → qué tan rápido cambia el ángulo
+- f (frecuencia) → cuántos ciclos ocurren por unidad de tiempo
+- T (periodo) → cuánto tarda un ciclo completo
+- φ (fase) → desplazamiento horizontal de la onda
+
+  Relaciones importantes
+
+_w = 2πf y T = 1/f_
+
+### Repasa conceptos de las unidades anteriores (Actividad 07)
+
+``` Js
+class Oscillator {
+  constructor() {
+    this.angle = createVector();
+    
+    
+    this.angleVelocity = createVector(
+      random(-0.05, 0.05),
+      random(-0.05, 0.05)
+    );
+    
+    this.angleAcceleration = createVector();
+    
+    this.amplitude = createVector(
+      random(50, width / 2),
+      random(50, height / 2)
+    );
+    
+    this.tx = random(1000);
+    this.ty = random(2000);
+
+    this.speed = 0.01;
+  }
+  
+     applyForce(f) {
+     this.angleAcceleration.add(f);
+  }
+
+
+  update() {
+
+    let spring = p5.Vector.mult(this.angle, -0.01);
+    this.applyForce(spring);
+
+    this.angleVelocity.add(this.angleAcceleration);
+    this.angle.add(this.angleVelocity);
+
+    this.angleAcceleration.mult(0);
+
+    let vx = map(noise(this.tx), 0, 1, -0.05, 0.05);
+    let vy = map(noise(this.ty), 0, 1, -0.05, 0.05);
+
+    this.angle.x += vx;
+    this.angle.y += vy;
+
+
+    this.tx += this.speed;
+    this.ty += this.speed;
+  }
+
+  show() {
+    let x = sin(this.angle.x) * this.amplitude.x;
+    let y = sin(this.angle.y) * this.amplitude.y;
+
+    push();
+    translate(width / 2, height / 2);
+
+    stroke(0);
+    strokeWeight(2);
+    line(0, 0, x, y);
+    fill(127);
+    circle(x, y, 32);
+    pop();
+  }
+}
+```
+
+### Ondas (Actividad 08)
+
+Para poner las ondas en funcionamiento agregue un ángulo (a) que guarda y cambia el ángulo `a += 0.3` por cada iteración, primero sen(0), despues sen(0.3), sen(0.6) y asi.
+
+``` Js
+let angle = 0;
+let angleVelocity = 0.2;
+let amplitude = 100;
+
+function setup() {
+  createCanvas(640, 240);
+ 
+}
+
+function draw(){
+  background(255);
+  
+  stroke(0);
+  strokeWeight(2);
+  fill(127, 127);
+  
+  let a  = angle;
+  
+  for (let x = 0; x <= width; x += 24) {
+    // 1) Calculate the y position according to amplitude and sine of the angle.
+    let y = amplitude * sin(a);
+    // 2) Draw a circle at the (x,y) position.
+    circle(x, y + height / 2, 48);
+    // 3) Increment the angle according to angular velocity.
+     a += 0.3;
+  }
+  
+   angle += angleVelocity;
+}
+```
+
+### Resortes (Actividad 09)
+
+Para incluir un sistema de dos resortes conectados en serie, el flujo de pensamiento es simple. Consistiendo en agregar un segundo resorte (`spring`) y una seguna masa (`bob`). En esto solo es necesario modificar el sketch.js. 
+
+Para conectarlos use `spring1.connect(bob1); // Que calcula la fuerza élastica entre el ancla y bob1, ley de hooke` para el primer resorte y con el segundo resorte cambie su ancla para que sea la posición del bob1:
+
+``` Js
+spring2.anchor = bob1.position;
+spring2.connect(bob2);
+```
+
+De resto para dibujarlo, mostralo, limitar su longitud y darle gravedad e incluso poder arrastrarlos fue duplicar lo ya dado en el código anterior con solo un bob (y bueno cambiar posiciones o valores ya que se encuentran en diferentes posiciones).
+
+``` Js
+let bob1;
+let bob2;
+
+let spring1;
+let spring2;
+
+function setup() {
+  createCanvas(640, 240);
+
+  // primer resorte (anclado arriba)
+  spring1 = new Spring(width / 2, 10, 100);
+
+  // segundo resorte
+  spring2 = new Spring(width / 2, 110, 100);
+
+  bob1 = new Bob(width / 2, 100);
+  bob2 = new Bob(width / 2, 180);
+}
+
+function draw() {
+  background(255);
+
+  let gravity = createVector(0, 2);
+
+  bob1.applyForce(gravity);
+  bob2.applyForce(gravity);
+
+  bob1.update();
+  bob2.update();
+
+  bob1.handleDrag(mouseX, mouseY);
+  bob2.handleDrag(mouseX, mouseY);
+
+  // primer resorte conecta al primer bob
+  spring1.connect(bob1);
+
+  // segundo resorte usa al primer bob como ancla
+  spring2.anchor = bob1.position;
+  spring2.connect(bob2);
+
+  spring1.constrainLength(bob1, 30, 200);
+  spring2.constrainLength(bob2, 30, 200);
+
+  spring1.showLine(bob1);
+  spring2.showLine(bob2);
+
+  bob1.show();
+  bob2.show();
+
+  spring1.show();
+}
+
+// mouse
+
+function mousePressed() {
+  bob1.handleClick(mouseX, mouseY);
+  bob2.handleClick(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  bob1.stopDragging();
+  bob2.stopDragging();
+}
+```
+
+### Péndulo (Actividad 10)
+
+Ahora bien, este se asimila al anterior ejercicio, no tanto la lógica general del sistema sino el concepto para realizar un sistema en el que dos péndulos esten conectados en serie. Para este tambien solo es necesario modificar sketch.js y agregar dos masas conectadas una a otra. La linea que consideraria mas importante es `p2.pivot = p1.bob;` que seria algo como pivote del segundo péndulo = posición del bob del primero.
+
+``` Js
+let p1;
+let p2;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+
+  p1 = new Pendulum(width / 2, 0, 175);
+
+
+  p2 = new Pendulum(width / 2, 175, 175);
+}
+
+function draw() {
+  background(255);
+
+  p1.update();
+  p2.update();
+
+
+  p1.drag();
+  p2.drag();
+
+
+  p1.show();
+
+  // conectar el segundo al primero
+  p2.pivot = p1.bob;
+
+
+  p2.show();
+}
+
+function mousePressed() {
+  p1.clicked(mouseX, mouseY);
+  p2.clicked(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  p1.stopDragging();
+  p2.stopDragging();
+}
+```
 
 ## Bitácora de aplicación 
 
+### Las bandadas de aves V2 (Actividad 11)
+
+> Concepto obra
+
+_idea: ondas, música y aves, un flujo tipico al pensar en una combinación de interacción y movimiento. Asi que retomando el concepto de lo hecho anteriormente y probar algo nuevo, las aves podrian estar guiadas por las ondas, modificando la obra anterior, manteniendo la interacción con el mouse y que este incluya la forma en como los sonidos se reproducen, seria gracioso poner "Westminster" (una melodia que por algún motivo quedo grabada en mi mente tras escucharla como una campanada de una iglesia de cienaga) o "coody freestyle" de steve lacy, algo tranquilo, como observar el cielo durante mucho tiempo e implementar algo religioso para que refuerce el concepto de las aves como lo mas cercano al contacto de un dios._
+
+Pero si fuera acortar esto de forma más directa sería:
+
+```
+Una pieza que explora la relación entre ondas, movimiento y sonido.
+Un sistema de ondas dinámicas guía el vuelo de aves generativas,
+creando patrones cambiantes que evocan la observación prolongada del cielo.
+El espectador interactúa mediante el mouse, alterando el flujo de las ondas y, con ello,
+el comportamiento de las aves y la activación del sonido.
+La obra puede incorporar melodías generando una atmósfera contemplativa
+donde las aves funcionan como símbolo de aquello que parece más cercano al contacto con lo divino.
+```
+
+> El código
+
+``` Js
+let flock = [];
+let totalBoids = 100;
+
+let memoryField = [];
+let cols, rows;
+let resolution = 30;
+
+// ondas
+let angle = 0;
+let angleVelocity = 0.02;
+let amplitude = 120;
+
+// sonido
+let song;
+let smoothVolume = 0;
+let filter;
+
+// energía del flock
+let disturbedBirds = 0;
+
+function preload(){
+  song = loadSound("music.mp3");
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  cols = floor(width / resolution);
+  rows = floor(height / resolution);
+
+  for (let i = 0; i < cols; i++) {
+    memoryField[i] = [];
+    for (let j = 0; j < rows; j++) {
+      memoryField[i][j] = 0;
+    }
+  }
+
+  for (let i = 0; i < totalBoids; i++) {
+    flock.push(new Boid(random(width), random(height)));
+  }
+
+  filter = new p5.LowPass();
+  song.disconnect();
+  song.connect(filter);
+}
+
+function draw() {
+
+  disturbedBirds = 0;
+
+  fill(18,12,8,60);
+  noStroke();
+  rect(0,0,width,height);
+
+  updateMemory();
+  drawMemory();
+
+  for (let boid of flock) {
+    boid.edges();
+    boid.flock(flock);
+    boid.update();
+    boid.show();
+  }
+
+  angle += angleVelocity;
+
+  let interaction = map(disturbedBirds,0,totalBoids,0,1,true);
+
+  let baseVolume = 0.20;
+  let reactiveVolume = interaction * 0.25;
+  let targetVolume = baseVolume + reactiveVolume;
+
+  smoothVolume = lerp(smoothVolume,targetVolume,0.03);
+  song.setVolume(smoothVolume);
+
+  let rate = map(interaction,0,1,0.9,1.1);
+  song.rate(rate);
+
+  let cutoff = map(interaction,0,1,800,5000);
+  filter.freq(cutoff);
+}
+
+function mousePressed(){
+  if(!song.isPlaying()){
+    song.loop();
+  }
+}
+
+function updateMemory(){
+  let col = floor(mouseX / resolution);
+  let row = floor(mouseY / resolution);
+
+  if(col>=0 && col<cols && row>=0 && row<rows){
+    memoryField[col][row] += 0.4;
+    memoryField[col][row] = constrain(memoryField[col][row],0,6);
+  }
+}
+
+function drawMemory(){
+  for(let i=0;i<cols;i++){
+    for(let j=0;j<rows;j++){
+
+      let val = memoryField[i][j];
+      memoryField[i][j] *= 0.985;
+
+      if(val > 0.1){
+        stroke(220,170,100,val*30);
+        strokeWeight(2);
+        point(i*resolution,j*resolution);
+      }
+    }
+  }
+}
+
+class Boid{
+
+  constructor(x,y){
+    this.position = createVector(x,y);
+    this.velocity = p5.Vector.random2D();
+    this.velocity.setMag(random(1,2));
+    this.acceleration = createVector(0,0);
+
+    this.baseMaxSpeed = 2.2;
+    this.maxSpeed = this.baseMaxSpeed;
+    this.maxForce = 0.1;
+  }
+
+  applyForce(force){
+    this.acceleration.add(force);
+  }
+
+  edges(){
+    if(this.position.x > width) this.position.x = 0;
+    if(this.position.x < 0) this.position.x = width;
+    if(this.position.y > height) this.position.y = 0;
+    if(this.position.y < 0) this.position.y = height;
+  }
+
+  waveFollow(){
+
+    let waveY = amplitude * sin(angle + this.position.x * 0.02) + height/2;
+    let d = waveY - this.position.y;
+
+    return createVector(0,d*0.0015);
+  }
+
+  flock(boids){
+
+    this.applyForce(p5.Vector.mult(this.align(boids),0.15));
+    this.applyForce(p5.Vector.mult(this.cohesion(boids),0.05));
+    this.applyForce(p5.Vector.mult(this.separation(boids),0.08));
+
+    this.applyForce(p5.Vector.mult(this.waveFollow(),1.4));
+
+    this.applyMemoryAvoidance();
+  }
+
+  applyMemoryAvoidance(){
+
+    let searchRadius = 80;
+    let totalForce = createVector(0,0);
+
+    for(let i=0;i<cols;i++){
+      for(let j=0;j<rows;j++){
+
+        let influence = memoryField[i][j];
+
+        if(influence>0.3){
+
+          let cellPos = createVector(i*resolution,j*resolution);
+          let d = p5.Vector.dist(this.position,cellPos);
+
+          if(d<searchRadius){
+
+            let flee = p5.Vector.sub(this.position,cellPos);
+
+            let strength = map(d,0,searchRadius,1,0);
+            strength *= influence*influence;
+
+            flee.normalize();
+            flee.mult(strength*0.6);
+
+            totalForce.add(flee);
+          }
+        }
+      }
+    }
+
+    if(totalForce.mag()>0.05){
+
+      disturbedBirds++;
+
+      totalForce.limit(0.8);
+      this.applyForce(totalForce);
+      this.maxSpeed = this.baseMaxSpeed + 0.5;
+
+    }else{
+
+      this.maxSpeed = this.baseMaxSpeed;
+    }
+  }
+
+  align(boids){
+
+    let perception = 60;
+    let steering = createVector(0,0);
+    let total = 0;
+
+    for(let other of boids){
+
+      let d = dist(this.position.x,this.position.y,other.position.x,other.position.y);
+
+      if(other!=this && d<perception){
+
+        steering.add(other.velocity);
+        total++;
+      }
+    }
+
+    if(total>0){
+
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  cohesion(boids){
+
+    let perception = 70;
+    let steering = createVector(0,0);
+    let total = 0;
+
+    for(let other of boids){
+
+      let d = dist(this.position.x,this.position.y,other.position.x,other.position.y);
+
+      if(other!=this && d<perception){
+
+        steering.add(other.position);
+        total++;
+      }
+    }
+
+    if(total>0){
+
+      steering.div(total);
+      steering.sub(this.position);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  separation(boids){
+
+    let perception = 40;
+    let steering = createVector(0,0);
+    let total = 0;
+
+    for(let other of boids){
+
+      let d = dist(this.position.x,this.position.y,other.position.x,other.position.y);
+
+      if(other!=this && d<perception){
+
+        let diff = p5.Vector.sub(this.position,other.position);
+        diff.normalize();
+        diff.div(d);
+
+        steering.add(diff);
+        total++;
+      }
+    }
+
+    if(total>0){
+
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce*1.2);
+    }
+
+    return steering;
+  }
+
+  update(){
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  show(){
+
+    push();
+    translate(this.position.x,this.position.y);
+    rotate(this.velocity.heading());
+
+    let flap = sin(frameCount*0.3 + this.position.x*0.05)*20;
+
+    noStroke();
+    fill(255,180,90,25);
+    ellipse(0,0,26);
+
+    fill(255,210,140,220);
+
+    beginShape();
+    vertex(12,0);
+    vertex(-4,-10-flap);
+    vertex(-8,0);
+    vertex(-4,10+flap);
+    endShape(CLOSE);
+
+    pop();
+  }
+}
+```
+
+_link: https://editor.p5js.org/LuisaRoech/sketches/cwpdbKWf2_
+
+> La obra
+
+
 
 ## Bitácora de reflexión
+
+### Recopilando (Actividad 12)
+
+<img width="1065" height="489" alt="Sin título-2026-03-13-1030" src="https://github.com/user-attachments/assets/e1954f1e-bc3f-45c7-ba5b-aed3a36dc14f" />
+
+_Link: [https://excalidraw.com/#json=QJvHCCeyre7qNbVQv1ut3,rIrSWGLG_XhnPJMVyps5tA](https://excalidraw.com/#json=7QTVBlaeemL9XVlYn8_Bc,ve4dS2l2oST5yI2FS6faKA)_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
