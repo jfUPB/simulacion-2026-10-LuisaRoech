@@ -166,7 +166,9 @@ Blender
 
 **SISTEMA TRANSFERIDO**
 
+Qué es: un sistema de agentes basado en flow fields y reglas simples de comportamiento, reconstruido en Geometry Nodes para generar rutas, evasión de obstáculos y movimiento colectivo en las hormigas.
 
+Para qué sirve: explorar cómo comportamientos simples pueden producir dinámicas más complejas y orgánicas, usando el sistema no solo como algo técnico, sino como parte de la atmósfera y emociones de la obra.
 
 **MOODBOARD // Concepto visual**
 
@@ -178,13 +180,15 @@ Blender
 
 <img width="5071" height="3431" alt="BiteBoxAnim (1)" src="https://github.com/user-attachments/assets/7f2d0af2-701d-4eb5-ba0f-d6b3f8dade70" />
 
-**Mapa de desiciones**
+**MAPA DE DESICIONES**
 
+> Retomando lo pensado de la _UNIDAD 6_
 
+Parte de la idea de un hogar suspendido en el tiempo: un espacio que aún conserva la lógica íntima de quien lo habitó, pero donde la presencia humana ya se ha retirado. Todo parece seguir funcionando bajo hábitos invisibles —la luz encendida, la mesa servida, un vaso a medio terminar, ropa cuidadosamente doblada— aunque ya no exista nadie que sostenga ese orden. En ese vacío, las hormigas ocupan el espacio como nuevos habitantes, reorganizando lentamente el entorno mediante trayectorias mínimas y comportamientos colectivos que tensionan lo doméstico con lo natural. La obra busca habitar la contradicción entre intimidad y abandono, memoria y transformación, presencia y ausencia. No hay un acontecimiento explícito ni una narrativa cerrada; la emoción surge desde pequeñas alteraciones: objetos apenas desplazados, simetrías imperfectas, rutas orgánicas que atraviesan restos cotidianos. La relación con *Some Better* de LEYA refuerza esta lógica sensible: así como la canción construye una atmósfera familiar pero inquietante, el sistema visual responde al sonido como si el espacio respirara, contrayéndose y dispersándose según las tensiones de la música. De esta manera, la obra no busca representar una historia, sino producir la sensación persistente de un lugar que todavía recuerda cómo ser habitado.
 
 **USO DE IA**
 
-Sorprendentemente para este trabajo no me apoye de la IA, más que todo para temas de redacción (como podría ser ahora). Más que todo me apegue de tutoriales que esplicaron a mayor profundidad el manejo de "simulation zones". Eso si, no quita que más adelante lo llegue a usar, como para agregar nuevos elementos que los agentes eviten y preguntar por mejores arreglos o soluciones para que estos no se rompan con las colisiones.
+Sorprendentemente, para este trabajo no me apoyé mucho en la IA, más que todo para temas de redacción (como podría ser ahora). Principalmente me apoyé en tutoriales que explicaban con mayor profundidad el manejo de las *simulation zones*. Eso sí, no quita que más adelante llegue a usarla, por ejemplo para agregar nuevos elementos que los agentes deban evitar o para buscar mejores arreglos y soluciones que eviten que el sistema se rompa con las colisiones.
 
 ## Bitácora de reflexión
 
